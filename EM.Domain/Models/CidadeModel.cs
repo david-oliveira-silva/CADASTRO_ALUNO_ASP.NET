@@ -9,6 +9,10 @@ namespace EM.Domain.Models
 
         public UF cidadeUF { get; set; }
 
+
+        public CidadeModel()
+        {
+        }
         public CidadeModel(string cidadeNome,UF cidadeUF) {
 
         this.cidadeNome = cidadeNome;
