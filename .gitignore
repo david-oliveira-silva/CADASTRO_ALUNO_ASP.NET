@@ -1,0 +1,30 @@
+# Ignorar pasta bin e obj
+bin/
+obj/
+
+# Ignorar arquivos temporários de sistema
+Thumbs.db
+.DS_Store
+
+# Ignorar arquivos de configuração do Visual Studio
+.vscode/
+.vs/
+
+# Ignorar pacotes NuGet
+packages/
+# Ignorar pasta bin e obj
+bin/
+obj/
+
+# Ignorar arquivos temporários de sistema
+Thumbs.db
+.DS_Store
+
+# Ignorar arquivos de configuração do Visual Studio
+.vscode/
+.vs/
+
+# Ignorar pacotes NuGet
+packages/
+
+
