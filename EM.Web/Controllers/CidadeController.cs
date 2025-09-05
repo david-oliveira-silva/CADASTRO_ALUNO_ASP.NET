@@ -106,13 +106,24 @@ namespace EM.Web.Controllers
         
 
                 [HttpGet]
-                public IActionResult ListarCidades()
-                {
-                    var cidades = cidadeService.ListarCidades();
-                    return View(cidades);
-                }
-
-
+        public IActionResult ListarCidades(string? cidadeNome)
+        {
+            List<CidadeModel> cidades;
+            if (string.IsNullOrEmpty(cidadeNome))
+            {
+                cidades = cidadeService.ListarCidades();
+                
+            }
+            else
+            {
+                cidades = cidadeService.buscarPorNome(cidadeNome.ToUpper());
+                
+            }
+            ViewBag.Cidade = cidadeNome;
+            return View(cidades);
         }
+
+
+    }
     }
 

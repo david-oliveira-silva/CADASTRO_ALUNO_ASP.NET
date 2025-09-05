@@ -51,6 +51,18 @@ namespace EM.Service.Service
             }
         }
 
+        public List<CidadeModel> buscarPorNome(string cidadeNome)
+        {
+            var cidade = cidadeRepository.Listar();
+
+            if (string.IsNullOrEmpty(cidadeNome))
+            {
+                return cidade;
+            }
+            return cidade.Where(c => c.cidadeNome.Contains(cidadeNome.ToUpper())).ToList();
+           
+        
+        }
         public List<CidadeModel> ListarCidades()
         {
             var cidade = cidadeRepository.Listar();
