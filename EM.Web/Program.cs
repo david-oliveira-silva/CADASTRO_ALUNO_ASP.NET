@@ -28,7 +28,7 @@ namespace EM.Web
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+                pattern: "{controller=Cidade}/{action=ListarCidades}/{id?}");
 
             app.Run();
         }
