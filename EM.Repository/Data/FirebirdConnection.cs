@@ -1,9 +1,4 @@
 ﻿using FirebirdSql.Data.FirebirdClient;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EM.Repository.Data
 {
@@ -13,7 +8,7 @@ namespace EM.Repository.Data
         private static readonly string conexaoString =
              @"User=SYSDBA;
       Password=masterkey;
-      Database=C:\C#\Meu_banco\MEUBANCO7.FDB;
+      Database=C:\Users\Darve\OneDrive\Documentos\C#\Banco de dados\BANCO_ALUNO1.FDB;
       DataSource=localhost;
       Port=3050;
       Dialect=3;

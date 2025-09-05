@@ -1,0 +1,62 @@
+﻿@using EM.Domain.Models
+
+<link rel="stylesheet" href="~/css/Cidade/ListarCidades.css">
+@model List<CidadeModel>
+@{
+	ViewData["Title"] = "Listar cidades";
+}
+
+<div class="Titulo d-flex justify-content-between mb-5">
+    <h1>Lista de Cidades</h1>
+    <a asp-controller="Cidade" asp-action="UpsertCidade" class="btn btn-primary fw-bold">Cadastrar cidade</a>
+</div>
+
+<div class="Pesquisa">
+
+    <form class=" d-flex gap-3" asp-controller="Cidade" asp-action="ListarCidades" method="get">
+        <input class="form-control mb-4" name="nomeCidade" placeholder="Pesquisar cidade por Nome..." value="@ViewBag.Cidade" />
+        <button class="btn btn-success">Carregar</button>
+    </form>
+
+</div>
+<div class>
+    <table class="table-striped  table table-bordered  table-hover">
+        <thead class="table-dark"
+        <tr>
+            <th class="text-center" scope="col">Matrícula</th>
+            <th class="text-center" scope="col">Nome da Cidade</th>
+            <th class="text-center" scope="col">UF</th>
+            <th class="text-center" scope="col">Opções</th>
+
+        </tr>
+    </thead>
+        @foreach (var c in Model)
+        {
+            <tbody>
+                <tr>
+                    <td class="text-center">@c.cidadeID</td>
+                    <td class="text-center">@c.cidadeNome</td>
+                    <td class="text-center">@c.cidadeUF</td>
+                    <td>
+
+                        <div class="Botoes d-flex justify-content-center gap-2">
+                            <form asp-controller="Cidade" asp-action="DeletarCidade" method="get">
+                                <input type="hidden" name="cidadeID" id="cidadeID" value="@c.cidadeID" />
+                                <button class="btn btn-danger fw-bold">Deletar</button>
+                            </form>
+
+                            <form asp-controller="Cidade" asp-action="UpsertCidade" method="get">
+                                <input type="hidden" name="cidadeID" id="cidadeID" value="@c.cidadeID" />
+
+                                <button class="btn btn-primary fw-bold">Editar</button>
+                            </form>
+                        </div>
+
+                    </td>
+
+                </tr>
+
+            </tbody>
+        }
+    </table>
+</div>

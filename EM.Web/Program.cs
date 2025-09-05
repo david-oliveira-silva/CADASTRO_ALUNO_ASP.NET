@@ -1,3 +1,6 @@
+using EM.Repository.Repository.Cidade;
+using EM.Service.Service;
+
 namespace EM.Web
 {
     public class Program
@@ -7,17 +10,14 @@ namespace EM.Web
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+
+            builder.Services.AddScoped<ICidadeRepository, CidadeRepository>(); // <-- se existir interface
+            builder.Services.AddScoped<CidadeService>();
             builder.Services.AddControllersWithViews();
 
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
-            if (!app.Environment.IsDevelopment())
-            {
-                app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
-            }
+            
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();

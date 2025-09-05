@@ -78,17 +78,20 @@ namespace EM.Repository.Repository.Cidade
             using (var cmdSelect = new FbCommand(querySelect, fbConnection))
             {
 
-                using(var reader = cmdSelect.ExecuteReader())
+                using (var reader = cmdSelect.ExecuteReader())
                 {
-                    var cidade = new CidadeModel()
+                    while (reader.Read())
                     {
-                        cidadeID = reader.GetInt32(reader.GetOrdinal("cidadeID")),
-                        cidadeNome = reader.GetString(reader.GetOrdinal("cidadeNome")),
-                        cidadeUF = Enum.Parse<UF>(reader.GetString(reader.GetOrdinal("cidadeUF")))
+                        var cidade = new CidadeModel()
+                        {
+                            cidadeID = reader.GetInt32(reader.GetOrdinal("cidadeID")),
+                            cidadeNome = reader.GetString(reader.GetOrdinal("cidadeNome")),
+                            cidadeUF = Enum.Parse<UF>(reader.GetString(reader.GetOrdinal("cidadeUF")))
 
 
-                    };
-                    listCidades.Add(cidade);
+                        };
+                        listCidades.Add(cidade);
+                    }
                 }
             }
             FirebirdConnection.CloseConnection(fbConnection);

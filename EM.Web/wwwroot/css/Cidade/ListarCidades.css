@@ -1,0 +1,15 @@
+﻿﻿
+
+.table th:last-child,
+.table td:last-child {
+    width: 150px;
+    white-space: nowrap;
+}
+
+.Titulo a {
+    height: 40px;
+}
+
+.Pesquisa button {
+    height: 40px;
+}

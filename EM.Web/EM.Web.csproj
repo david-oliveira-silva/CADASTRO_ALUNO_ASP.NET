@@ -6,4 +6,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\EM.Service\EM.Service.csproj" />
+  </ItemGroup>
+
 </Project>
