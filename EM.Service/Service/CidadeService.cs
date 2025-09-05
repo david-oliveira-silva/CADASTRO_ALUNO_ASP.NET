@@ -49,6 +49,8 @@ namespace EM.Service.Service
             {
                 throw new Exception("Nome não pode ser vazio");
             }
+
+             cidadeRepository.Editar(cidadeModel);
         }
 
         public List<CidadeModel> buscarPorNome(string cidadeNome)

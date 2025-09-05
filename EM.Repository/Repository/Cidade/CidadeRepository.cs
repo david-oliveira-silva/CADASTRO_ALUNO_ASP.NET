@@ -63,7 +63,7 @@ namespace EM.Repository.Repository.Cidade
                 cmdUpdate.Parameters.AddWithValue("@cidadeId", cidadeModel.cidadeID);
                 cmdUpdate.Parameters.AddWithValue("@cidadeNome", cidadeModel.cidadeNome);
                 cmdUpdate.Parameters.AddWithValue("@cidadeUF", cidadeModel.cidadeUF);
-                cmdUpdate.ExecuteReader();
+                cmdUpdate.ExecuteNonQuery();
             }
             FirebirdConnection.CloseConnection(fbConnection);
 
