@@ -6,6 +6,12 @@
 	ViewData["Title"] = "Listar cidades";
 }
 
+@if(TempData["Sucesso"] != null)
+{
+    <p class="alert alert-success">@TempData["Sucesso"]</p>
+}
+
+
 <div class="Titulo d-flex justify-content-between mb-5">
     <h1>Lista de Cidades</h1>
     <a asp-controller="Cidade" asp-action="UpsertCidade" class="btn btn-primary fw-bold">Cadastrar cidade</a>

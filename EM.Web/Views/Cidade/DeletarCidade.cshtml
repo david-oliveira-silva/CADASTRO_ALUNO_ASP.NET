@@ -4,6 +4,11 @@
 	ViewData["Title"] = "Deletar cidade";
 }
 
+@if (TempData["Erro"] != null)
+{
+    <p class="alert alert-danger">@TempData["Erro"]</p>
+}
+
 <div class="Deletar bg-light rounded-3 p-5">
 
     <h1 class="text-center">

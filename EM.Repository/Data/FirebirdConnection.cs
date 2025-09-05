@@ -8,9 +8,9 @@ namespace EM.Repository.Data
         private static readonly string conexaoString =
              @"User=SYSDBA;
       Password=masterkey;
-      Database=C:\Users\Darve\OneDrive\Documentos\C#\Banco de dados\BANCO_ALUNO1.FDB;
+      Database=C:\C#\Meu_banco\MEUBANCO7.FDB;
       DataSource=localhost;
-      Port=3050;
+      Port=3055;
       Dialect=3;
       Charset=UTF8;";
 

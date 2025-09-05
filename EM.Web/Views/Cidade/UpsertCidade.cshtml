@@ -3,6 +3,11 @@
 	ViewData["Title"] = (Model.cidadeID == 0 ? "Cadastrar cidade":"Editar Cidade");
 }
 
+@if (TempData["Erro"] != null)
+{
+    <p class="alert alert-danger">@TempData["Erro"]</p>
+}
+
 
 <div class="Cadastrar bg-light rounded-3 p-5">
 
