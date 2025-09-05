@@ -1,0 +1,41 @@
+﻿
+@model CidadeModel
+@{
+	ViewData["Title"] = "Deletar cidade";
+}
+
+<div class="Deletar bg-light rounded-3 p-5">
+
+    <h1 class="text-center">
+        Deletar Cidade
+    </h1>
+    <h3 class="text-center  ">Dejesa deletar a cidade com as informações abaixo?</h3>
+    <form asp-controller="Cidade" asp-action="DeletarCidade" method="post">
+        <input type="hidden" asp-for="cidadeID" />
+        <div class="mb-3">
+            <label asp-for="cidadeNome" class="form-label">Nome cidade</label>
+            <input type="text" class="form-control" asp-for="cidadeNome" id=" cidadeNome" placeholder="Digite o nome da cidade" disabled>
+            <span asp-validation-for="cidadeNome" class="text-danger"></span>
+
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="cidadeUF" class="form-label">UF</label>
+            <select class="form-select" asp-for="cidadeUF" disabled>
+                <option selected disabled>Selecione um UF</option>
+
+                @foreach (var uf in ViewBag.UFs)
+                {
+                    <option value="@uf">@uf</option>
+                }
+            </select>
+        </div>
+
+        <div class="Botoes d-flex gap-2 justify-content-center mt-4 ">
+            <button type="submit" class="btn btn-danger w-25 " onclick="confirmar()">
+                Confirmar
+            </button>
+            <a asp-controller="Cidade" asp-action="ListarCidades" class="btn btn-primary w-25">Voltar</a>
+        </div>
+    </form>
+</div>

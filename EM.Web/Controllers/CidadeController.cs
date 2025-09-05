@@ -43,6 +43,8 @@ namespace EM.Web.Controllers
             return View(cidade);
         }
 
+        
+
         [HttpPost]
         public IActionResult UpsertCidade(CidadeModel cidadeModel) {
 
@@ -70,6 +72,38 @@ namespace EM.Web.Controllers
                 return View(cidadeModel);
             }
         }
+
+
+        [HttpGet]
+
+        public IActionResult DeletarCidade(int ? cidadeID)
+        {
+            var ufs = Enum.GetValues(typeof(UF)).Cast<UF>().ToList();
+            ViewBag.Ufs = ufs;
+            var cidade = cidadeService.ListarCidades().FirstOrDefault(c=>c.cidadeID == cidadeID);
+            return View(cidade);
+            
+        }
+
+        [HttpPost]
+        public IActionResult DeletarCidade(CidadeModel cidadeModel) {
+
+            try {
+
+               
+                cidadeService.DeletarCidade(cidadeModel);
+                return RedirectToAction("ListarCidades");
+
+            }catch(Exception ex)
+            {
+                var ufs = Enum.GetValues(typeof(UF)).Cast<UF>().ToList();
+                ViewBag.Ufs = ufs;
+                TempData["Erro"] = ex.Message;
+                return View(cidadeModel);   
+            }
+            
+        }
+        
 
                 [HttpGet]
                 public IActionResult ListarCidades()
