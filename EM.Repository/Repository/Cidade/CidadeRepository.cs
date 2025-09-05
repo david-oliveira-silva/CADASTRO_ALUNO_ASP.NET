@@ -56,10 +56,11 @@ namespace EM.Repository.Repository.Cidade
         {
             FirebirdConnection.OpenConnection(fbConnection);
 
-            var queryUpdate = "UPDATE cidades SET cidadeNome = @cidadeNome,cidadeUF = @cidadeUF";
+            var queryUpdate = "UPDATE cidades SET cidadeNome = @cidadeNome,cidadeUF = @cidadeUF WHERE cidadeID = @cidadeID";
 
             using (var cmdUpdate = new FbCommand(queryUpdate, fbConnection))
             {
+                cmdUpdate.Parameters.AddWithValue("@cidadeId", cidadeModel.cidadeID);
                 cmdUpdate.Parameters.AddWithValue("@cidadeNome", cidadeModel.cidadeNome);
                 cmdUpdate.Parameters.AddWithValue("@cidadeUF", cidadeModel.cidadeUF);
                 cmdUpdate.ExecuteReader();
