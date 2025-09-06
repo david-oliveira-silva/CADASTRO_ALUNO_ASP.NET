@@ -1,5 +1,5 @@
 ﻿using EM.Domain.Enum;
-using EM.Domain.Models;
+using EM.Domain.Models.Cidade;
 using EM.Repository.Data;
 using FirebirdSql.Data.FirebirdClient;
 using System;

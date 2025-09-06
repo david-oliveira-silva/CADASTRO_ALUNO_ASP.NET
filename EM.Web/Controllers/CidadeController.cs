@@ -1,5 +1,5 @@
 ﻿using EM.Domain.Enum;
-using EM.Domain.Models;
+using EM.Domain.Models.Cidade;
 using EM.Service.Service;
 using Microsoft.AspNetCore.Mvc;
 
