@@ -1,7 +1,8 @@
 ﻿
-namespace EM.Repository.Repository.Generic
-{
-    public interface IGeneric<T>
+namespace EM.Domain.Generic;
+
+using System.Collections.Generic;
+public interface IGeneric<T>
     {
         void Cadastrar(T entity);
 
@@ -11,4 +12,4 @@ namespace EM.Repository.Repository.Generic
 
         List<T> Listar();
     }
-}
+

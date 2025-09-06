@@ -1,9 +1,5 @@
 ﻿using EM.Domain.Enum;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace EM.Domain.Models
 {
@@ -18,10 +14,9 @@ namespace EM.Domain.Models
 
         public Sexo sexo{  get; set; }
 
-
         public AlunoModel() { }
 
-        public AlunoModel(long matricula, int cidadeID_,string alunoNome, int CPF, Sexo sexo,DateOnly dtNascimento) :base(alunoNome, CPF, dtNascimento) { 
+        public AlunoModel(long matricula, int cidadeID_,string alunoNome, int CPF, Sexo sexo,DateOnly dtNascimento) :base(alunoNome, CPF,dtNascimento) { 
             
             this.matricula  = matricula;
             this.sexo = sexo;

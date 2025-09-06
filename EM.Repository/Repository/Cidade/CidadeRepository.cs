@@ -1,16 +1,11 @@
 ﻿using EM.Domain.Enum;
-using EM.Domain.Models.Cidade;
+using EM.Domain.Models;
 using EM.Repository.Data;
 using FirebirdSql.Data.FirebirdClient;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EM.Repository.Repository.Cidade
 {
-    public class CidadeRepository : ICidadeRepository
+    public class CidadeRepository:ICidadeRepository
     {
         FbConnection fbConnection;
 

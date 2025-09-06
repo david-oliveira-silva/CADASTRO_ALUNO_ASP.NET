@@ -1,7 +1,7 @@
 ﻿using EM.Domain.Enum;
 using System.ComponentModel.DataAnnotations;
 
-namespace EM.Domain.Models.Cidade
+namespace EM.Domain.Models
 {
     public class CidadeModel
     {
