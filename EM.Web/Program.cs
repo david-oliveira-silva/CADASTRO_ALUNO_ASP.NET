@@ -1,3 +1,4 @@
+using EM.Repository.Data;
 using EM.Repository.Repository.Cidade;
 using EM.Service.Service;
 
@@ -11,7 +12,11 @@ namespace EM.Web
 
             // Add services to the container.
 
-            builder.Services.AddScoped<ICidadeRepository, CidadeRepository>(); // <-- se existir interface
+
+            string conexaoString = builder.Configuration.GetConnectionString("FirebirdConnection");
+            FirebirdConnection.inicializar(conexaoString);
+
+            builder.Services.AddScoped<ICidadeRepository, CidadeRepository>(); 
             builder.Services.AddScoped<CidadeService>();
             builder.Services.AddControllersWithViews();
 

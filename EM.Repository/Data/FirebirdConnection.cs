@@ -5,20 +5,18 @@ namespace EM.Repository.Data
   public  class FirebirdConnection
     {
 
-        private static readonly string conexaoString =
-             @"User=SYSDBA;
-      Password=masterkey;
-      Database=C:\Users\Darve\OneDrive\Documentos\C#\Banco de dados\BANCO_ALUNO1.FDB;
-      DataSource=localhost;
-      Port=3050;
-      Dialect=3;
-      Charset=UTF8;";
+        private static string conexaoString;
 
 
         public static FbConnection GetFbConnection()
         {
 
             return new FbConnection(conexaoString);
+        }
+
+        public static void inicializar(string connectionString)
+        {
+            conexaoString = connectionString;
         }
 
 

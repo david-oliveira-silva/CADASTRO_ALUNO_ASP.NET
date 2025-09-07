@@ -1,21 +1,21 @@
 ﻿
-namespace EM.Domain.Models
-{
-    public class Pessoa
+    namespace EM.Domain.Models
     {
-        public string nome {  get; set; }
+        public class Pessoa
+        {
+            public string nome {  get; set; }
 
-        public int CPF {  get; set; }
+            public int CPF {  get; set; }
 
-        public DateOnly dtNascimento { get; set; }
+            public DateOnly dtNascimento { get; set; }
 
-        public Pessoa() { }
+            public Pessoa() { }
 
-        public Pessoa(string nome, int CPF, DateOnly dtNascimento) 
-        { 
-            this.nome = nome;
-            this.CPF = CPF;
-            this.dtNascimento = dtNascimento;
+            public Pessoa(string nome, int CPF, DateOnly dtNascimento) 
+            { 
+                this.nome = nome;
+                this.CPF = CPF;
+                this.dtNascimento = dtNascimento;
+            }
         }
     }
-}
