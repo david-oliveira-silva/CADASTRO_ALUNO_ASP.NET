@@ -15,9 +15,12 @@ namespace EM.Domain.Models
 
         
 
-        public AlunoModel() { }
+        public AlunoModel() { 
+        
 
-        public AlunoModel(long matricula, int cidadeID_,string alunoNome, string CPF, SexoEnum sexo,DateOnly dtNascimento) :base(alunoNome, CPF,dtNascimento) { 
+        }
+
+        public AlunoModel(long matricula,string alunoNome, string CPF, SexoEnum sexo,DateOnly dtNascimento, int cidadeID_) :base(alunoNome, CPF,dtNascimento) { 
             
             this.matricula  = matricula;
             this.sexo = sexo;

@@ -1,0 +1,65 @@
+﻿@model List<AlunoModel>
+@{
+	ViewData["Title"] = "Listar Alunos";
+}
+
+@if (TempData["Sucesso"] != null)
+{
+    <p class="alert alert-success">@TempData["Sucesso"]</p>
+}
+
+<div class="Titulo d-flex justify-content-between mb-4" >
+
+    <h1>Lista de alunos</h1>
+    <a asp-controller ="Aluno" asp-action ="UpsertAluno"class= "btn btn-primary">Cadastrar aluno</a>
+
+</div>
+<div class="Tabela">
+    <table class="table-striped  table table-bordered  table-hover">
+        <thead class="table-dark"
+        <tr>
+            <th class="text-center" scope="col">Matrícula</th>
+            <th class="text-center" scope="col">Nome</th>
+            <th class="text-center" scope="col">CPF</th>
+            <th class="text-center" scope="col">Sexo</th>
+            <th class ="text-center"scope= "col">Cidade</th>
+            <th class ="text-center" scope="col">Opções</th>
+
+
+
+
+        </tr>
+    </thead>
+        @foreach (var a in Model)
+        {
+            <tbody>
+                <tr>
+                    <td class="text-center">@a.matricula</td>
+                    <td class="text-start">@a.nome </td>
+                    <td class="text-center">@a.CPF</td>
+                    <td class="text-center">@a.sexo</td>
+                    <td class="text-center">@a.cidade?.cidadeNome (@a.cidade.cidadeUF)</td>
+                    <td class="text-center">
+
+                        <div class="opcoes d-flex flex-nowrap">
+
+                            <form asp-controller="Aluno" asp-action="DeletarAluno" method="get">
+                                <input type="hidden" name="@a.matricula" id="@a.matricula" value="@a.matricula" />
+                                <button type="submit" class="btn btn-danger ">Deletar</button>
+                            </form>
+
+                            <form asp-controller="Aluno" asp-action="UpsertAluno" method="get">
+                                <input type="hidden" name="@a.matricula" id="@a.matricula" value="@a.matricula" />
+
+                                <button type= "submit" class="btn btn-primary">Editar</button>
+                            </form>
+
+                        </div>
+
+                    </td>
+                </tr>
+
+            </tbody>
+        }
+    </table>
+</div>

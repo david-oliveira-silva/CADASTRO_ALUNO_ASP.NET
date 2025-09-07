@@ -19,18 +19,14 @@ namespace EM.Service.Service
         public void cadastrarAluno(long matricula, string nomeAluno, string CPF, DateOnly dtNascimento, SexoEnum sexo, int cidadeID_)
         {
 
+
+            
             if (matricula == 0)
             {
-
-                throw new Exception("A matricula no aluno não pode ser 0");
+                throw new Exception("Matricula não pode ser 0");
             }
 
-            if (alunoRepository.buscarPorMatricula(matricula) != null)
-            {
-
-                throw new Exception("Esta número matrícula já existe");
-
-            }
+            
             if (dtNascimento > DateOnly.FromDateTime(DateTime.Today))
             {
                 throw new Exception("A data de nascimento não pode ser uma data futura.");
@@ -68,18 +64,7 @@ namespace EM.Service.Service
 
                 throw new Exception("Aluno não encontrando");
             }
-            if (alunoModel.matricula == 0)
-            {
-
-                throw new Exception("A matricula no aluno não pode ser 0");
-            }
-
-            if (alunoRepository.buscarPorMatricula(alunoModel.matricula) != null)
-            {
-
-                throw new Exception("Esta número matrícula já existe");
-
-            }
+           
             if (alunoModel.dtNascimento > DateOnly.FromDateTime(DateTime.Today))
             {
                 throw new Exception("A data de nascimento não pode ser uma data futura.");
@@ -100,6 +85,12 @@ namespace EM.Service.Service
         {
             var aluno = alunoRepository.Listar().OrderBy(a => a.matricula).ToList();
             return aluno;
+        }
+
+        public AlunoModel buscarPorMatricula(long matricula)
+        {
+            return alunoRepository.buscarPorMatricula(matricula);
+            
         }
     }
 }

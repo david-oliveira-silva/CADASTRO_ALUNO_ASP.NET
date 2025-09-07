@@ -4,6 +4,7 @@ using EM.Repository.Data;
 using FirebirdSql.Data.FirebirdClient;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,13 +23,13 @@ namespace EM.Repository.Repository.Aluno
         {
             FirebirdConnection.OpenConnection(fbConnection);
 
-            string queryInsert = "INSERT INTO alunos (matricula,nomeAluno,CPF,dtNascimento,sexo,cidadeID_) VALUES (@matricula,@nomeAluno,@CPF,@dtNascimento,@Sexo,cidadeID_)";
+            string queryInsert = "INSERT INTO alunos (matricula,alunoNome,CPF,dtNascimento,sexo,cidadeID_) VALUES (@matricula,@alunoNome,@CPF,@dtNascimento,@sexo,@cidadeID_)";
 
             using (var cmdInsert = new FbCommand(queryInsert, fbConnection))
             {
 
                 cmdInsert.Parameters.AddWithValue(@"matricula", alunoModel.matricula);
-                cmdInsert.Parameters.AddWithValue(@"nomeAluno", alunoModel.nome);
+                cmdInsert.Parameters.AddWithValue(@"alunoNome", alunoModel.nome);
                 cmdInsert.Parameters.AddWithValue(@"CPF", alunoModel.CPF);
                 cmdInsert.Parameters.AddWithValue(@"dtNascimento", alunoModel.dtNascimento);
                 cmdInsert.Parameters.AddWithValue(@"sexo", alunoModel.sexo);
@@ -57,11 +58,13 @@ namespace EM.Repository.Repository.Aluno
         {
             FirebirdConnection.OpenConnection(fbConnection);
 
-            string queryUpdate = "UPDATE alunos SET nomeAluno = @nomeAluno,CPF = @CPF,dtNascimento = @dtNascimento,sexo = @sexo,cidadeID_ = @cidadeID_ WHERE matricula = @matricula";
+            string queryUpdate = "UPDATE alunos SET alunoNome = @alunoNome,CPF = @CPF,dtNascimento = @dtNascimento,sexo = @sexo,cidadeID_ = @cidadeID_ WHERE matricula = @matricula";
 
             using (var cmdUpdate = new FbCommand(queryUpdate, fbConnection))
             {
-                cmdUpdate.Parameters.AddWithValue(@"nomeAluno", alunoModel.nome);
+                cmdUpdate.Parameters.AddWithValue(@"matricula", alunoModel.matricula);
+
+                cmdUpdate.Parameters.AddWithValue(@"alunoNome", alunoModel.nome);
                 cmdUpdate.Parameters.AddWithValue(@"CPF", alunoModel.CPF);
                 cmdUpdate.Parameters.AddWithValue(@"dtNascimento", alunoModel.dtNascimento);
                 cmdUpdate.Parameters.AddWithValue(@"sexo", alunoModel.sexo);
@@ -79,7 +82,7 @@ namespace EM.Repository.Repository.Aluno
 
             List<AlunoModel> listAlunos = new List<AlunoModel>();
 
-            string querySelect = "SELECT * FROM alunos";
+            string querySelect = "SELECT * FROM alunos a INNER JOIN cidades c on a.cidadeID_ = c.cidadeID";
 
             using (var cmdSelect = new FbCommand(querySelect, fbConnection))
             {
@@ -90,11 +93,19 @@ namespace EM.Repository.Repository.Aluno
 
                         var aluno = new AlunoModel()
                         {
+                            matricula = reader.GetInt64(reader.GetOrdinal("matricula")),
                             nome = reader.GetString(reader.GetOrdinal("alunoNome")),
                             CPF = reader.GetString(reader.GetOrdinal("CPF")),
                             dtNascimento = DateOnly.FromDateTime(reader.GetDateTime(reader.GetOrdinal("dtNascimento"))),
                             sexo = (SexoEnum)reader.GetInt32(reader.GetOrdinal("sexo")),
-                            cidadeID_ = reader.GetInt32(reader.GetOrdinal("cidadeID_"))
+                            cidade = new CidadeModel()
+                            {
+                                cidadeID = reader.GetInt32(reader.GetOrdinal("cidadeID_")),
+                                cidadeNome = reader.GetString(reader.GetOrdinal("cidadeNome")),
+                                cidadeUF = (UF)Enum.Parse(typeof(UF),(reader.GetString(reader.GetOrdinal("cidadeUF"))))
+                            }
+
+
                         };
                         listAlunos.Add(aluno);
                     }
@@ -103,21 +114,23 @@ namespace EM.Repository.Repository.Aluno
                 return listAlunos;
             }
         }
-        public List<AlunoModel> buscarPorMatricula(long matricula)
+        public AlunoModel buscarPorMatricula(long matricula)
         {
             FirebirdConnection.OpenConnection(fbConnection);
-            List<AlunoModel> listAlunos = new List<AlunoModel>();
+            AlunoModel aluno = null;
 
             string querySelect = "SELECT * FROM alunos WHERE matricula = @matricula";
 
             using (var cmdSelect = new FbCommand(querySelect, fbConnection))
             {
+                cmdSelect.Parameters.AddWithValue("@matricula", matricula);
+                    
                 using (var reader = cmdSelect.ExecuteReader())
                 {
                     while (reader.Read())
                     {
 
-                        var aluno = new AlunoModel()
+                        var alunos = new AlunoModel()
                         {
                             nome = reader.GetString(reader.GetOrdinal("alunoNome")),
                             CPF = reader.GetString(reader.GetOrdinal("CPF")),
@@ -125,14 +138,16 @@ namespace EM.Repository.Repository.Aluno
                             sexo = (SexoEnum)reader.GetInt32(reader.GetOrdinal("sexo")),
                             cidadeID_ = reader.GetInt32(reader.GetOrdinal("cidadeID_"))
                         };
-                        listAlunos.Add(aluno);
+                       
                     }
                 }
                 FirebirdConnection.CloseConnection(fbConnection);
-                return listAlunos;
+                return aluno;
+
+
             }
 
-          
+
 
 
         }

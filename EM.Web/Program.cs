@@ -1,4 +1,5 @@
 using EM.Repository.Data;
+using EM.Repository.Repository.Aluno;
 using EM.Repository.Repository.Cidade;
 using EM.Service.Service;
 
@@ -16,6 +17,8 @@ namespace EM.Web
             string conexaoString = builder.Configuration.GetConnectionString("FirebirdConnection");
             FirebirdConnection.inicializar(conexaoString);
 
+            builder.Services.AddScoped<IAlunoRepository,AlunoRepository>();
+            builder.Services.AddScoped<AlunoService>();
             builder.Services.AddScoped<ICidadeRepository, CidadeRepository>(); 
             builder.Services.AddScoped<CidadeService>();
             builder.Services.AddControllersWithViews();
@@ -33,7 +36,7 @@ namespace EM.Web
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Cidade}/{action=ListarCidades}/{id?}");
+                pattern: "{controller=Aluno}/{action=ListarAlunos}/{id?}");
 
             app.Run();
         }
