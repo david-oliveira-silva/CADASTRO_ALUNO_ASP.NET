@@ -10,13 +10,14 @@ namespace EM.Domain.Models
 
         public int cidadeID_ {  get; set; }
 
+        public Sexo sexo { get; set; }
         public CidadeModel cidade { get; set; }
 
-        public Sexo sexo{  get; set; }
+        
 
         public AlunoModel() { }
 
-        public AlunoModel(long matricula, int cidadeID_,string alunoNome, int CPF, Sexo sexo,DateOnly dtNascimento) :base(alunoNome, CPF,dtNascimento) { 
+        public AlunoModel(long matricula, int cidadeID_,string alunoNome, string CPF, Sexo sexo,DateOnly dtNascimento) :base(alunoNome, CPF,dtNascimento) { 
             
             this.matricula  = matricula;
             this.sexo = sexo;
