@@ -103,5 +103,38 @@ namespace EM.Repository.Repository.Aluno
                 return listAlunos;
             }
         }
+        public List<AlunoModel> buscarPorMatricula(long matricula)
+        {
+            FirebirdConnection.OpenConnection(fbConnection);
+            List<AlunoModel> listAlunos = new List<AlunoModel>();
+
+            string querySelect = "SELECT * FROM alunos WHERE matricula = @matricula";
+
+            using (var cmdSelect = new FbCommand(querySelect, fbConnection))
+            {
+                using (var reader = cmdSelect.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+
+                        var aluno = new AlunoModel()
+                        {
+                            nome = reader.GetString(reader.GetOrdinal("alunoNome")),
+                            CPF = reader.GetString(reader.GetOrdinal("CPF")),
+                            dtNascimento = DateOnly.FromDateTime(reader.GetDateTime(reader.GetOrdinal("dtNascimento"))),
+                            sexo = (SexoEnum)reader.GetInt32(reader.GetOrdinal("sexo")),
+                            cidadeID_ = reader.GetInt32(reader.GetOrdinal("cidadeID_"))
+                        };
+                        listAlunos.Add(aluno);
+                    }
+                }
+                FirebirdConnection.CloseConnection(fbConnection);
+                return listAlunos;
+            }
+
+          
+
+
+        }
     }
 }
