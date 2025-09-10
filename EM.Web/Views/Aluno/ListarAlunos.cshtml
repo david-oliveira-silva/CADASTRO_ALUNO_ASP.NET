@@ -1,7 +1,11 @@
 ﻿@model List<AlunoModel>
+
+
+<link rel="stylesheet" href="~/css/Aluno/ListarAlunos.css">
 @{
 	ViewData["Title"] = "Listar Alunos";
 }
+
 
 @if (TempData["Sucesso"] != null)
 {
@@ -41,7 +45,7 @@
                     <td class="text-center">@a.cidade?.cidadeNome (@a.cidade.cidadeUF)</td>
                     <td class="text-center">
 
-                        <div class="opcoes d-flex flex-nowrap">
+                        <div class="opcoes d-flex flex-nowrap gap-2">
 
                             <form asp-controller="Aluno" asp-action="DeletarAluno" method="get">
                                 <input type="hidden" name="@a.matricula" id="@a.matricula" value="@a.matricula" />
