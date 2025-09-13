@@ -75,7 +75,7 @@ namespace EM.Web.Controllers
             {
 
                 TempData["Erro"] = ex.Message;
-                return View(cidadeModel);
+                return View("UpsertCidades",cidadeModel);
             }
             return RedirectToAction("ListarCidades");
 
@@ -105,14 +105,17 @@ namespace EM.Web.Controllers
             {
                 var ufs = Enum.GetValues(typeof(UF)).Cast<UF>().ToList();
                 ViewBag.Ufs = ufs;
-                TempData["Erro"] = ex.Message;
-                return View(cidadeModel);   
+                TempData["ErroDeletar"] = ex.Message;
+
+                return RedirectToAction("ListarCidades");   
             }
-            
+
+           
+
         }
         
 
-                [HttpGet]
+        [HttpGet]
         public IActionResult ListarCidades(string? cidadeNome)
         {
             List<CidadeModel> cidades;
@@ -123,7 +126,7 @@ namespace EM.Web.Controllers
             }
             else
             {
-                cidades = cidadeService.buscarPorNome(cidadeNome.ToUpper());
+                cidades = cidadeService.buscarPorNome(cidadeNome);
                 
             }
             ViewBag.Cidade = cidadeNome;
@@ -135,30 +138,3 @@ namespace EM.Web.Controllers
     }
 
 
-/* [HttpPost]
-        public IActionResult UpsertCidade(CidadeModel cidadeModel) {
-
-            try
-            {
-                if (cidadeModel.cidadeID == 0)
-                {
-                    cidadeService.CadastrarCidade(cidadeModel.cidadeNome, cidadeModel.cidadeUF);
-                    TempData["Sucesso"] = "Cidade cadatrada com sucesso";
-
-                }
-                else
-                {
-                    cidadeService.EditarCidade(cidadeModel);
-                    TempData["Sucesso"] = "Cidade editada com sucesso";
-
-
-                }
-                return RedirectToAction("ListarCidades");
-            }
-            catch (Exception ex) {
-                var ufs = Enum.GetValues(typeof(UF)).Cast<UF>().ToList();
-                ViewBag.UFs = ufs;
-                TempData["Erro"] = ex.Message;
-                return View(cidadeModel);
-            }
-        }*/

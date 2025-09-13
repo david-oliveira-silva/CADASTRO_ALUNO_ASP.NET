@@ -1,6 +1,7 @@
 ﻿
 using EM.Domain.Enum;
 using EM.Domain.Models;
+using EM.Repository.Repository.Aluno;
 using EM.Repository.Repository.Cidade;
 
 namespace EM.Service.Service
@@ -9,9 +10,12 @@ namespace EM.Service.Service
     {
         private ICidadeRepository cidadeRepository;
 
-        public CidadeService(ICidadeRepository cidadeRepository)
+        private IAlunoRepository alunoRepository;
+
+        public CidadeService(ICidadeRepository cidadeRepository,IAlunoRepository alunoRepository)
         {
             this.cidadeRepository = cidadeRepository;
+            this.alunoRepository = alunoRepository;
         }
 
         public void CadastrarCidade(string cidadeNome, UF cidadeUF)
@@ -19,22 +23,27 @@ namespace EM.Service.Service
             if (string.IsNullOrEmpty(cidadeNome))
             {
                 throw new Exception("Nome não pode ser vazio");
-            }
-
-           
+            }      
 
 
-            var novacidade = new CidadeModel(cidadeNome, cidadeUF);
+            var novacidade = new CidadeModel(cidadeNome.ToUpper(), cidadeUF);
 
             cidadeRepository.Cadastrar(novacidade);
         }
 
         public void DeletarCidade(CidadeModel cidadeModel)
         {
-            if(cidadeModel == null)
+            if (cidadeModel == null)
             {
                 throw new Exception("Cidade não encontrada");
             }
+
+            var alunoVinculado = alunoRepository.Listar().FirstOrDefault(a => a.cidade.cidadeID == cidadeModel.cidadeID);
+
+            if(alunoVinculado != null)
+            {
+                throw new Exception("Não é possível excluir esta cidade. Ela está vinculada a um aluno.");
+            }              
 
             cidadeRepository.Deletar(cidadeModel);
         }

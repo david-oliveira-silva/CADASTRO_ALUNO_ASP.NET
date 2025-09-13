@@ -12,6 +12,13 @@
     <p class="alert alert-success">@TempData["Sucesso"]</p>
 }
 
+@if (TempData["ErroDeletar"] != null)
+{
+    <p class="alert alert-danger">@TempData["ErroDeletar"]</p>
+}
+
+
+
 
 <div class="Titulo d-flex justify-content-between mb-5">
     <h1>Lista de Cidades</h1>

@@ -41,7 +41,7 @@ namespace EM.Service.Service
                 throw new Exception("O nome deve conter entre 3 e 100 caracteres.");
             }
 
-            AlunoModel alunoNovo = new AlunoModel(matricula, nomeAluno, CPF, sexo, dtNascimento, cidadeID_);
+            AlunoModel alunoNovo = new AlunoModel(matricula, nomeAluno.ToUpper(), CPF, sexo, dtNascimento, cidadeID_);
             alunoRepository.Cadastrar(alunoNovo);
 
         }
