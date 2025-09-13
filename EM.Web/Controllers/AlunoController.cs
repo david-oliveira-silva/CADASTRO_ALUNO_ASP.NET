@@ -9,7 +9,7 @@ namespace EM.Web.Controllers
 
         AlunoService alunoService;
         CidadeService cidadeService;
-        public AlunoController(AlunoService alunoService,CidadeService cidadeService) {
+        public AlunoController(AlunoService alunoService, CidadeService cidadeService) {
 
             this.alunoService = alunoService;
             this.cidadeService = cidadeService;
@@ -67,11 +67,11 @@ namespace EM.Web.Controllers
             catch (Exception ex) {
 
                 TempData["Erro"] = ex.Message;
-                return View("UpsertAluno",viewModel);
+                return View("UpsertAluno", viewModel);
             }
 
             return RedirectToAction("ListarAlunos");
-            
+
         }
 
         [HttpPost]
@@ -94,6 +94,41 @@ namespace EM.Web.Controllers
 
 
 
+        }
+
+        [HttpGet]
+
+        public IActionResult DeletarAluno(long? matricula) {
+
+            var aluno = alunoService.listarAlunos().FirstOrDefault(a => a.matricula == matricula);
+
+            ViewModel viewModel = new ViewModel
+            {
+
+                Aluno = aluno,
+                Cidade = cidadeService.ListarCidades()
+            };
+
+            return View(viewModel);
+        
+        }
+        [HttpPost]
+        public IActionResult DeletarAluno(ViewModel viewModel) { 
+        
+            try
+            {
+
+                alunoService.deletarAluno(viewModel.Aluno);
+                TempData["Sucesso"] = "Aluno deletado com sucesso";
+
+            }
+            catch (Exception ex) {
+
+                TempData["ErroDeletar"] = ex.Message;
+                return View(viewModel);
+            }
+            return RedirectToAction("ListarAlunos");
+        
         }
 
 
