@@ -15,7 +15,7 @@
     <h1 class="text-center">
         @(Model.cidadeID == 0 ? "Cadastrar Cidade" : "Editar cidade")
     </h1>
-    <form asp-controller="Cidade" asp-action="UpsertCidade" method="post">
+    <form asp-controller="Cidade" asp-action="@(Model.cidadeID == 0? "CadastrarCidade" : "EditarCidade")" method="post">
         <input type="hidden" asp-for="cidadeID" />
         <div class="mb-3">
             <label asp-for="cidadeNome" class="form-label">Nome cidade</label>

@@ -21,7 +21,8 @@ namespace EM.Web.Controllers
 
             AlunoModel aluno;
 
-            if (matricula.HasValue) {
+            if (matricula.HasValue)
+            {
 
                 aluno = alunoService.listarAlunos().FirstOrDefault(a => a.matricula == matricula);
 
@@ -31,12 +32,13 @@ namespace EM.Web.Controllers
                     TempData["Erro"] = "Aluno não encontrado";
                     return RedirectToAction("ListarAlunos");
                 }
-                
+
             }
-            else{
+            else
+            {
 
                 aluno = new AlunoModel();
-                 
+
 
             }
             var viewModel = new ViewModel()
@@ -49,34 +51,53 @@ namespace EM.Web.Controllers
 
 
         }
+
+
         [HttpPost]
-        public IActionResult UpsertAluno(ViewModel viewModel)
-        {
-            try {
-                var alunoExistente = alunoService.listarAlunos().FirstOrDefault(a => a.matricula == viewModel.Aluno.matricula);
+        public IActionResult CadastrarAluno(ViewModel viewModel) {
 
-                if (alunoExistente == null) {
-                    alunoService.cadastrarAluno(viewModel.Aluno.matricula, viewModel.Aluno.nome, viewModel.Aluno.CPF, viewModel.Aluno.dtNascimento, viewModel.Aluno.sexo, viewModel.Aluno.cidadeID_);
-                    TempData["Sucesso"] = "Aluno cadastrado com sucesso";
-                   
-
-                }
-                else
-                {
-                    alunoService.editarAluno(viewModel.Aluno);
-                }
-            }
-            catch(Exception ex)
+            try
             {
-                TempData["Erro"] = ex.Message;
-                return View(viewModel);
+
+
+                alunoService.cadastrarAluno(viewModel.Aluno.matricula, viewModel.Aluno.nome, viewModel.Aluno.CPF, viewModel.Aluno.dtNascimento, viewModel.Aluno.sexo, viewModel.Aluno.cidadeID_);
+                TempData["Sucesso"] = "Cidade cadastrada com sucesso";
 
             }
-           return RedirectToAction("ListarAlunos");
+            catch (Exception ex) {
+
+                TempData["Erro"] = ex.Message;
+                return View("UpsertAluno",viewModel);
+            }
+
+            return RedirectToAction("ListarAlunos");
+            
         }
 
- 
-                [HttpGet]
+        [HttpPost]
+        public IActionResult EditarAluno(ViewModel viewModel)
+        {
+
+            try
+            {
+                alunoService.editarAluno(viewModel.Aluno);
+                TempData["Sucesso"] = "Aluno editado com sucesso";
+
+            }
+            catch (Exception ex)
+            {
+
+                TempData["Erro"] = ex.Message;
+                return View("UpsertAluno", viewModel);
+            }
+            return RedirectToAction("ListarAlunos");
+
+
+
+        }
+
+
+        [HttpGet]
                 public IActionResult ListarAlunos()
                 {
                     var alunos = alunoService.listarAlunos();
@@ -86,10 +107,6 @@ namespace EM.Web.Controllers
 
                 }
 
-
-
-
-
-
     }
 }
+

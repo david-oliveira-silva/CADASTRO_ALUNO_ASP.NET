@@ -43,39 +43,46 @@ namespace EM.Web.Controllers
             return View(cidade);
         }
 
-        
-
         [HttpPost]
-        public IActionResult UpsertCidade(CidadeModel cidadeModel) {
-
+        public IActionResult CadastrarCidade(CidadeModel cidadeModel)
+        {
             try
             {
-                if (cidadeModel.cidadeID == 0)
-                {
-                    cidadeService.CadastrarCidade(cidadeModel.cidadeNome, cidadeModel.cidadeUF);
-                    TempData["Sucesso"] = "Cidade cadatrada com sucesso";
 
-                }
-                else
-                {
-                    cidadeService.EditarCidade(cidadeModel);
-                    TempData["Sucesso"] = "Cidade editada com sucesso";
+                cidadeService.CadastrarCidade(cidadeModel.cidadeNome, cidadeModel.cidadeUF);
+                TempData["Sucesso"] = "Cidade cadastrada com sucesso";
 
-
-                }
-                return RedirectToAction("ListarCidades");
             }
-            catch (Exception ex) {
-                var ufs = Enum.GetValues(typeof(UF)).Cast<UF>().ToList();
-                ViewBag.UFs = ufs;
+            catch (Exception ex)
+            {
+
                 TempData["Erro"] = ex.Message;
                 return View(cidadeModel);
             }
+            return RedirectToAction("ListarCidades");
+        }
+        [HttpPost]
+        public IActionResult EditarCidade(CidadeModel cidadeModel)
+        {
+
+            try
+            {
+                cidadeService.EditarCidade(cidadeModel);
+                TempData["Sucesso"] = "Cidade editada com sucesso";
+
+            }
+            catch (Exception ex)
+            {
+
+                TempData["Erro"] = ex.Message;
+                return View(cidadeModel);
+            }
+            return RedirectToAction("ListarCidades");
+
         }
 
 
         [HttpGet]
-
         public IActionResult DeletarCidade(int ? cidadeID)
         {
             var ufs = Enum.GetValues(typeof(UF)).Cast<UF>().ToList();
@@ -127,3 +134,31 @@ namespace EM.Web.Controllers
     }
     }
 
+
+/* [HttpPost]
+        public IActionResult UpsertCidade(CidadeModel cidadeModel) {
+
+            try
+            {
+                if (cidadeModel.cidadeID == 0)
+                {
+                    cidadeService.CadastrarCidade(cidadeModel.cidadeNome, cidadeModel.cidadeUF);
+                    TempData["Sucesso"] = "Cidade cadatrada com sucesso";
+
+                }
+                else
+                {
+                    cidadeService.EditarCidade(cidadeModel);
+                    TempData["Sucesso"] = "Cidade editada com sucesso";
+
+
+                }
+                return RedirectToAction("ListarCidades");
+            }
+            catch (Exception ex) {
+                var ufs = Enum.GetValues(typeof(UF)).Cast<UF>().ToList();
+                ViewBag.UFs = ufs;
+                TempData["Erro"] = ex.Message;
+                return View(cidadeModel);
+            }
+        }*/

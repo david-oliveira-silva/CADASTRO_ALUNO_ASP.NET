@@ -48,12 +48,12 @@
                         <div class="opcoes d-flex flex-nowrap gap-2">
 
                             <form asp-controller="Aluno" asp-action="DeletarAluno" method="get">
-                                <input type="hidden" name="@a.matricula" id="@a.matricula" value="@a.matricula" />
+                                <input type="hidden" name="matricula" id="matricula" value="@a.matricula" />
                                 <button type="submit" class="btn btn-danger ">Deletar</button>
                             </form>
 
                             <form asp-controller="Aluno" asp-action="UpsertAluno" method="get">
-                                <input type="hidden" name="@a.matricula" id="@a.matricula" value="@a.matricula" />
+                                <input type="hidden" name="matricula" id="matricula" value="@a.matricula" />
 
                                 <button type= "submit" class="btn btn-primary">Editar</button>
                             </form>
