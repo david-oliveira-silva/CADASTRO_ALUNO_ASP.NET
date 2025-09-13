@@ -15,7 +15,7 @@
 <div class="Titulo d-flex justify-content-between mb-4" >
 
     <h1>Lista de alunos</h1>
-    <a asp-controller ="Aluno" asp-action ="UpsertAluno"class= "btn btn-primary">Cadastrar aluno</a>
+    <a asp-controller="Aluno" asp-action="UpsertAluno" class="btn btn-primary fw-bold">Cadastrar aluno</a>
 
 </div>
 <div class="Tabela">
@@ -49,13 +49,13 @@
 
                             <form asp-controller="Aluno" asp-action="DeletarAluno" method="get">
                                 <input type="hidden" name="matricula" id="matricula" value="@a.matricula" />
-                                <button type="submit" class="btn btn-danger ">Deletar</button>
+                                <button type="submit" class="btn btn-danger fw-bold">Deletar</button>
                             </form>
 
                             <form asp-controller="Aluno" asp-action="UpsertAluno" method="get">
                                 <input type="hidden" name="matricula" id="matricula" value="@a.matricula" />
 
-                                <button type= "submit" class="btn btn-primary">Editar</button>
+                                <button type= "submit" class="btn btn-primary fw-bold">Editar</button>
                             </form>
 
                         </div>

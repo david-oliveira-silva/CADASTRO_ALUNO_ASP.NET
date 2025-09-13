@@ -10,4 +10,8 @@
     <ProjectReference Include="..\EM.Service\EM.Service.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\imagem\" />
+  </ItemGroup>
+
 </Project>
