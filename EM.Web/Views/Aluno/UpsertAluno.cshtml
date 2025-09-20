@@ -14,13 +14,13 @@
     <h1 class="text-center">
         @(Model.Aluno.matricula == 0 ? "Cadastrar aluno" : "Editar aluno")
     </h1>
-    <form asp-controller="Aluno" asp-action= "@(Model.Aluno.matricula == 0 ? "CadastrarAluno" : "EditarAluno")" method="post">
+    <form asp-controller="Aluno" asp-action= "@(Model.AlunoNovo == true ? "CadastrarAluno" : "EditarAluno")" method="post">
         <div class="mb-3">
      
             <label asp-for="Aluno.matricula" class="form-label">Matrícula</label>
-            @if (Model.Aluno.matricula != 0)
+            @if (Model.AlunoNovo != true)
             {
-                <input type="number" class="form-control" asp-for="Aluno.matricula" id="matricula" placeholder="Digite o número da matrícula" disabled>
+                <input type="number" class="form-control" asp-for="Aluno.matricula" id="matricula" disabled>
             }
             else
             {

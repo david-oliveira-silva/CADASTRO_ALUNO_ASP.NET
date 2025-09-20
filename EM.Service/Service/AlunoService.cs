@@ -19,8 +19,8 @@ namespace EM.Service.Service
         public void cadastrarAluno(long matricula, string nomeAluno, string CPF, DateOnly dtNascimento, SexoEnum sexo, int cidadeID_)
         {
 
+            long proximoNumero = alunoRepository.Listar().Any() ? alunoRepository.Listar().Max(a => a.matricula) + 1 : 1;
 
-            
             if (matricula == 0)
             {
                 throw new Exception("Matricula não pode ser 0");
@@ -41,7 +41,10 @@ namespace EM.Service.Service
                 throw new Exception("O nome deve conter entre 3 e 100 caracteres.");
             }
 
-            AlunoModel alunoNovo = new AlunoModel(matricula, nomeAluno.ToUpper(), CPF, sexo, dtNascimento, cidadeID_);
+           
+
+            
+            AlunoModel alunoNovo = new AlunoModel(proximoNumero, nomeAluno.ToUpper(), CPF, sexo, dtNascimento, cidadeID_);
             alunoRepository.Cadastrar(alunoNovo);
 
         }
@@ -102,5 +105,16 @@ namespace EM.Service.Service
             }
             return alunoRepository.Listar().Where(a => a.nome.Contains(termoDeBuscaUpper)).ToList();
         }
+
+        public long ObterProximaMatriculaDisponivel()
+        {
+            var alunos = alunoRepository.Listar();
+            if (alunos == null || !alunos.Any())
+            {
+                return 1;
+            }
+            return alunos.Max(a => a.matricula) + 1;
+        }
+
     }
 }

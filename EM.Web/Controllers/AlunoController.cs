@@ -21,6 +21,8 @@ namespace EM.Web.Controllers
 
             AlunoModel aluno;
 
+            ViewModel viewModel = new ViewModel();
+
             if (matricula.HasValue)
             {
 
@@ -33,19 +35,23 @@ namespace EM.Web.Controllers
                     return RedirectToAction("ListarAlunos");
                 }
 
+                viewModel.AlunoNovo = false;
+               
             }
             else
             {
 
                 aluno = new AlunoModel();
 
+                aluno.matricula = alunoService.ObterProximaMatriculaDisponivel();
+
+                viewModel.AlunoNovo = true;
 
             }
-            var viewModel = new ViewModel()
-            {
-                Aluno = aluno,
-                Cidade = cidadeService.ListarCidades()
-            };
+
+               viewModel.Aluno = aluno;
+               viewModel.Cidade = cidadeService.ListarCidades();
+            
             return View(viewModel);
 
 
