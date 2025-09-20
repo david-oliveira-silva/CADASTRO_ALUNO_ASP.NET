@@ -81,16 +81,26 @@ namespace EM.Service.Service
             alunoRepository.Editar(alunoModel);
         }
 
+
         public List<AlunoModel> listarAlunos()
         {
             var aluno = alunoRepository.Listar().OrderBy(a => a.matricula).ToList();
             return aluno;
         }
 
-        public AlunoModel buscarPorMatricula(long matricula)
+        public List<AlunoModel> buscarPorMatricula(long matricula)
         {
-            return alunoRepository.buscarPorMatricula(matricula);
-            
+            return alunoRepository.Listar().Where(a => a.matricula == matricula).ToList();
+        }
+
+        public List<AlunoModel> buscarPorNome(string alunoNome)
+        {
+            var termoDeBuscaUpper = alunoNome.ToUpper();
+            if (string.IsNullOrEmpty(alunoNome))
+            {
+                return new List<AlunoModel>(); 
+            }
+            return alunoRepository.Listar().Where(a => a.nome.Contains(termoDeBuscaUpper)).ToList();
         }
     }
 }

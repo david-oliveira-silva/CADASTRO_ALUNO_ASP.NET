@@ -11,6 +11,8 @@ namespace EM.Repository.Repository.Aluno
     public interface IAlunoRepository:IGeneric<AlunoModel>
     {
 
-         AlunoModel buscarPorMatricula(long matricula);
+        
     }
+
+
 }

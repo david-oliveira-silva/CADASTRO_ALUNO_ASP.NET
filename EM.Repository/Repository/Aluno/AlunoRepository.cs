@@ -2,12 +2,7 @@
 using EM.Domain.Models;
 using EM.Repository.Data;
 using FirebirdSql.Data.FirebirdClient;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace EM.Repository.Repository.Aluno
 {
@@ -114,42 +109,9 @@ namespace EM.Repository.Repository.Aluno
                 return listAlunos;
             }
         }
-        public AlunoModel buscarPorMatricula(long matricula)
-        {
-            FirebirdConnection.OpenConnection(fbConnection);
-            AlunoModel aluno = null;
-
-            string querySelect = "SELECT * FROM alunos WHERE matricula = @matricula";
-
-            using (var cmdSelect = new FbCommand(querySelect, fbConnection))
-            {
-                cmdSelect.Parameters.AddWithValue("@matricula", matricula);
-                    
-                using (var reader = cmdSelect.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-
-                        var alunos = new AlunoModel()
-                        {
-                            nome = reader.GetString(reader.GetOrdinal("alunoNome")),
-                            CPF = reader.GetString(reader.GetOrdinal("CPF")),
-                            dtNascimento = DateOnly.FromDateTime(reader.GetDateTime(reader.GetOrdinal("dtNascimento"))),
-                            sexo = (SexoEnum)reader.GetInt32(reader.GetOrdinal("sexo")),
-                            cidadeID_ = reader.GetInt32(reader.GetOrdinal("cidadeID_"))
-                        };
-                       
-                    }
-                }
-                FirebirdConnection.CloseConnection(fbConnection);
-                return aluno;
-
-
-            }
-
-
-
+    
 
         }
+
+        
     }
-}

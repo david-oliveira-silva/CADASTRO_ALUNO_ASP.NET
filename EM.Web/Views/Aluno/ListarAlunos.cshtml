@@ -18,6 +18,23 @@
     <a asp-controller="Aluno" asp-action="UpsertAluno" class="btn btn-primary fw-bold">Cadastrar aluno</a>
 
 </div>
+
+
+<div class="Pesquisa mt-3">
+
+
+    <form class=" d-flex gap-3" asp-controller="Aluno" asp-action="ListarAlunos" method="get">
+        
+      
+
+        <input class="form-control mb-4" name="alunoNome" placeholder="Pesquisar aluno por Nome..." value="" />
+        <input class="form-control mb-4" name="matricula" placeholder="Pesquisar aluno por Matricula..." value="" />
+
+        <button class="btn btn-success fw-bold">Carregar</button>
+      
+    </form>
+
+</div>
 <div class="Tabela">
     <table class="table-striped  table table-bordered  table-hover">
         <thead class="table-dark"

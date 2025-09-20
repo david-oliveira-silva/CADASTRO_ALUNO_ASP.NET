@@ -67,6 +67,8 @@ namespace EM.Web.Controllers
             catch (Exception ex) {
 
                 TempData["Erro"] = ex.Message;
+                viewModel.Cidade = cidadeService.ListarCidades();
+
                 return View("UpsertAluno", viewModel);
             }
 
@@ -86,8 +88,9 @@ namespace EM.Web.Controllers
             }
             catch (Exception ex)
             {
-
                 TempData["Erro"] = ex.Message;
+                viewModel.Cidade = cidadeService.ListarCidades();
+
                 return View("UpsertAluno", viewModel);
             }
             return RedirectToAction("ListarAlunos");
@@ -133,12 +136,33 @@ namespace EM.Web.Controllers
 
 
         [HttpGet]
-                public IActionResult ListarAlunos()
+                public IActionResult ListarAlunos(long matricula,string alunoNome)
                 {
-                    var alunos = alunoService.listarAlunos();
+
+            ViewBag.Matricula = matricula;
+            ViewBag.Nome = alunoNome;
+
+            List<AlunoModel> alunos = new List<AlunoModel>();
+            if (!string.IsNullOrEmpty(alunoNome))
+            {
+
+                alunos = alunoService.buscarPorNome(alunoNome).ToList();
+
+            }
+            else if (matricula != 0) {
 
 
-                    return View(alunos);
+                alunos = alunoService.buscarPorMatricula(matricula).ToList();
+
+            }
+            else
+            {
+                alunos = alunoService.listarAlunos();
+            }
+
+            ViewBag.Pesquisa = alunoNome;
+           
+                   return View(alunos);
 
                 }
 
