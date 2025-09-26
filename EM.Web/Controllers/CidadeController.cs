@@ -46,18 +46,21 @@ namespace EM.Web.Controllers
         [HttpPost]
         public IActionResult CadastrarCidade(CidadeModel cidadeModel)
         {
+
             try
             {
-
+                var ufs = Enum.GetValues(typeof(UF)).Cast<UF>().ToList();
+                ViewBag.Ufs = ufs;
                 cidadeService.CadastrarCidade(cidadeModel.cidadeNome, cidadeModel.cidadeUF);
                 TempData["Sucesso"] = "Cidade cadastrada com sucesso";
+                
 
             }
             catch (Exception ex)
             {
 
                 TempData["Erro"] = ex.Message;
-                return View(cidadeModel);
+                return View("UpsertCidade",cidadeModel);
             }
             return RedirectToAction("ListarCidades");
         }
@@ -67,6 +70,8 @@ namespace EM.Web.Controllers
 
             try
             {
+                var ufs = Enum.GetValues(typeof(UF)).Cast<UF>().ToList();
+                ViewBag.Ufs = ufs;
                 cidadeService.EditarCidade(cidadeModel);
                 TempData["Sucesso"] = "Cidade editada com sucesso";
 
@@ -75,7 +80,7 @@ namespace EM.Web.Controllers
             {
 
                 TempData["Erro"] = ex.Message;
-                return View("UpsertCidades",cidadeModel);
+                return View("UpsertCidade",cidadeModel);
             }
             return RedirectToAction("ListarCidades");
 

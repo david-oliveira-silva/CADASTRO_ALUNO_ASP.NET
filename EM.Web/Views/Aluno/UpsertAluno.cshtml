@@ -1,7 +1,7 @@
 ﻿
 @model ViewModel
 @{
-
+    ViewData["Title"] = (Model.AlunoNovo == true ? "Cadastrar Aluno" : "Editar Aluno");
 }
 
 @if (TempData["Erro"] != null)
@@ -12,7 +12,7 @@
 <div class="Cadastrar bg-light rounded-3 p-5">
 
     <h1 class="text-center">
-        @(Model.Aluno.matricula == 0 ? "Cadastrar aluno" : "Editar aluno")
+        @(Model.AlunoNovo == true ? "Cadastrar Aluno" : "EditarAluno")
     </h1>
     <form asp-controller="Aluno" asp-action= "@(Model.AlunoNovo == true ? "CadastrarAluno" : "EditarAluno")" method="post">
         <div class="mb-3">
@@ -20,7 +20,7 @@
             <label asp-for="Aluno.matricula" class="form-label">Matrícula</label>
             @if (Model.AlunoNovo != true)
             {
-                <input type="number" class="form-control" asp-for="Aluno.matricula" id="matricula" disabled>
+                <input type="number" class="form-control" asp-for="Aluno.matricula" id="matricula" readonly>
             }
             else
             {
@@ -33,6 +33,7 @@
         <div class="mb-3">
             <label asp-for="Aluno.nome" class="form-label">Nome</label>
             <input type="text" class="form-control" asp-for="Aluno.nome" id=" alunoNome" placeholder="Digite o nome do aluno">
+            <span class="text-danger" asp-validation-for="Aluno.nome"></span>
         </div>
 
 
@@ -74,7 +75,7 @@
 
         <div class="Botoes d-flex gap-2 justify-content-center mt-4 ">
             <button type="submit" class="btn btn-success w-25 ">
-                @(Model.Aluno.matricula == 0 ? "Cadastrar" : "Editar")
+                @(Model.AlunoNovo == true ? "Cadastrar" : "Editar")
             </button>
             <a asp-controller="Aluno" asp-action="ListarAlunos" class="btn btn-primary w-25">Voltar</a>
         </div>

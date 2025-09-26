@@ -65,6 +65,7 @@ namespace EM.Web.Controllers
             try
             {
 
+                viewModel.AlunoNovo = true;
 
                 alunoService.cadastrarAluno(viewModel.Aluno.matricula, viewModel.Aluno.nome, viewModel.Aluno.CPF, viewModel.Aluno.dtNascimento, viewModel.Aluno.sexo, viewModel.Aluno.cidadeID_);
                 TempData["Sucesso"] = "Cidade cadastrada com sucesso";
@@ -72,6 +73,7 @@ namespace EM.Web.Controllers
             }
             catch (Exception ex) {
 
+                viewModel.AlunoNovo = true;
                 TempData["Erro"] = ex.Message;
                 viewModel.Cidade = cidadeService.ListarCidades();
 
@@ -88,12 +90,15 @@ namespace EM.Web.Controllers
 
             try
             {
+                viewModel.AlunoNovo = false;
                 alunoService.editarAluno(viewModel.Aluno);
                 TempData["Sucesso"] = "Aluno editado com sucesso";
 
             }
             catch (Exception ex)
             {
+                viewModel.AlunoNovo = false;
+
                 TempData["Erro"] = ex.Message;
                 viewModel.Cidade = cidadeService.ListarCidades();
 

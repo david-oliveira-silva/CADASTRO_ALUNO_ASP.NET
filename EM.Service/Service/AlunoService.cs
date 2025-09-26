@@ -21,6 +21,10 @@ namespace EM.Service.Service
 
             long proximoNumero = alunoRepository.Listar().Any() ? alunoRepository.Listar().Max(a => a.matricula) + 1 : 1;
 
+            if (string.IsNullOrEmpty(nomeAluno)) {
+                throw new Exception("Nome não pode ser vazio");
+            }
+
             if (matricula == 0)
             {
                 throw new Exception("Matricula não pode ser 0");
@@ -67,7 +71,12 @@ namespace EM.Service.Service
 
                 throw new Exception("Aluno não encontrando");
             }
-           
+
+            if (string.IsNullOrEmpty(alunoModel.nome))
+            {
+                throw new Exception("Nome não pode ser vazio");
+            }
+
             if (alunoModel.dtNascimento > DateOnly.FromDateTime(DateTime.Today))
             {
                 throw new Exception("A data de nascimento não pode ser uma data futura.");
