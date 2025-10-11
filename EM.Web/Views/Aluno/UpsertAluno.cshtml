@@ -51,7 +51,6 @@
         <div id="cidade">
             <label>Cidade</label>
             <select class="form-select" asp-for="Aluno.cidadeID_">
-                <option selected>Selecione sua cidade</option>
                 @foreach (var c in Model.Cidade)
                 {
                     <option value="@c.cidadeID">@c.cidadeNome (@c.cidadeUF)</option>
