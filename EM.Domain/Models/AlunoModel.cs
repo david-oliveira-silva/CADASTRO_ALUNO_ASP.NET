@@ -1,6 +1,7 @@
 ﻿using EM.Domain.Enum;
 
 
+
 namespace EM.Domain.Models
 {
     public class AlunoModel:Pessoa

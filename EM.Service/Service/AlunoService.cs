@@ -1,8 +1,10 @@
 ﻿
 
 using EM.Domain.Enum;
+using EM.Domain.Extensions;
 using EM.Domain.Models;
 using EM.Repository.Repository.Aluno;
+
 
 namespace EM.Service.Service
 {
@@ -45,23 +47,17 @@ namespace EM.Service.Service
                 throw new Exception("O nome deve conter entre 3 e 100 caracteres.");
             }
 
+            if (!CPF.IsCPF())
+            {
+                throw new Exception("CPF está invalido");
+            }
+
            
 
             
             AlunoModel alunoNovo = new AlunoModel(proximoNumero, nomeAluno.ToUpper(), CPF, sexo, dtNascimento, cidadeID_);
             alunoRepository.Cadastrar(alunoNovo);
 
-        }
-
-        public void deletarAluno(AlunoModel alunoModel)
-        {
-
-            if (alunoModel == null)
-            {
-                throw new Exception("Aluno não encontrando");
-            }
-
-            alunoRepository.Deletar(alunoModel);
         }
 
         public void editarAluno(AlunoModel alunoModel)
@@ -90,8 +86,26 @@ namespace EM.Service.Service
             {
                 throw new Exception("O nome deve conter entre 3 e 100 caracteres.");
             }
+
+            if (!alunoModel.CPF.IsCPF())
+            {
+                throw new Exception("CPF está invalido");
+            }
             alunoRepository.Editar(alunoModel);
         }
+
+        public void deletarAluno(AlunoModel alunoModel)
+        {
+
+            if (alunoModel == null)
+            {
+                throw new Exception("Aluno não encontrando");
+            }
+
+            alunoRepository.Deletar(alunoModel);
+        }
+
+        
 
 
         public List<AlunoModel> listarAlunos()
