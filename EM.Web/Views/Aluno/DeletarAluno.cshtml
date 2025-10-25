@@ -1,23 +1,23 @@
 ﻿@model ViewModel
 
 @{
-	ViewData["Title"] = "Deletar Aluno";
+    ViewData["Title"] = "Deletar Aluno";
 }
 
 @if (TempData["Erro"] != null)
 {
-<p class="alert alert-danger">@TempData["Erro"]</p>
+    <p class="alert alert-danger">@TempData["Erro"]</p>
 }
 
 <div class="Deletar bg-light rounded-3 p-5">
 
     <h1 class="text-center">
-        Deletar Cidade
+        Deletar Aluno
     </h1>
-    <h3 class="text-center  ">Dejesa deletar a cidade com as informações abaixo?</h3>
-    <form asp-controller="Aluno" asp-action="DeletarAluno" method="post">
+    <h3 class="text-center  ">Dejesa o aluno com as informações abaixo?</h3>
+    <form asp-controller="Aluno" asp-action="DeletarAluno" method="post" id="formDeletarAluno">
         <input type="hidden" asp-for="Aluno.matricula" />
-      
+
         <div class="mb-3">
 
             <label asp-for="Aluno.matricula" class="form-label">Matrícula</label>
@@ -25,9 +25,9 @@
 
         </div>
         <div class="mb-3">
-     
+
             <label asp-for="Aluno.nome" class="form-label">Nome</label>
-            <input type="text" class="form-control" asp-for="Aluno.nome" id="nome"  disabled>
+            <input type="text" class="form-control" asp-for="Aluno.nome" id="nome" disabled>
 
         </div>
 
@@ -38,7 +38,7 @@
 
         </div>
 
-       
+
 
         <div class="mb-3">
 
@@ -63,9 +63,42 @@
 
         <div class="Botoes d-flex gap-2 justify-content-center mt-4 ">
 
-            <button type="submit" class="btn btn-danger w-25">Confirmar</button>
+            <button type="button" class="btn btn-danger w-25" data-bs-toggle="modal" data-bs-target="#confirmarExclusaoModal">Confirmar</button>
 
             <a asp-controller="Aluno" asp-action="ListarAlunos" class="btn btn-primary w-25">Voltar</a>
         </div>
+
+
+        @*------------------------- Modal personalizado -----------------------------*@
+
+        <div class="modal fade" id="confirmarExclusaoModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <div class="modal-header bg-danger text-white">
+                        <h5 class="modal-title" id="modalLabel">Atenção: Exclusão Irreversível!</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+                    <div class="modal-body">
+                        <p>
+                            Tem certeza que deseja excluir o aluno
+                            <strong id="alunoNomeModal">@Model.Aluno.nome</strong>
+                            (Matrícula: <strong>@Model.Aluno.matricula</strong>)?
+                        </p>
+                        <p class="fw-bold text-danger">Esta ação não poderá ser desfeita.</p>
+                    </div>
+
+                    <div class="modal-footer">
+
+
+                        <button type="button" class="btn btn-danger" onclick="enviarFormularioDelecao()">Deletar</button>
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </form>
+
+    <script src="~/js/Aluno/Delete.js" asp-append-version="true"></script>
 </div>
