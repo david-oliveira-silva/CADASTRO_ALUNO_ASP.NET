@@ -18,6 +18,11 @@ namespace EM.Domain.Extensions
             // ... (o método IsValid)
             protected override ValidationResult IsValid(object value, ValidationContext validationContext)
             {
+
+                if (value == null)
+                {
+                    return ValidationResult.Success;
+                }
                 if (value is string cpf)
                 {
                     if (string.IsNullOrWhiteSpace(cpf))

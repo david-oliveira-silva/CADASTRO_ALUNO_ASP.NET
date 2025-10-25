@@ -12,7 +12,7 @@ namespace EM.Domain.Models
             public string nome {  get; set; }
 
         [ValidacaoCPFAtributo(ErrorMessage = "O número de CPF não é válido.")]
-        public string CPF {  get; set; }
+        public string ?CPF {  get; set; }
 
             public DateOnly dtNascimento { get; set; }
 
