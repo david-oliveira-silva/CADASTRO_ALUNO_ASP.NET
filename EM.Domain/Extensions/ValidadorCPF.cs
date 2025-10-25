@@ -18,6 +18,11 @@ namespace EM.Domain.Extensions
             cpf = cpf.Trim();
             cpf = cpf.Replace(".", "").Replace("-", "");
 
+            if (cpf.Length != 11)
+            {
+                return false;
+            }
+
             ArmCPF = cpf.Substring(0, 9);
 
             soma = 0;
