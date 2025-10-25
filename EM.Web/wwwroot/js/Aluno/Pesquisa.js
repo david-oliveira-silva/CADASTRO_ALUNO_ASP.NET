@@ -13,6 +13,6 @@
     inputBusca.value = ''; 
 }
 
-document.addEventListener('ConteudoCarregado', (event) => {
+document.addEventListener('DOMContentLoaded', (event) => {
     configurarBusca('Matricula');
 });

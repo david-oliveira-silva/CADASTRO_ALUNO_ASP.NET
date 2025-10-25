@@ -43,7 +43,7 @@
 
             <div class="d-flex gap-3 align-items-center">
 
-            <input class="form-control" type="number" name="termoBusca" id="termoBuscaInput" placeholder="Pesquisar aluno pela matrícula.." />
+            <input class="form-control" type="text" name="termoBusca" id="termoBuscaInput" placeholder="Pesquisar aluno pela matrícula.." />
                 <button type="submit" class="btn btn-success fw-bold">Carregar</button>
 
             </div>
@@ -56,7 +56,7 @@
         <thead class="table-dark">
         <tr>
                 <th class="text-center col-fixa-pequena" scope="col">Matrícula</th>
-                <th class="text-center ccol-nome-fix" scope="col">Nome</th>
+                <th class="text-center col-nome-fixo" scope="col">Nome</th>
                 <th class="text-center col-fixa-pequena" scope="col">CPF</th>
                 <th class="text-center col-fixa-pequena " scope="col">Sexo</th>
                 <th class="text-center col-fixa-pequena" scope="col">Data de Nascimento</th>
@@ -73,7 +73,7 @@
             <tbody>
                 <tr>
                     <td class="text-center ">@a.matricula</td>
-                    <td class="text-start col-nome-fixa">@a.nome </td>
+                    <td class="text-start">@a.nome </td>
                     <td class="text-center">@a.CPF</td>
                     <td class="text-center">@a.sexo</td>
                     <td class="text-center">@a.dtNascimento</td>
