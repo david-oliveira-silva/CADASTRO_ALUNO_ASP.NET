@@ -20,21 +20,22 @@ namespace EM.Service.Service
 
         public void cadastrarAluno(long matricula, string nomeAluno, string CPF, DateOnly dtNascimento, SexoEnum sexo, int cidadeID_)
         {
+            var todosAlunos = alunoRepository.Listar();
 
-            long proximoNumero = alunoRepository.Listar().Any() ? matricula: 1;
-            long ultimaMatricula = alunoRepository.Listar().Max(m => m.matricula);
+            long proximoNumero = todosAlunos.Any() ? matricula: matricula;
+            long ultimaMatricula = todosAlunos.Any()? todosAlunos.Max(m => m.matricula): 0;
 
             if (string.IsNullOrEmpty(nomeAluno)) {
                 throw new Exception("Nome não pode ser vazio");
             }
 
             if (matricula == 0)
-            {
-                throw new Exception("Matrícula não pode ser 0");
+            {  
+                throw new Exception("Matrícula não pode ser 0");    
             }
-            if(matricula < alunoRepository.Listar().Max( m=> m.matricula))
+            if(matricula < ultimaMatricula)
             {
-                throw new Exception($"A matrícula deve ser maior que a última cadastrada {ultimaMatricula}");
+                throw new Exception($"A matrícula deve ser maior que a última cadastrada");
             }
 
             
