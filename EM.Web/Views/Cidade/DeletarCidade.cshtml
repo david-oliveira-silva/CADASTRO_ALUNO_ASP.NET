@@ -16,7 +16,7 @@
         Deletar Cidade
     </h1>
     <h3 class="text-center  ">Dejesa deletar a cidade com as informações abaixo?</h3>
-    <form asp-controller="Cidade" asp-action="DeletarCidade" method="post">
+    <form asp-controller="Cidade" asp-action="DeletarCidade" method="post" id="formDeletarCidade">
         <input type="hidden" asp-for="cidadeID" />
         <div class="mb-3">
             <label asp-for="cidadeNome" class="form-label">Nome cidade</label>
@@ -38,10 +38,41 @@
         </div>
 
         <div class="Botoes d-flex gap-2 justify-content-center mt-4 ">
-            <button type="submit" class="btn btn-danger w-25 " onclick="confirmar()">
+            <button type="button" class="btn btn-danger w-25" data-bs-toggle="modal" data-bs-target="#confirmarExclusaoModal" >
                 Confirmar
             </button>
             <a asp-controller="Cidade" asp-action="ListarCidades" class="btn btn-primary w-25">Voltar</a>
         </div>
+
+        @*------------------------- Modal personalizado -----------------------------*@
+
+        <div class="modal fade" id="confirmarExclusaoModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <div class="modal-header bg-danger text-white">
+                        <h5 class="modal-title" id="modalLabel">Atenção: Exclusão Irreversível!</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+                    <div class="modal-body">
+                        <p>
+                            Tem certeza que deseja excluir a cidade:
+                            <strong id="alunoNomeModal">@Model.cidadeNome</strong>
+                           
+                        </p>
+                        <p class="fw-bold text-danger">Esta ação não poderá ser desfeita.</p>
+                    </div>
+
+                    <div class="modal-footer">
+
+
+                        <button type="button" class="btn btn-danger" onclick="enviarFormularioDelecao()">Deletar</button>
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </form>
+    <script src="~/js/Cidade/Delete.js" asp-append-version="true"></script>
 </div>
