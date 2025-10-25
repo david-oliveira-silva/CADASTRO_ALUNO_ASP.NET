@@ -21,7 +21,8 @@ namespace EM.Service.Service
         public void cadastrarAluno(long matricula, string nomeAluno, string CPF, DateOnly dtNascimento, SexoEnum sexo, int cidadeID_)
         {
 
-            long proximoNumero = alunoRepository.Listar().Any() ? alunoRepository.Listar().Max(a => a.matricula) + 1 : 1;
+            long proximoNumero = alunoRepository.Listar().Any() ? matricula: 1;
+            long ultimaMatricula = alunoRepository.Listar().Max(m => m.matricula);
 
             if (string.IsNullOrEmpty(nomeAluno)) {
                 throw new Exception("Nome não pode ser vazio");
@@ -29,7 +30,11 @@ namespace EM.Service.Service
 
             if (matricula == 0)
             {
-                throw new Exception("Matricula não pode ser 0");
+                throw new Exception("Matrícula não pode ser 0");
+            }
+            if(matricula < alunoRepository.Listar().Max( m=> m.matricula))
+            {
+                throw new Exception($"A matrícula deve ser maior que a última cadastrada {ultimaMatricula}");
             }
 
             
@@ -47,14 +52,19 @@ namespace EM.Service.Service
                 throw new Exception("O nome deve conter entre 3 e 100 caracteres.");
             }
 
-            if (!CPF.IsCPF())
+            if (!string.IsNullOrWhiteSpace(CPF))
             {
-                throw new Exception("CPF está invalido");
+              
+                if (!CPF.IsCPF())
+                {
+                    throw new Exception("CPF está inválido.");
+                }
             }
 
-           
 
-            
+
+
+
             AlunoModel alunoNovo = new AlunoModel(proximoNumero, nomeAluno.ToUpper(), CPF, sexo, dtNascimento, cidadeID_);
             alunoRepository.Cadastrar(alunoNovo);
 
@@ -72,6 +82,7 @@ namespace EM.Service.Service
             {
                 throw new Exception("Nome não pode ser vazio");
             }
+          
 
             if (alunoModel.dtNascimento > DateOnly.FromDateTime(DateTime.Today))
             {
@@ -87,9 +98,13 @@ namespace EM.Service.Service
                 throw new Exception("O nome deve conter entre 3 e 100 caracteres.");
             }
 
-            if (!alunoModel.CPF.IsCPF())
+            if (!string.IsNullOrWhiteSpace(alunoModel.CPF))
             {
-                throw new Exception("CPF está invalido");
+
+                if (!alunoModel.CPF.IsCPF())
+                {
+                    throw new Exception("CPF está inválido.");
+                }
             }
             alunoRepository.Editar(alunoModel);
         }
