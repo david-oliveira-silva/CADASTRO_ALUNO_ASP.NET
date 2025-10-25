@@ -8,14 +8,14 @@ namespace EM.Domain.Extensions
 {
     using System.ComponentModel.DataAnnotations;
     using System.Linq;
-    // Não precisa de 'using EM.Domain.Extensions' se esta classe estiver no mesmo namespace.
+   
 
-    namespace EM.Domain.Extensions // <--- Localização e Namespace
+    namespace EM.Domain.Extensions 
     {
-        // CRIE ESTA CLASSE!
+   
         public class ValidacaoCPFAtributo : ValidationAttribute
         {
-            // ... (o método IsValid)
+
             protected override ValidationResult IsValid(object value, ValidationContext validationContext)
             {
 
@@ -29,7 +29,7 @@ namespace EM.Domain.Extensions
                     {
                         return ValidationResult.Success;
                     }
-                    // O método IsCPF é acessível aqui.
+                
                     if (cpf.IsCPF())
                     {
                         return ValidationResult.Success;

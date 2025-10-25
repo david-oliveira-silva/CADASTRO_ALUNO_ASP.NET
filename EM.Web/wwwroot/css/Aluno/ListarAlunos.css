@@ -13,3 +13,13 @@
 .Pesquisa button {
     height: 40px;
 }
+
+
+col-fixa-pequena {
+    width: 100px !important;
+    white-space: nowrap;
+}
+.col-nome-fixa {
+    max-width: 450px;
+    word-break: break-word;                          
+}

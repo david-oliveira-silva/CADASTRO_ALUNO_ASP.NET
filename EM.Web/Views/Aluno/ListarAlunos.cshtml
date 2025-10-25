@@ -20,32 +20,48 @@
 </div>
 
 
-<div class="Pesquisa mt-3">
+<div class="Pesquisa mt-3 mb-3">
 
 
-    <form class=" d-flex gap-3" asp-controller="Aluno" asp-action="ListarAlunos" method="get">
-        
-      
+        <form asp-controller="Aluno" asp-action="ListarAlunos" method="get">
 
-        <input class="form-control mb-4" name="alunoNome" placeholder="Pesquisar aluno por Nome..." value="" />
-        <input class="form-control mb-4" name="matricula" placeholder="Pesquisar aluno por Matricula..." value="" />
+            <div class="d-flex align-items-center gap-3 mb-2">
+                <div class="OpcaoBusca fw-bold">Buscar por:</div>
 
-        <button class="btn btn-success fw-bold">Carregar</button>
-      
-    </form>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="tipoBusca" id="radioMatricula" value="Matricula"
+                           onchange="configurarBusca('Matricula')" checked>
+                    <label class="form-check-label" for="radioMatricula">Matrícula</label>
+                </div>
+
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="tipoBusca" id="radioNome" value="Nome"
+                           onchange="configurarBusca('Nome')">
+                    <label class="form-check-label" for="radioNome">Nome</label>
+                </div>
+            </div>
+
+            <div class="d-flex gap-3 align-items-center">
+
+            <input class="form-control" type="number" name="termoBusca" id="termoBuscaInput" placeholder="Pesquisar aluno pela matrícula.." />
+                <button type="submit" class="btn btn-success fw-bold">Carregar</button>
+
+            </div>
+        </form>
+   
 
 </div>
 <div class="Tabela">
     <table class="table-striped  table table-bordered  table-hover">
-        <thead class="table-dark"
+        <thead class="table-dark">
         <tr>
-            <th class="text-center" scope="col">Matrícula</th>
-            <th class="text-center" scope="col">Nome</th>
-            <th class="text-center" scope="col">CPF</th>
-            <th class="text-center" scope="col">Sexo</th>
-            <th class="text-center" scope="col">Data de Nascimento</th>
-            <th class ="text-center"scope= "col">Cidade</th>
-            <th class ="text-center" scope="col">Opções</th>
+                <th class="text-center col-fixa-pequena" scope="col">Matrícula</th>
+                <th class="text-center ccol-nome-fix" scope="col">Nome</th>
+                <th class="text-center col-fixa-pequena" scope="col">CPF</th>
+                <th class="text-center col-fixa-pequena " scope="col">Sexo</th>
+                <th class="text-center col-fixa-pequena" scope="col">Data de Nascimento</th>
+                <th class="text-center col-fixa-pequena" scope="col">Cidade</th>
+                <th class="text-center col-fixa-pequena" scope="col">Opções</th>
 
 
 
@@ -56,8 +72,8 @@
         {
             <tbody>
                 <tr>
-                    <td class="text-center">@a.matricula</td>
-                    <td class="text-start">@a.nome </td>
+                    <td class="text-center ">@a.matricula</td>
+                    <td class="text-start col-nome-fixa">@a.nome </td>
                     <td class="text-center">@a.CPF</td>
                     <td class="text-center">@a.sexo</td>
                     <td class="text-center">@a.dtNascimento</td>
@@ -85,4 +101,5 @@
             </tbody>
         }
     </table>
+    <script src="~/js/Aluno/Pesquisa.js" asp-append-version="true"></script>
 </div>
