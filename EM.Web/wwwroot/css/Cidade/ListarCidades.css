@@ -13,3 +13,10 @@
 .Pesquisa button {
     height: 40px;
 }
+.table th:nth-child(4),
+    .table td:nth-child(4) {
+        width: 180px !important;
+        min-width: 180px !important;
+        max-width: 180px !important;
+        white-space: nowrap;
+    }

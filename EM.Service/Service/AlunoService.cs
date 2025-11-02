@@ -33,7 +33,7 @@ namespace EM.Service.Service
             {  
                 throw new Exception("Matrícula não pode ser 0");    
             }
-            if(matricula < ultimaMatricula)
+            if(matricula <= ultimaMatricula)
             {
                 throw new Exception($"A matrícula deve ser maior que a última cadastrada");
             }
