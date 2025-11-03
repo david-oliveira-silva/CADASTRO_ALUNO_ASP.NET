@@ -55,12 +55,13 @@ namespace EM.Service.Service
 
             if (!string.IsNullOrWhiteSpace(CPF))
             {
-              
+                CPF = CPF.Replace(".", "").Replace("-", "");
                 if (!CPF.IsCPF())
                 {
                     throw new Exception("CPF está inválido.");
                 }
             }
+
             if(dtNascimento == null)
             {
                 throw new Exception("Data de nascimento não pode ser vazia");
@@ -105,7 +106,7 @@ namespace EM.Service.Service
 
             if (!string.IsNullOrWhiteSpace(alunoModel.CPF))
             {
-
+                alunoModel.CPF = alunoModel.CPF.Replace(".", "").Replace("-", "");
                 if (!alunoModel.CPF.IsCPF())
                 {
                     throw new Exception("CPF está inválido.");

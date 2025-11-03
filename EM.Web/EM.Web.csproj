@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\js\Aluno\dtNascimento.js" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\EM.Service\EM.Service.csproj" />
   </ItemGroup>
 

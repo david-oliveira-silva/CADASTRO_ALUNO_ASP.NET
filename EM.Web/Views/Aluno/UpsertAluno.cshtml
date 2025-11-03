@@ -39,7 +39,7 @@
 
         <div class="mb-3">
             <label asp-for="Aluno.CPF" class="form-label">CPF</label>
-            <input type="text" class="form-control" asp-for="Aluno.CPF" id=" CPF" placeholder="Digite o CPF do aluno">
+            <input type="text" maxlength="14" class="form-control" asp-for="Aluno.CPF" id="CPF" onkeyup="formatarCPF(this)"placeholder="Digite o CPF do aluno">
             <span class="text-danger" asp-validation-for="Aluno.CPF"></span>
         </div>
 
@@ -94,5 +94,5 @@
         </div>
     </form>
 
-    <script src="~/js/Aluno/dtNascimento.js" asp-append-version="true"></script>
+    <script src="~/js/Aluno/Mascaras.js" asp-append-version="true"></script>
 </div>
