@@ -18,7 +18,7 @@ namespace EM.Service.Service
             this.alunoRepository = alunoRepository;
         }
 
-        public void cadastrarAluno(long matricula, string nomeAluno, string CPF, DateOnly dtNascimento, SexoEnum sexo, int cidadeID_)
+        public void cadastrarAluno(long matricula, string nomeAluno, string CPF, DateOnly? dtNascimento, SexoEnum sexo, int cidadeID_)
         {
             var todosAlunos = alunoRepository.Listar();
 
@@ -60,6 +60,10 @@ namespace EM.Service.Service
                 {
                     throw new Exception("CPF está inválido.");
                 }
+            }
+            if(dtNascimento == null)
+            {
+                throw new Exception("Data de nascimento não pode ser vazia");
             }
 
 
@@ -106,6 +110,10 @@ namespace EM.Service.Service
                 {
                     throw new Exception("CPF está inválido.");
                 }
+            }
+            if (alunoModel.dtNascimento == null)
+            {
+                throw new Exception("Data de nascimento não pode ser vazia");
             }
             alunoRepository.Editar(alunoModel);
         }

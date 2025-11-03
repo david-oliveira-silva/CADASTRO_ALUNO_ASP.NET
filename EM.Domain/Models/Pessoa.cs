@@ -14,11 +14,14 @@ namespace EM.Domain.Models
         [ValidacaoCPFAtributo(ErrorMessage = "O número de CPF não é válido.")]
         public string ?CPF {  get; set; }
 
-            public DateOnly dtNascimento { get; set; }
+        [Required(ErrorMessage = "A data de nascimento é obrigatória.")]
+        public DateOnly ?dtNascimento { get; set; }
 
-            public Pessoa() { }
+            public Pessoa() {
+          dtNascimento = null;
+        }
 
-            public Pessoa(string nome, string CPF, DateOnly dtNascimento) 
+            public Pessoa(string nome, string CPF, DateOnly? dtNascimento) 
             { 
                 this.nome = nome;
                 this.CPF = CPF;

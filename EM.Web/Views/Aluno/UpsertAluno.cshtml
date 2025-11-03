@@ -45,8 +45,21 @@
 
 
         <div class="mb-3">
-            <label asp-for="Aluno.dtNascimento" class="form-label">Data de nascimento</label>
-            <input type="date" class="form-control" asp-for="Aluno.dtNascimento" id=" CPF">
+
+            @if (Model.AlunoNovo != true)
+            {
+                <label asp-for="Aluno.dtNascimento" class="form-label">Data de nascimento</label>
+                <input type="text" class="form-control" maxlength="10" onkeyup="formatarData(this)" placeholder="__/__/____" asp-for="Aluno.dtNascimento" id=" dtNascimento">
+                <span class="text-danger" asp-validation-for="Aluno.dtNascimento"></span>
+            }
+            else
+            {
+                <label asp-for="Aluno.dtNascimento" class="form-label">Data de nascimento</label>
+                <input type="text" value="" class="form-control" maxlength="10" onkeyup="formatarData(this)" placeholder="__/__/____" asp-for="Aluno.dtNascimento" id=" dtNascimento">
+                <span class="text-danger" asp-validation-for="Aluno.dtNascimento"></span>
+            }
+
+           
         </div>
 
         <div id="cidade">
@@ -80,4 +93,6 @@
             <a asp-controller="Aluno" asp-action="ListarAlunos" class="btn btn-primary w-25">Voltar</a>
         </div>
     </form>
+
+    <script src="~/js/Aluno/dtNascimento.js" asp-append-version="true"></script>
 </div>
