@@ -49,13 +49,13 @@
             @if (Model.AlunoNovo != true)
             {
                 <label asp-for="Aluno.dtNascimento" class="form-label">Data de nascimento</label>
-                <input type="text" class="form-control" maxlength="10" onkeyup="formatarData(this)" placeholder="__/__/____" asp-for="Aluno.dtNascimento" id=" dtNascimento">
+                <input type="text" class="form-control" maxlength="10" onkeyup="formatarData(this)" placeholder="DD/MM/YYYY" asp-for="Aluno.dtNascimento" id=" dtNascimento">
                 <span class="text-danger" asp-validation-for="Aluno.dtNascimento"></span>
             }
             else
             {
                 <label asp-for="Aluno.dtNascimento" class="form-label">Data de nascimento</label>
-                <input type="text" value="" class="form-control" maxlength="10" onkeyup="formatarData(this)" placeholder="__/__/____" asp-for="Aluno.dtNascimento" id=" dtNascimento">
+                <input type="text" value="" class="form-control" maxlength="10" onkeyup="formatarData(this)" placeholder="DD/MM/YYYY" asp-for="Aluno.dtNascimento" id=" dtNascimento">
                 <span class="text-danger" asp-validation-for="Aluno.dtNascimento"></span>
             }
 

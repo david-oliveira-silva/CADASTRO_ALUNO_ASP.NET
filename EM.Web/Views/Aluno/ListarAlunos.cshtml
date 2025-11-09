@@ -15,9 +15,17 @@
 <div class="Titulo d-flex justify-content-between mb-4" >
 
     <h1>Lista de Alunos</h1>
-    <a asp-controller="Aluno" asp-action="UpsertAluno" class="btn btn-primary fw-bold">Cadastrar aluno</a>
 
+   
+    <a asp-controller="Aluno" asp-action="UpsertAluno" class="btn btn-primary fw-bold">Cadastrar aluno</a>
+   
+</div >
+
+ <div class="Emissao d-flex mb-2">
+    <a asp-controller="Aluno" asp-action="GerarPdfAlunos" class="btn btn-success fw-bold">Emitir Relatório</a>
 </div>
+
+
 
 
 <div class="Pesquisa mt-3 mb-3">
@@ -39,6 +47,8 @@
                            onchange="configurarBusca('Nome')">
                     <label class="form-check-label" for="radioNome">Nome</label>
                 </div>
+
+            
             </div>
 
             <div class="d-flex gap-3 align-items-center">
@@ -48,9 +58,12 @@
 
             </div>
         </form>
-   
 
 </div>
+
+
+
+
 <div class="Tabela">
     <table class="table-striped  table table-bordered  table-hover">
         <thead class="table-dark">

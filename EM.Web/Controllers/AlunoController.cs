@@ -1,6 +1,8 @@
 ﻿using EM.Domain.Models;
 using EM.Service.Service;
+using EM.Service.Service.Relatorios;
 using Microsoft.AspNetCore.Mvc;
+using static EM.Service.Service.Relatorios.RelatorioAlunos;
 
 namespace EM.Web.Controllers
 {
@@ -176,6 +178,27 @@ namespace EM.Web.Controllers
                    return View(alunos);
 
                 }
+
+     
+
+        [HttpGet]
+        public IActionResult GerarPdfAlunos()
+        {
+            
+            List<AlunoModel> alunos = alunoService.listarAlunos();
+
+            
+            var gerador = new PdfGenerator();
+            byte[] pdfBytes = gerador.GerarRelatorioAlunos(alunos);
+
+            
+            return File(
+                fileContents: pdfBytes,
+                contentType: "application/pdf",
+                fileDownloadName: "Relatorio_Alunos.pdf"
+          
+            );
+        }
 
     }
 }

@@ -116,6 +116,8 @@ namespace EM.Service.Service
             {
                 throw new Exception("Data de nascimento não pode ser vazia");
             }
+
+            alunoModel.nome = alunoModel.nome.ToUpper();
             alunoRepository.Editar(alunoModel);
         }
 

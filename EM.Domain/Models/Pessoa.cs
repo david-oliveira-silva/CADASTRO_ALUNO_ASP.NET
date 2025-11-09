@@ -1,6 +1,5 @@
 ﻿
 using System.ComponentModel.DataAnnotations;
-using EM.Domain.Extensions;
 using EM.Domain.Extensions.EM.Domain.Extensions;
 
 namespace EM.Domain.Models
