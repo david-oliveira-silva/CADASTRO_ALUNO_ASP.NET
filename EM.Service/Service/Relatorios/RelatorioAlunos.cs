@@ -46,15 +46,6 @@ namespace EM.Service.Service.Relatorios
                     titulo.Alignment = Element.ALIGN_CENTER;
                     documento.Add(titulo);
 
-                    //-- LOGO --//
-                    string imagePath = "C:\\Projeto\\CADASTRO_ALUNO_ASP.NET\\EM.Service\\Service\\Relatorios\\Logo.png";
-
-                  
-                    Image logo = Image.GetInstance(imagePath);
-                    logo.ScaleToFit(70f, 70f); 
-                    logo.Alignment = Element.ALIGN_LEFT;
-                    documento.Add(logo);
-                    //----------//
                     documento.Add(new Paragraph(" "));
 
                    
