@@ -2,8 +2,8 @@
 using EM.Domain.Generic;
 namespace EM.Repository.Repository.Cidade
 {
-    public  interface ICidadeRepository:IGeneric<CidadeModel>
+    public interface ICidadeRepository : IGeneric<CidadeModel>
     {
-     
+
     }
 }

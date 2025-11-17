@@ -20,7 +20,7 @@ namespace EM.Repository.Repository.Aluno
             {
                 FirebirdConnection.OpenConnection(fbConnection);
 
-          
+
 
                 string queryInsert = "INSERT INTO alunos (matricula,alunoNome,CPF,dtNascimento,sexo,cidadeID_) VALUES (@matricula,@alunoNome,@CPF,@dtNascimento,@sexo,@cidadeID_)";
 
@@ -29,7 +29,7 @@ namespace EM.Repository.Repository.Aluno
 
                     cmdInsert.Parameters.AddWithValue(@"matricula", alunoModel.matricula);
                     cmdInsert.Parameters.AddWithValue(@"alunoNome", alunoModel.nome);
-                    cmdInsert.Parameters.AddWithValue(@"CPF",alunoModel.CPF);
+                    cmdInsert.Parameters.AddWithValue(@"CPF", alunoModel.CPF);
                     cmdInsert.Parameters.AddWithValue(@"dtNascimento", alunoModel.dtNascimento);
                     cmdInsert.Parameters.AddWithValue(@"sexo", alunoModel.sexo);
                     cmdInsert.Parameters.AddWithValue(@"cidadeID_", alunoModel.cidadeID_);
@@ -62,7 +62,14 @@ namespace EM.Repository.Repository.Aluno
             {
                 FirebirdConnection.CloseConnection(fbConnection);
             }
-            }
+        }
+
+
+
+
+
+
+
 
         public void Editar(AlunoModel alunoModel)
         {
@@ -146,13 +153,13 @@ namespace EM.Repository.Repository.Aluno
             {
                 FirebirdConnection.CloseConnection(fbConnection);
             }
-            
-                return listAlunos;
-            }
-        }
-    
 
+            return listAlunos;
         }
+    }
 
-        
-    
+
+}
+
+
+

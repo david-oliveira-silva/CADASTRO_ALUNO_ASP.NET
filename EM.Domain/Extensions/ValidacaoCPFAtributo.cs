@@ -3,11 +3,11 @@ namespace EM.Domain.Extensions
 {
     using System.ComponentModel.DataAnnotations;
 
-   
 
-    namespace EM.Domain.Extensions 
+
+    namespace EM.Domain.Extensions
     {
-   
+
         public class ValidacaoCPFAtributo : ValidationAttribute
         {
 
@@ -24,7 +24,7 @@ namespace EM.Domain.Extensions
                     {
                         return ValidationResult.Success;
                     }
-                
+
                     if (cpf.IsCPF())
                     {
                         return ValidationResult.Success;

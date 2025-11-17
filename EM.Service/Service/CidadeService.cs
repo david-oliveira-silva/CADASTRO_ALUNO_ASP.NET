@@ -12,7 +12,7 @@ namespace EM.Service.Service
 
         private readonly IAlunoRepository alunoRepository;
 
-        public CidadeService(ICidadeRepository cidadeRepository,IAlunoRepository alunoRepository)
+        public CidadeService(ICidadeRepository cidadeRepository, IAlunoRepository alunoRepository)
         {
             this.cidadeRepository = cidadeRepository;
             this.alunoRepository = alunoRepository;
@@ -23,7 +23,7 @@ namespace EM.Service.Service
             if (string.IsNullOrEmpty(cidadeNome))
             {
                 throw new Exception("Nome não pode ser vazio");
-            }      
+            }
 
 
             var novacidade = new CidadeModel(cidadeNome.ToUpper(), cidadeUF);
@@ -40,26 +40,26 @@ namespace EM.Service.Service
 
             var alunoVinculado = alunoRepository.Listar().FirstOrDefault(a => a.cidade.cidadeID == cidadeModel.cidadeID);
 
-            if(alunoVinculado != null)
+            if (alunoVinculado != null)
             {
                 throw new Exception("Não é possível excluir esta cidade. Ela está vinculada a um aluno.");
-            }              
+            }
 
             cidadeRepository.Deletar(cidadeModel);
         }
 
         public void EditarCidade(CidadeModel cidadeModel)
         {
-            if(cidadeModel == null)
+            if (cidadeModel == null)
             {
                 throw new Exception("Cidade não encontrada");
             }
-             if (string.IsNullOrEmpty(cidadeModel.cidadeNome))
+            if (string.IsNullOrEmpty(cidadeModel.cidadeNome))
             {
                 throw new Exception("Nome não pode ser vazio");
             }
 
-             cidadeRepository.Editar(cidadeModel);
+            cidadeRepository.Editar(cidadeModel);
         }
 
         public List<CidadeModel> buscarPorNome(string cidadeNome)
@@ -71,13 +71,13 @@ namespace EM.Service.Service
                 return cidade;
             }
             return cidade.Where(c => c.cidadeNome.Contains(cidadeNome.ToUpper())).ToList();
-           
-        
+
+
         }
         public List<CidadeModel> ListarCidades()
         {
             var cidade = cidadeRepository.Listar();
-            return cidade.OrderBy(c=>c.cidadeID).ToList();
+            return cidade.OrderBy(c => c.cidadeID).ToList();
         }
 
         public CidadeModel obterPorCodigo(long cidadeID)

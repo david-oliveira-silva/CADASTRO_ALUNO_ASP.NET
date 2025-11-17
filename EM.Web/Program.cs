@@ -11,21 +11,21 @@ namespace EM.Web
         {
             var builder = WebApplication.CreateBuilder(args);
 
-       
+
 
 
             string conexaoString = builder.Configuration.GetConnectionString("FirebirdConnection");
             FirebirdConnection.inicializar(conexaoString);
 
-            builder.Services.AddScoped<IAlunoRepository,AlunoRepository>();
+            builder.Services.AddScoped<IAlunoRepository, AlunoRepository>();
             builder.Services.AddScoped<AlunoService>();
-            builder.Services.AddScoped<ICidadeRepository, CidadeRepository>(); 
+            builder.Services.AddScoped<ICidadeRepository, CidadeRepository>();
             builder.Services.AddScoped<CidadeService>();
             builder.Services.AddControllersWithViews();
 
             var app = builder.Build();
 
-            
+
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();

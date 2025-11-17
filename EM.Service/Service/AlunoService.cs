@@ -22,23 +22,24 @@ namespace EM.Service.Service
         {
             var todosAlunos = alunoRepository.Listar();
 
-            long proximoNumero = todosAlunos.Any() ? matricula: matricula;
-            long ultimaMatricula = todosAlunos.Any()? todosAlunos.Max(m => m.matricula): 0;
+            long proximoNumero = todosAlunos.Any() ? matricula : matricula;
+            long ultimaMatricula = todosAlunos.Any() ? todosAlunos.Max(m => m.matricula) : 0;
 
-            if (string.IsNullOrEmpty(nomeAluno)) {
+            if (string.IsNullOrEmpty(nomeAluno))
+            {
                 throw new Exception("Nome não pode ser vazio");
             }
 
             if (matricula == 0)
-            {  
-                throw new Exception("Matrícula não pode ser 0");    
+            {
+                throw new Exception("Matrícula não pode ser 0");
             }
-            if(matricula <= ultimaMatricula)
+            if (matricula <= ultimaMatricula)
             {
                 throw new Exception($"A matrícula deve ser maior que a última cadastrada");
             }
 
-            
+
             if (dtNascimento > DateOnly.FromDateTime(DateTime.Today))
             {
                 throw new Exception("A data de nascimento não pode ser uma data futura.");
@@ -49,7 +50,7 @@ namespace EM.Service.Service
             {
                 throw new Exception("Cidade não encontrada");
             }
-            if(nomeAluno.Length < 3 || nomeAluno.Length > 100)
+            if (nomeAluno.Length < 3 || nomeAluno.Length > 100)
             {
                 throw new Exception("O nome deve conter entre 3 e 100 caracteres.");
             }
@@ -63,12 +64,12 @@ namespace EM.Service.Service
                 }
             }
 
-            if(dtNascimento == null)
+            if (dtNascimento == null)
             {
                 throw new Exception("Data de nascimento não pode ser vazia");
             }
 
-            if(sexo == 0)
+            if (sexo == 0)
             {
                 throw new Exception("O campo Sexo é obrigatório.");
             }
@@ -92,7 +93,7 @@ namespace EM.Service.Service
             {
                 throw new Exception("Nome não pode ser vazio");
             }
-          
+
 
             if (alunoModel.dtNascimento > DateOnly.FromDateTime(DateTime.Today))
             {
@@ -140,7 +141,7 @@ namespace EM.Service.Service
             alunoRepository.Deletar(alunoModel);
         }
 
-        
+
 
 
         public List<AlunoModel> listarAlunos()
@@ -159,7 +160,7 @@ namespace EM.Service.Service
             var termoDeBuscaUpper = alunoNome.ToUpper();
             if (string.IsNullOrEmpty(alunoNome))
             {
-                return new List<AlunoModel>(); 
+                return new List<AlunoModel>();
             }
             return alunoRepository.Listar().Where(a => a.nome.Contains(termoDeBuscaUpper)).ToList();
         }
@@ -167,7 +168,7 @@ namespace EM.Service.Service
         public AlunoModel obterPorMatricula(long matricula)
         {
 
-            var aluno =  listarAlunos().FirstOrDefault(a => a.matricula == matricula);
+            var aluno = listarAlunos().FirstOrDefault(a => a.matricula == matricula);
             return aluno;
         }
 

@@ -5,7 +5,7 @@ using FirebirdSql.Data.FirebirdClient;
 
 namespace EM.Repository.Repository.Cidade
 {
-    public class CidadeRepository:ICidadeRepository
+    public class CidadeRepository : ICidadeRepository
     {
         FbConnection fbConnection;
 
@@ -115,9 +115,10 @@ namespace EM.Repository.Repository.Cidade
                     }
                 }
             }
-            finally {
+            finally
+            {
                 FirebirdConnection.CloseConnection(fbConnection);
-                }
+            }
             return listCidades;
         }
     }

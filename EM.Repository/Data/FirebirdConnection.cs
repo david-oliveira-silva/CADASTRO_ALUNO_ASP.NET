@@ -2,7 +2,7 @@
 
 namespace EM.Repository.Data
 {
-  public  class FirebirdConnection
+    public class FirebirdConnection
     {
 
         private static string conexaoString;

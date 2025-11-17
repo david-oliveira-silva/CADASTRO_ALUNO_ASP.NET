@@ -1,6 +1,6 @@
 ﻿using EM.Domain.Models;
 using EM.Service.Service;
-using EM.Service.Service.Relatorios;
+
 using Microsoft.AspNetCore.Mvc;
 using static EM.Service.Service.Relatorios.RelatorioAlunos;
 
@@ -11,7 +11,8 @@ namespace EM.Web.Controllers
 
         private readonly AlunoService alunoService;
         private readonly CidadeService cidadeService;
-        public AlunoController(AlunoService alunoService, CidadeService cidadeService) {
+        public AlunoController(AlunoService alunoService, CidadeService cidadeService)
+        {
 
             this.alunoService = alunoService;
             this.cidadeService = cidadeService;
@@ -38,7 +39,7 @@ namespace EM.Web.Controllers
                 }
 
                 viewModel.AlunoNovo = false;
-               
+
             }
             else
             {
@@ -51,9 +52,9 @@ namespace EM.Web.Controllers
 
             }
 
-               viewModel.Aluno = aluno;
-               viewModel.Cidade = cidadeService.ListarCidades();
-            
+            viewModel.Aluno = aluno;
+            viewModel.Cidade = cidadeService.ListarCidades();
+
             return View(viewModel);
 
 
@@ -62,7 +63,8 @@ namespace EM.Web.Controllers
 
 
         [HttpPost]
-        public IActionResult CadastrarAluno(ViewModel viewModel) {
+        public IActionResult CadastrarAluno(ViewModel viewModel)
+        {
 
             try
             {
@@ -73,7 +75,8 @@ namespace EM.Web.Controllers
                 TempData["Sucesso"] = "Cidade cadastrada com sucesso";
 
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
 
                 viewModel.AlunoNovo = true;
                 TempData["Erro"] = ex.Message;
@@ -114,7 +117,8 @@ namespace EM.Web.Controllers
 
         [HttpGet]
 
-        public IActionResult DeletarAluno(long? matricula) {
+        public IActionResult DeletarAluno(long? matricula)
+        {
 
             var aluno = alunoService.obterPorMatricula(matricula.Value);
 
@@ -126,11 +130,12 @@ namespace EM.Web.Controllers
             };
 
             return View(viewModel);
-        
+
         }
         [HttpPost]
-        public IActionResult DeletarAluno(ViewModel viewModel) { 
-        
+        public IActionResult DeletarAluno(ViewModel viewModel)
+        {
+
             try
             {
 
@@ -138,19 +143,20 @@ namespace EM.Web.Controllers
                 TempData["Sucesso"] = "Aluno deletado com sucesso";
 
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
 
                 TempData["ErroDeletar"] = ex.Message;
                 return View(viewModel);
             }
             return RedirectToAction("ListarAlunos");
-        
+
         }
 
 
         [HttpGet]
-                public IActionResult ListarAlunos(long matricula,string alunoNome)
-                {
+        public IActionResult ListarAlunos(long matricula, string alunoNome)
+        {
 
             ViewBag.Matricula = matricula;
             ViewBag.Nome = alunoNome;
@@ -162,7 +168,8 @@ namespace EM.Web.Controllers
                 alunos = alunoService.buscarPorNome(alunoNome).ToList();
 
             }
-            else if (matricula != 0) {
+            else if (matricula != 0)
+            {
 
 
                 alunos = alunoService.buscarPorMatricula(matricula).ToList();
@@ -174,29 +181,29 @@ namespace EM.Web.Controllers
             }
 
             ViewBag.Pesquisa = alunoNome;
-           
-                   return View(alunos);
 
-                }
+            return View(alunos);
 
-     
+        }
+
+
 
         [HttpGet]
         public IActionResult GerarPdfAlunos()
         {
-            
+
             List<AlunoModel> alunos = alunoService.listarAlunos();
 
-            
+
             var gerador = new PdfGenerator();
             byte[] pdfBytes = gerador.GerarRelatorioAlunos(alunos);
 
-            
+
             return File(
                 fileContents: pdfBytes,
                 contentType: "application/pdf",
                 fileDownloadName: "Relatorio_Alunos.pdf"
-          
+
             );
         }
 
