@@ -23,7 +23,7 @@ namespace EM.Web.Controllers
             CidadeModel cidade;
             if (cidadeID.HasValue)
             {
-                cidade = cidadeService.ListarCidades().FirstOrDefault(c=> c.cidadeID == cidadeID);
+                cidade = cidadeService.obterPorCodigo(cidadeID.Value);
 
                 if(cidade == null)
                 {
@@ -92,7 +92,7 @@ namespace EM.Web.Controllers
         {
             var ufs = Enum.GetValues(typeof(UF)).Cast<UF>().ToList();
             ViewBag.Ufs = ufs;
-            var cidade = cidadeService.ListarCidades().FirstOrDefault(c=>c.cidadeID == cidadeID);
+           var cidade = cidadeService.obterPorCodigo(cidadeID.Value);
             return View(cidade);
             
         }

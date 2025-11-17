@@ -28,7 +28,7 @@ namespace EM.Web.Controllers
             if (matricula.HasValue)
             {
 
-                aluno = alunoService.listarAlunos().FirstOrDefault(a => a.matricula == matricula);
+                aluno = alunoService.obterPorMatricula(matricula.Value);
 
                 if (aluno == null)
                 {
@@ -116,7 +116,7 @@ namespace EM.Web.Controllers
 
         public IActionResult DeletarAluno(long? matricula) {
 
-            var aluno = alunoService.listarAlunos().FirstOrDefault(a => a.matricula == matricula);
+            var aluno = alunoService.obterPorMatricula(matricula.Value);
 
             ViewModel viewModel = new ViewModel
             {

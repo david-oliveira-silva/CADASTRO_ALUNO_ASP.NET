@@ -79,5 +79,12 @@ namespace EM.Service.Service
             var cidade = cidadeRepository.Listar();
             return cidade.OrderBy(c=>c.cidadeID).ToList();
         }
+
+        public CidadeModel obterPorCodigo(long cidadeID)
+        {
+
+            var cidade = ListarCidades().FirstOrDefault(a => a.cidadeID == cidadeID);
+            return cidade;
+        }
     }
 }

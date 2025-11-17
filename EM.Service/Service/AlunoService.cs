@@ -44,6 +44,7 @@ namespace EM.Service.Service
                 throw new Exception("A data de nascimento não pode ser uma data futura.");
             }
 
+
             if (cidadeID_ == null)
             {
                 throw new Exception("Cidade não encontrada");
@@ -161,6 +162,13 @@ namespace EM.Service.Service
                 return new List<AlunoModel>(); 
             }
             return alunoRepository.Listar().Where(a => a.nome.Contains(termoDeBuscaUpper)).ToList();
+        }
+
+        public AlunoModel obterPorMatricula(long matricula)
+        {
+
+            var aluno =  listarAlunos().FirstOrDefault(a => a.matricula == matricula);
+            return aluno;
         }
 
         public long ObterProximaMatriculaDisponivel()

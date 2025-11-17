@@ -1,4 +1,5 @@
 ﻿using EM.Domain.Enum;
+using System.ComponentModel.DataAnnotations;
 
 
 
@@ -6,7 +7,7 @@ namespace EM.Domain.Models
 {
     public class AlunoModel:Pessoa
     {
-
+        
         public long matricula {  get; set; }
 
         public int cidadeID_ {  get; set; }

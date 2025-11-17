@@ -17,7 +17,7 @@
     <form asp-controller="Aluno" asp-action= "@(Model.AlunoNovo == true ? "CadastrarAluno" : "EditarAluno")" method="post">
         <div class="mb-3">
      
-            <label asp-for="Aluno.matricula" class="form-label">Matrícula</label>
+            <label asp-for="Aluno.matricula" class="form-label" >Matrícula</label>
             @if (Model.AlunoNovo != true)
             {
                 <input type="number" class="form-control" asp-for="Aluno.matricula" id="matricula" readonly>
