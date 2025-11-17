@@ -7,35 +7,35 @@
 	ViewData["Title"] = "Listar cidades";
 }
 
-@if(TempData["Sucesso"] != null)
+@if (TempData["Sucesso"] != null)
 {
-    <p class="alert alert-success">@TempData["Sucesso"]</p>
+	<p class="alert alert-success">@TempData["Sucesso"]</p>
 }
 
 @if (TempData["ErroDeletar"] != null)
 {
-    <p class="alert alert-danger">@TempData["ErroDeletar"]</p>
+	<p class="alert alert-danger">@TempData["ErroDeletar"]</p>
 }
 
 
 
 
 <div class="Titulo d-flex justify-content-between mb-5">
-    <h1>Lista de Cidades</h1>
-    <a asp-controller="Cidade" asp-action="UpsertCidade" class="btn btn-primary fw-bold">Cadastrar cidade</a>
+	<h1>Lista de Cidades</h1>
+	<a asp-controller="Cidade" asp-action="UpsertCidade" class="btn btn-primary fw-bold">Cadastrar cidade</a>
 </div>
 
 <div class="Pesquisa">
 
-    <form class=" d-flex gap-3" asp-controller="Cidade" asp-action="ListarCidades" method="get">
-        <input class="form-control mb-4" name="cidadeNome" placeholder="Pesquisar cidade por Nome..." value="@ViewBag.Cidade" />
-        <button class="btn btn-success fw-bold">Carregar</button>
-    </form>
+	<form class=" d-flex gap-3" asp-controller="Cidade" asp-action="ListarCidades" method="get">
+		<input class="form-control mb-4" name="cidadeNome" placeholder="Pesquisar cidade por Nome..." value="@ViewBag.Cidade" />
+		<button class="btn btn-success fw-bold">Carregar</button>
+	</form>
 
 </div>
-<div class ="Tabela">
-    <table class="table-striped  table table-bordered  table-hover">
-        <thead class="table-dark"
+<div class="Tabela">
+	<table class="table-striped  table table-bordered  table-hover">
+		<thead class="table-dark"
         <tr>
             <th class="text-center" scope="col">Código</th>
             <th class="text-center" scope="col">Nome da Cidade</th>
@@ -44,33 +44,33 @@
 
         </tr>
     </thead>
-        @foreach (var c in Model)
-        {
-            <tbody>
-                <tr>
-                    <td class="text-center">@c.cidadeID</td>
-                    <td class="text-center">@c.cidadeNome</td>
-                    <td class="text-center">@c.cidadeUF</td>
-                    <td>
+		@foreach (var c in Model)
+		{
+			<tbody>
+				<tr>
+					<td class="text-center">@c.cidadeID</td>
+					<td class="text-center">@c.cidadeNome</td>
+					<td class="text-center">@c.cidadeUF</td>
+					<td>
 
-                        <div class="Botoes d-flex justify-content-center gap-2">
-                            <form asp-controller="Cidade" asp-action="DeletarCidade" method="get">
-                                <input type="hidden" name="cidadeID" id="cidadeID" value="@c.cidadeID" />
-                                <button class="btn btn-danger fw-bold">Deletar</button>
-                            </form>
+						<div class="Botoes d-flex justify-content-center gap-2">
+							<form asp-controller="Cidade" asp-action="DeletarCidade" method="get">
+								<input type="hidden" name="cidadeID" id="cidadeID" value="@c.cidadeID" />
+								<button class="btn btn-danger fw-bold">Deletar</button>
+							</form>
 
-                            <form asp-controller="Cidade" asp-action="UpsertCidade" method="get">
-                                <input type="hidden" name="cidadeID" id="cidadeID" value="@c.cidadeID" />
+							<form asp-controller="Cidade" asp-action="UpsertCidade" method="get">
+								<input type="hidden" name="cidadeID" id="cidadeID" value="@c.cidadeID" />
 
-                                <button class="btn btn-primary fw-bold">Editar</button>
-                            </form>
-                        </div>
+								<button class="btn btn-primary fw-bold">Editar</button>
+							</form>
+						</div>
 
-                    </td>
+					</td>
 
-                </tr>
+				</tr>
 
-            </tbody>
-        }
-    </table>
+			</tbody>
+		}
+	</table>
 </div>

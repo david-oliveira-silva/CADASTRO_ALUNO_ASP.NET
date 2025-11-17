@@ -9,20 +9,20 @@
 
 @if (TempData["Sucesso"] != null)
 {
-    <p class="alert alert-success">@TempData["Sucesso"]</p>
+	<p class="alert alert-success">@TempData["Sucesso"]</p>
 }
 
-<div class="Titulo d-flex justify-content-between mb-4" >
+<div class="Titulo d-flex justify-content-between mb-4">
 
-    <h1>Lista de Alunos</h1>
+	<h1>Lista de Alunos</h1>
 
-   
-    <a asp-controller="Aluno" asp-action="UpsertAluno" class="btn btn-primary fw-bold">Cadastrar aluno</a>
-   
-</div >
 
- <div class="Emissao d-flex mb-2">
-    <a asp-controller="Aluno" asp-action="GerarPdfAlunos" class="btn btn-success fw-bold">Emitir Relatório</a>
+	<a asp-controller="Aluno" asp-action="UpsertAluno" class="btn btn-primary fw-bold">Cadastrar aluno</a>
+
+</div>
+
+<div class="Emissao d-flex mb-2">
+	<a asp-controller="Aluno" asp-action="GerarPdfAlunos" class="btn btn-success fw-bold">Emitir Relatório</a>
 </div>
 
 
@@ -31,33 +31,33 @@
 <div class="Pesquisa mt-3 mb-3">
 
 
-        <form asp-controller="Aluno" asp-action="ListarAlunos" method="get">
+	<form asp-controller="Aluno" asp-action="ListarAlunos" method="get">
 
-            <div class="d-flex align-items-center gap-3 mb-2">
-                <div class="OpcaoBusca fw-bold">Buscar por:</div>
+		<div class="d-flex align-items-center gap-3 mb-2">
+			<div class="OpcaoBusca fw-bold">Buscar por:</div>
 
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="tipoBusca" id="radioMatricula" value="Matricula"
-                           onchange="configurarBusca('Matricula')" checked>
-                    <label class="form-check-label" for="radioMatricula">Matrícula</label>
-                </div>
+			<div class="form-check">
+				<input class="form-check-input" type="radio" name="tipoBusca" id="radioMatricula" value="Matricula"
+					   onchange="configurarBusca('Matricula')" checked>
+				<label class="form-check-label" for="radioMatricula">Matrícula</label>
+			</div>
 
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="tipoBusca" id="radioNome" value="Nome"
-                           onchange="configurarBusca('Nome')">
-                    <label class="form-check-label" for="radioNome">Nome</label>
-                </div>
+			<div class="form-check">
+				<input class="form-check-input" type="radio" name="tipoBusca" id="radioNome" value="Nome"
+					   onchange="configurarBusca('Nome')">
+				<label class="form-check-label" for="radioNome">Nome</label>
+			</div>
 
-            
-            </div>
 
-            <div class="d-flex gap-3 align-items-center">
+		</div>
 
-            <input class="form-control" type="text" name="termoBusca" id="termoBuscaInput" placeholder="Pesquisar aluno pela matrícula.." />
-                <button type="submit" class="btn btn-success fw-bold">Carregar</button>
+		<div class="d-flex gap-3 align-items-center">
 
-            </div>
-        </form>
+			<input class="form-control" type="text" name="termoBusca" id="termoBuscaInput" placeholder="Pesquisar aluno pela matrícula.." />
+			<button type="submit" class="btn btn-success fw-bold">Carregar</button>
+
+		</div>
+	</form>
 
 </div>
 
@@ -65,54 +65,54 @@
 
 
 <div class="Tabela">
-    <table class="table-striped  table table-bordered  table-hover">
-        <thead class="table-dark">
-        <tr>
-                <th class="text-center" scope="col">Matrícula</th>
-                <th class="text-center" scope="col">Nome</th>
-                <th class="text-center" scope="col">CPF</th>
-                <th class="text-center" scope="col">Sexo</th>
-                <th class="text-center" scope="col">Data de Nascimento</th>
-                <th class="text-center" scope="col">Cidade</th>
-                <th class="text-center col-fixa-opcoes" scope="col">Opções</th>
+	<table class="table-striped  table table-bordered  table-hover">
+		<thead class="table-dark">
+			<tr>
+				<th class="text-center" scope="col">Matrícula</th>
+				<th class="text-center" scope="col">Nome</th>
+				<th class="text-center" scope="col">CPF</th>
+				<th class="text-center" scope="col">Sexo</th>
+				<th class="text-center" scope="col">Data de Nascimento</th>
+				<th class="text-center" scope="col">Cidade</th>
+				<th class="text-center col-fixa-opcoes" scope="col">Opções</th>
 
 
 
 
-        </tr>
-    </thead>
-        @foreach (var a in Model)
-        {
-            <tbody>
-                <tr>
-                    <td class="text-center ">@a.matricula</td>
-                    <td class="text-start ">@a.nome </td>
-                    <td class="text-center">@a.CPF</td>
-                    <td class="text-center">@a.sexo</td>
-                    <td class="text-center">@a.dtNascimento</td>
-                    <td class="text-center">@a.cidade?.cidadeNome (@a.cidade.cidadeUF)</td>
-                    <td class="text-center col-fixa-opcoes">
+			</tr>
+		</thead>
+		@foreach (var a in Model)
+		{
+			<tbody>
+				<tr>
+					<td class="text-center ">@a.matricula</td>
+					<td class="text-start ">@a.nome </td>
+					<td class="text-center">@a.CPF</td>
+					<td class="text-center">@a.sexo</td>
+					<td class="text-center">@a.dtNascimento</td>
+					<td class="text-center">@a.cidade?.cidadeNome (@a.cidade.cidadeUF)</td>
+					<td class="text-center col-fixa-opcoes">
 
-                        <div class="d-flex justify-content-center gap-2">
+						<div class="d-flex justify-content-center gap-2">
 
-                            <form asp-controller="Aluno" asp-action="DeletarAluno" method="get">
-                                <input type="hidden" name="matricula" id="matricula" value="@a.matricula" />
-                                <button type="submit" class="btn btn-danger fw-bold">Deletar</button>
-                            </form>
+							<form asp-controller="Aluno" asp-action="DeletarAluno" method="get">
+								<input type="hidden" name="matricula" id="matricula" value="@a.matricula" />
+								<button type="submit" class="btn btn-danger fw-bold">Deletar</button>
+							</form>
 
-                            <form asp-controller="Aluno" asp-action="UpsertAluno" method="get">
-                                <input type="hidden" name="matricula" id="matricula" value="@a.matricula" />
+							<form asp-controller="Aluno" asp-action="UpsertAluno" method="get">
+								<input type="hidden" name="matricula" id="matricula" value="@a.matricula" />
 
-                                <button type= "submit" class="btn btn-primary fw-bold">Editar</button>
-                            </form>
+								<button type="submit" class="btn btn-primary fw-bold">Editar</button>
+							</form>
 
-                        </div>
+						</div>
 
-                    </td>
-                </tr>
+					</td>
+				</tr>
 
-            </tbody>
-        }
-    </table>
-    <script src="~/js/Aluno/Pesquisa.js" asp-append-version="true"></script>
+			</tbody>
+		}
+	</table>
+	<script src="~/js/Aluno/Pesquisa.js" asp-append-version="true"></script>
 </div>

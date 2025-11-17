@@ -1,104 +1,104 @@
 ﻿@model ViewModel
 
 @{
-    ViewData["Title"] = "Deletar Aluno";
+	ViewData["Title"] = "Deletar Aluno";
 }
 
 @if (TempData["Erro"] != null)
 {
-    <p class="alert alert-danger">@TempData["Erro"]</p>
+	<p class="alert alert-danger">@TempData["Erro"]</p>
 }
 
 <div class="Deletar bg-light rounded-3 p-5">
 
-    <h1 class="text-center">
-        Deletar Aluno
-    </h1>
-    <h3 class="text-center  ">Dejesa o aluno com as informações abaixo?</h3>
-    <form asp-controller="Aluno" asp-action="DeletarAluno" method="post" id="formDeletarAluno">
-        <input type="hidden" asp-for="Aluno.matricula" />
+	<h1 class="text-center">
+		Deletar Aluno
+	</h1>
+	<h3 class="text-center  ">Dejesa o aluno com as informações abaixo?</h3>
+	<form asp-controller="Aluno" asp-action="DeletarAluno" method="post" id="formDeletarAluno">
+		<input type="hidden" asp-for="Aluno.matricula" />
 
-        <div class="mb-3">
+		<div class="mb-3">
 
-            <label asp-for="Aluno.matricula" class="form-label">Matrícula</label>
-            <input type="number" class="form-control" asp-for="Aluno.matricula" id="matricula" disabled>
+			<label asp-for="Aluno.matricula" class="form-label">Matrícula</label>
+			<input type="number" class="form-control" asp-for="Aluno.matricula" id="matricula" disabled>
 
-        </div>
-        <div class="mb-3">
+		</div>
+		<div class="mb-3">
 
-            <label asp-for="Aluno.nome" class="form-label">Nome</label>
-            <input type="text" class="form-control" asp-for="Aluno.nome" id="nome" disabled>
+			<label asp-for="Aluno.nome" class="form-label">Nome</label>
+			<input type="text" class="form-control" asp-for="Aluno.nome" id="nome" disabled>
 
-        </div>
+		</div>
 
-        <div class="mb-3">
+		<div class="mb-3">
 
-            <label asp-for="Aluno.CPF" class="form-label">CPF</label>
-            <input type="text" class="form-control" asp-for="Aluno.CPF" id="CPF" disabled>
+			<label asp-for="Aluno.CPF" class="form-label">CPF</label>
+			<input type="text" class="form-control" asp-for="Aluno.CPF" id="CPF" disabled>
 
-        </div>
-
-
-
-        <div class="mb-3">
-
-            <label asp-for="Aluno.sexo" class="form-label">Sexo</label>
-            <input type="text" class="form-control" asp-for="Aluno.sexo" id="Sexo" disabled>
-
-        </div>
-
-        <div class="mb-3">
-
-            <label asp-for="Aluno.dtNascimento" class="form-label">Data de Nascimento</label>
-            <input type="date" class="form-control" asp-for="Aluno.dtNascimento" id="dtNascimento" disabled>
-
-        </div>
-
-        <div class="mb-3">
-
-            <label asp-for="Aluno.cidade" class="form-label">Cidade</label>
-            <input type="text" class="form-control" asp-for="Aluno.cidade.cidadeNome" id="cidadeNome" disabled>
-
-        </div>
-
-        <div class="Botoes d-flex gap-2 justify-content-center mt-4 ">
-
-            <button type="button" class="btn btn-danger w-25" data-bs-toggle="modal" data-bs-target="#confirmarExclusaoModal">Confirmar</button>
-
-            <a asp-controller="Aluno" asp-action="ListarAlunos" class="btn btn-primary w-25">Voltar</a>
-        </div>
+		</div>
 
 
-        @*------------------------- Modal personalizado -----------------------------*@
 
-        <div class="modal fade" id="confirmarExclusaoModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
+		<div class="mb-3">
 
-                    <div class="modal-header bg-danger text-white">
-                        <h5 class="modal-title" id="modalLabel">Atenção: Exclusão Irreversível!</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
+			<label asp-for="Aluno.sexo" class="form-label">Sexo</label>
+			<input type="text" class="form-control" asp-for="Aluno.sexo" id="Sexo" disabled>
 
-                    <div class="modal-body">
-                        <p>
-                            Tem certeza que deseja excluir o aluno
-                            <strong id="alunoNomeModal">@Model.Aluno.nome</strong>
-                            (Matrícula: <strong>@Model.Aluno.matricula</strong>)?
-                        </p>
-                        <p class="fw-bold text-danger">Esta ação não poderá ser desfeita.</p>
-                    </div>
+		</div>
 
-                    <div class="modal-footer">
+		<div class="mb-3">
+
+			<label asp-for="Aluno.dtNascimento" class="form-label">Data de Nascimento</label>
+			<input type="date" class="form-control" asp-for="Aluno.dtNascimento" id="dtNascimento" disabled>
+
+		</div>
+
+		<div class="mb-3">
+
+			<label asp-for="Aluno.cidade" class="form-label">Cidade</label>
+			<input type="text" class="form-control" asp-for="Aluno.cidade.cidadeNome" id="cidadeNome" disabled>
+
+		</div>
+
+		<div class="Botoes d-flex gap-2 justify-content-center mt-4 ">
+
+			<button type="button" class="btn btn-danger w-25" data-bs-toggle="modal" data-bs-target="#confirmarExclusaoModal">Confirmar</button>
+
+			<a asp-controller="Aluno" asp-action="ListarAlunos" class="btn btn-primary w-25">Voltar</a>
+		</div>
 
 
-                        <button type="button" class="btn btn-danger" onclick="enviarFormularioDelecao()">Deletar</button>
-                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancelar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </form>
+		@*------------------------- Modal personalizado -----------------------------*@
 
-    <script src="~/js/Aluno/Delete.js" asp-append-version="true"></script>
+		<div class="modal fade" id="confirmarExclusaoModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+
+					<div class="modal-header bg-danger text-white">
+						<h5 class="modal-title" id="modalLabel">Atenção: Exclusão Irreversível!</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+
+					<div class="modal-body">
+						<p>
+							Tem certeza que deseja excluir o aluno
+							<strong id="alunoNomeModal">@Model.Aluno.nome</strong>
+							(Matrícula: <strong>@Model.Aluno.matricula</strong>)?
+						</p>
+						<p class="fw-bold text-danger">Esta ação não poderá ser desfeita.</p>
+					</div>
+
+					<div class="modal-footer">
+
+
+						<button type="button" class="btn btn-danger" onclick="enviarFormularioDelecao()">Deletar</button>
+						<button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancelar</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+
+	<script src="~/js/Aluno/Delete.js" asp-append-version="true"></script>
 </div>

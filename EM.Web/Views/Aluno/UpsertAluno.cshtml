@@ -1,99 +1,98 @@
-﻿
-@model ViewModel
+﻿@model ViewModel
 @{
-    ViewData["Title"] = (Model.AlunoNovo == true ? "Cadastrar Aluno" : "Editar Aluno");
+	ViewData["Title"] = (Model.AlunoNovo == true ? "Cadastrar Aluno" : "Editar Aluno");
 }
 
 @if (TempData["Erro"] != null)
 {
-    <p class="alert alert-danger">@TempData["Erro"]</p>
+	<p class="alert alert-danger">@TempData["Erro"]</p>
 }
 
 <div class="Cadastrar bg-light rounded-3 p-5">
 
-    <h1 class="text-center">
-        @(Model.AlunoNovo == true ? "Cadastrar Aluno" : "EditarAluno")
-    </h1>
-    <form asp-controller="Aluno" asp-action= "@(Model.AlunoNovo == true ? "CadastrarAluno" : "EditarAluno")" method="post">
-        <div class="mb-3">
-     
-            <label asp-for="Aluno.matricula" class="form-label" >Matrícula</label>
-            @if (Model.AlunoNovo != true)
-            {
-                <input type="number" class="form-control" asp-for="Aluno.matricula" id="matricula" readonly>
-            }
-            else
-            {
-                <input type="number" class="form-control" asp-for="Aluno.matricula" id="matricula" placeholder="Digite o número da matrícula">
-            }
-            
+	<h1 class="text-center">
+		@(Model.AlunoNovo == true ? "Cadastrar Aluno" : "EditarAluno")
+	</h1>
+	<form asp-controller="Aluno" asp-action="@(Model.AlunoNovo == true ? "CadastrarAluno" : "EditarAluno")" method="post">
+		<div class="mb-3">
 
-        </div>
-
-        <div class="mb-3">
-            <label asp-for="Aluno.nome" class="form-label">Nome</label>
-            <input type="text" class="form-control" asp-for="Aluno.nome" id=" alunoNome" placeholder="Digite o nome do aluno">
-            <span class="text-danger" asp-validation-for="Aluno.nome"></span>
-        </div>
+			<label asp-for="Aluno.matricula" class="form-label">Matrícula</label>
+			@if (Model.AlunoNovo != true)
+			{
+				<input type="number" class="form-control" asp-for="Aluno.matricula" id="matricula" readonly>
+			}
+			else
+			{
+				<input type="number" class="form-control" asp-for="Aluno.matricula" id="matricula" placeholder="Digite o número da matrícula">
+			}
 
 
-        <div class="mb-3">
-            <label asp-for="Aluno.CPF" class="form-label">CPF</label>
-            <input type="text" maxlength="14" class="form-control" asp-for="Aluno.CPF" id="CPF" onkeyup="formatarCPF(this)"placeholder="Digite o CPF do aluno">
-            <span class="text-danger" asp-validation-for="Aluno.CPF"></span>
-        </div>
+		</div>
+
+		<div class="mb-3">
+			<label asp-for="Aluno.nome" class="form-label">Nome</label>
+			<input type="text" class="form-control" asp-for="Aluno.nome" id=" alunoNome" placeholder="Digite o nome do aluno">
+			<span class="text-danger" asp-validation-for="Aluno.nome"></span>
+		</div>
 
 
-        <div class="mb-3">
+		<div class="mb-3">
+			<label asp-for="Aluno.CPF" class="form-label">CPF</label>
+			<input type="text" maxlength="14" class="form-control" asp-for="Aluno.CPF" id="CPF" onkeyup="formatarCPF(this)" placeholder="Digite o CPF do aluno">
+			<span class="text-danger" asp-validation-for="Aluno.CPF"></span>
+		</div>
 
-            @if (Model.AlunoNovo != true)
-            {
-                <label asp-for="Aluno.dtNascimento" class="form-label">Data de nascimento</label>
-                <input type="text" class="form-control" maxlength="10" onkeyup="formatarData(this)" placeholder="DD/MM/YYYY" asp-for="Aluno.dtNascimento" id=" dtNascimento">
-                <span class="text-danger" asp-validation-for="Aluno.dtNascimento"></span>
-            }
-            else
-            {
-                <label asp-for="Aluno.dtNascimento" class="form-label">Data de nascimento</label>
-                <input type="text" value="" class="form-control" maxlength="10" onkeyup="formatarData(this)" placeholder="DD/MM/YYYY" asp-for="Aluno.dtNascimento" id=" dtNascimento">
-                <span class="text-danger" asp-validation-for="Aluno.dtNascimento"></span>
-            }
 
-           
-        </div>
+		<div class="mb-3">
 
-        <div id="cidade">
-            <label>Cidade</label>
-            <select class="form-select" asp-for="Aluno.cidadeID_">
-                @foreach (var c in Model.Cidade)
-                {
-                    <option value="@c.cidadeID">@c.cidadeNome (@c.cidadeUF)</option>
+			@if (Model.AlunoNovo != true)
+			{
+				<label asp-for="Aluno.dtNascimento" class="form-label">Data de nascimento</label>
+				<input type="text" class="form-control" maxlength="10" onkeyup="formatarData(this)" placeholder="DD/MM/YYYY" asp-for="Aluno.dtNascimento" id=" dtNascimento">
+				<span class="text-danger" asp-validation-for="Aluno.dtNascimento"></span>
+			}
+			else
+			{
+				<label asp-for="Aluno.dtNascimento" class="form-label">Data de nascimento</label>
+				<input type="text" value="" class="form-control" maxlength="10" onkeyup="formatarData(this)" placeholder="DD/MM/YYYY" asp-for="Aluno.dtNascimento" id=" dtNascimento">
+				<span class="text-danger" asp-validation-for="Aluno.dtNascimento"></span>
+			}
 
-                }
-            </select>
 
-        </div>
-        <div id="sexo" class="mb-3 d-flex flex-column">
-            <label>Sexo</label>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" asp-for="Aluno.sexo" id="inlineRadio1" value="Masculino">
-                <label class="form-check-label" asp-for="Aluno.sexo">Masculino</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" asp-for="Aluno.sexo" id="inlineRadio2" value="Feminino">
-                <label class="form-check-label" asp-for="Aluno.sexo">Feminino</label>
-            </div>
-            
+		</div>
 
-        </div>
+		<div id="cidade">
+			<label>Cidade</label>
+			<select class="form-select" asp-for="Aluno.cidadeID_">
+				@foreach (var c in Model.Cidade)
+				{
+					<option value="@c.cidadeID">@c.cidadeNome (@c.cidadeUF)</option>
 
-        <div class="Botoes d-flex gap-2 justify-content-center mt-4 ">
-            <button type="submit" class="btn btn-success w-25 ">
-                @(Model.AlunoNovo == true ? "Cadastrar" : "Editar")
-            </button>
-            <a asp-controller="Aluno" asp-action="ListarAlunos" class="btn btn-primary w-25">Voltar</a>
-        </div>
-    </form>
+				}
+			</select>
 
-    <script src="~/js/Aluno/Mascaras.js" asp-append-version="true"></script>
+		</div>
+		<div id="sexo" class="mb-3 d-flex flex-column">
+			<label>Sexo</label>
+			<div class="form-check form-check-inline">
+				<input class="form-check-input" type="radio" asp-for="Aluno.sexo" id="inlineRadio1" value="Masculino">
+				<label class="form-check-label" asp-for="Aluno.sexo">Masculino</label>
+			</div>
+			<div class="form-check form-check-inline">
+				<input class="form-check-input" type="radio" asp-for="Aluno.sexo" id="inlineRadio2" value="Feminino">
+				<label class="form-check-label" asp-for="Aluno.sexo">Feminino</label>
+			</div>
+
+
+		</div>
+
+		<div class="Botoes d-flex gap-2 justify-content-center mt-4 ">
+			<button type="submit" class="btn btn-success w-25 ">
+				@(Model.AlunoNovo == true ? "Cadastrar" : "Editar")
+			</button>
+			<a asp-controller="Aluno" asp-action="ListarAlunos" class="btn btn-primary w-25">Voltar</a>
+		</div>
+	</form>
+
+	<script src="~/js/Aluno/Mascaras.js" asp-append-version="true"></script>
 </div>
