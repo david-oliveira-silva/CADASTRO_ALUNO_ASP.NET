@@ -16,81 +16,108 @@ namespace EM.Repository.Repository.Cidade
 
         public void Cadastrar(CidadeModel cidadeModel)
         {
-            FirebirdConnection.OpenConnection(fbConnection);
-            string queryInsert = "INSERT INTO cidades(cidadeNome,cidadeUF) VALUES (@cidadeNome,@cidadeUF)";
 
-            using (var cmdInsert = new FbCommand(queryInsert, fbConnection))
+            try
+            {
+                FirebirdConnection.OpenConnection(fbConnection);
+                string queryInsert = "INSERT INTO cidades(cidadeNome,cidadeUF) VALUES (@cidadeNome,@cidadeUF)";
+
+                using (var cmdInsert = new FbCommand(queryInsert, fbConnection))
+                {
+
+                    cmdInsert.Parameters.AddWithValue("@cidadeNome", cidadeModel.cidadeNome);
+                    cmdInsert.Parameters.AddWithValue("@cidadeUF", cidadeModel.cidadeUF);
+                    cmdInsert.ExecuteNonQuery();
+
+                }
+            }
+            finally
             {
 
-                cmdInsert.Parameters.AddWithValue("@cidadeNome", cidadeModel.cidadeNome);
-                cmdInsert.Parameters.AddWithValue("@cidadeUF", cidadeModel.cidadeUF);
-                cmdInsert.ExecuteNonQuery();
-
+                FirebirdConnection.CloseConnection(fbConnection);
             }
-
-            FirebirdConnection.CloseConnection(fbConnection);
         }
 
         public void Deletar(CidadeModel cidadeModel)
         {
-            FirebirdConnection.OpenConnection(fbConnection);
-
-            string queryDelete = "DELETE FROM cidades WHERE cidadeID = @cidadeID";
-
-            using (var cmdDelete = new FbCommand(queryDelete, fbConnection))
+            try
             {
+                FirebirdConnection.OpenConnection(fbConnection);
 
-                cmdDelete.Parameters.AddWithValue("@cidadeID", cidadeModel.cidadeID);
-                cmdDelete.ExecuteNonQuery();
+                string queryDelete = "DELETE FROM cidades WHERE cidadeID = @cidadeID";
 
+                using (var cmdDelete = new FbCommand(queryDelete, fbConnection))
+                {
+
+                    cmdDelete.Parameters.AddWithValue("@cidadeID", cidadeModel.cidadeID);
+                    cmdDelete.ExecuteNonQuery();
+
+                }
             }
-            FirebirdConnection.CloseConnection(fbConnection);
+            finally
+            {
+                FirebirdConnection.CloseConnection(fbConnection);
+            }
         }
 
         public void Editar(CidadeModel cidadeModel)
         {
-            FirebirdConnection.OpenConnection(fbConnection);
-
-            var queryUpdate = "UPDATE cidades SET cidadeNome = @cidadeNome,cidadeUF = @cidadeUF WHERE cidadeID = @cidadeID";
-
-            using (var cmdUpdate = new FbCommand(queryUpdate, fbConnection))
+            try
             {
-                cmdUpdate.Parameters.AddWithValue("@cidadeId", cidadeModel.cidadeID);
-                cmdUpdate.Parameters.AddWithValue("@cidadeNome", cidadeModel.cidadeNome);
-                cmdUpdate.Parameters.AddWithValue("@cidadeUF", cidadeModel.cidadeUF);
-                cmdUpdate.ExecuteNonQuery();
+                FirebirdConnection.OpenConnection(fbConnection);
+
+                var queryUpdate = "UPDATE cidades SET cidadeNome = @cidadeNome,cidadeUF = @cidadeUF WHERE cidadeID = @cidadeID";
+
+                using (var cmdUpdate = new FbCommand(queryUpdate, fbConnection))
+                {
+                    cmdUpdate.Parameters.AddWithValue("@cidadeId", cidadeModel.cidadeID);
+                    cmdUpdate.Parameters.AddWithValue("@cidadeNome", cidadeModel.cidadeNome);
+                    cmdUpdate.Parameters.AddWithValue("@cidadeUF", cidadeModel.cidadeUF);
+                    cmdUpdate.ExecuteNonQuery();
+                }
             }
-            FirebirdConnection.CloseConnection(fbConnection);
+            finally
+            {
+                FirebirdConnection.CloseConnection(fbConnection);
+            }
 
         }
 
         public List<CidadeModel> Listar()
         {
             List<CidadeModel> listCidades = new List<CidadeModel>();
-            FirebirdConnection.OpenConnection(fbConnection);
-
-            string querySelect = "SELECT * FROM cidades";
-
-            using (var cmdSelect = new FbCommand(querySelect, fbConnection))
+            try
             {
+                FirebirdConnection.OpenConnection(fbConnection);
 
-                using (var reader = cmdSelect.ExecuteReader())
+                string querySelect = "SELECT * FROM cidades";
+
+                using (var cmdSelect = new FbCommand(querySelect, fbConnection))
                 {
-                    while (reader.Read())
+
+                    using (var reader = cmdSelect.ExecuteReader())
                     {
-                        var cidade = new CidadeModel()
+                        int cidadeIdOrdinal = reader.GetOrdinal("cidadeID");
+                        int cidadeNomeOrdinal = reader.GetOrdinal("cidadeNome");
+                        int cidadeUfOrdinal = reader.GetOrdinal("cidadeUF");
+
+                        while (reader.Read())
                         {
-                            cidadeID = reader.GetInt32(reader.GetOrdinal("cidadeID")),
-                            cidadeNome = reader.GetString(reader.GetOrdinal("cidadeNome")),
-                            cidadeUF = Enum.Parse<UF>(reader.GetString(reader.GetOrdinal("cidadeUF")))
+                            var cidade = new CidadeModel()
+                            {
+                                cidadeID = reader.GetInt32(cidadeIdOrdinal),
+                                cidadeNome = reader.GetString(cidadeNomeOrdinal),
+                                cidadeUF = Enum.Parse<UF>(reader.GetString(cidadeUfOrdinal))
 
-
-                        };
-                        listCidades.Add(cidade);
+                            };
+                            listCidades.Add(cidade);
+                        }
                     }
                 }
             }
-            FirebirdConnection.CloseConnection(fbConnection);
+            finally {
+                FirebirdConnection.CloseConnection(fbConnection);
+                }
             return listCidades;
         }
     }

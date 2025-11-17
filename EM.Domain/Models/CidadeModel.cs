@@ -8,7 +8,7 @@ namespace EM.Domain.Models
         public int cidadeID {  get; set; }
 
         [Required(ErrorMessage = "nome não pode ser vazio")]
-        public string cidadeNome {  get; set; }
+        public string? cidadeNome {  get; set; }
 
         public UF cidadeUF { get; set; }
 

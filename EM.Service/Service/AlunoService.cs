@@ -11,7 +11,7 @@ namespace EM.Service.Service
     public class AlunoService
     {
 
-        IAlunoRepository alunoRepository;
+        private readonly IAlunoRepository alunoRepository;
 
         public AlunoService(IAlunoRepository alunoRepository)
         {
@@ -67,7 +67,10 @@ namespace EM.Service.Service
                 throw new Exception("Data de nascimento não pode ser vazia");
             }
 
-
+            if(sexo == 0)
+            {
+                throw new Exception("O campo Sexo é obrigatório.");
+            }
 
 
 
@@ -115,6 +118,10 @@ namespace EM.Service.Service
             if (alunoModel.dtNascimento == null)
             {
                 throw new Exception("Data de nascimento não pode ser vazia");
+            }
+            if (alunoModel.sexo == 0)
+            {
+                throw new Exception("O campo Sexo é obrigatório.");
             }
 
             alunoModel.nome = alunoModel.nome.ToUpper();

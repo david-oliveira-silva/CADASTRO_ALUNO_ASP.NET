@@ -7,7 +7,7 @@ namespace EM.Web.Controllers
 {
     public class CidadeController : Controller
     {
-        private CidadeService cidadeService;
+        private readonly CidadeService cidadeService;
 
         public CidadeController(CidadeService cidadeService)
         {

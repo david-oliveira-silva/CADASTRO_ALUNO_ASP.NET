@@ -9,8 +9,8 @@ namespace EM.Web.Controllers
     public class AlunoController : Controller
     {
 
-        AlunoService alunoService;
-        CidadeService cidadeService;
+        private readonly AlunoService alunoService;
+        private readonly CidadeService cidadeService;
         public AlunoController(AlunoService alunoService, CidadeService cidadeService) {
 
             this.alunoService = alunoService;

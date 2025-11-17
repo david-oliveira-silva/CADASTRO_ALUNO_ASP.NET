@@ -8,9 +8,9 @@ namespace EM.Service.Service
 {
     public class CidadeService
     {
-        private ICidadeRepository cidadeRepository;
+        private readonly ICidadeRepository cidadeRepository;
 
-        private IAlunoRepository alunoRepository;
+        private readonly IAlunoRepository alunoRepository;
 
         public CidadeService(ICidadeRepository cidadeRepository,IAlunoRepository alunoRepository)
         {

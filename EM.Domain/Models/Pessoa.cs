@@ -1,30 +1,34 @@
 ﻿
-using System.ComponentModel.DataAnnotations;
-using EM.Domain.Extensions.EM.Domain.Extensions;
+    using EM.Domain.Enum;
+    using EM.Domain.Extensions.EM.Domain.Extensions;
+    using System.ComponentModel.DataAnnotations;
 
-namespace EM.Domain.Models
-    {
-        public class Pessoa
+    namespace EM.Domain.Models
         {
-        [Required(ErrorMessage ="Digite o nome do aluno")]
-        [StringLength(100,MinimumLength = 3,ErrorMessage = "O nome deve conter entre 3 e 100 caracteres.")]
-            public string nome {  get; set; }
+            public class Pessoa
+            {
+            [Required(ErrorMessage ="Digite o nome do aluno")]
+            [StringLength(100,MinimumLength = 3,ErrorMessage = "O nome deve conter entre 3 e 100 caracteres.")]
+                public string nome {  get; set; }
 
-        [ValidacaoCPFAtributo(ErrorMessage = "O número de CPF não é válido.")]
-        public string ?CPF {  get; set; }
+            [ValidacaoCPFAtributo(ErrorMessage = "O número de CPF não é válido.")]
+            public string ?CPF {  get; set; }
 
-        [Required(ErrorMessage = "A data de nascimento é obrigatória.")]
-        public DateOnly ?dtNascimento { get; set; }
+            [Required(ErrorMessage = "A data de nascimento é obrigatória.")]
+            public DateOnly ?dtNascimento { get; set; }
+
+            public SexoEnum sexo { get; set; }
 
             public Pessoa() {
-          dtNascimento = null;
-        }
+              dtNascimento = null;
+            }
 
-            public Pessoa(string nome, string CPF, DateOnly? dtNascimento) 
-            { 
-                this.nome = nome;
-                this.CPF = CPF;
-                this.dtNascimento = dtNascimento;
+                public Pessoa(string nome, string CPF, SexoEnum sexo, DateOnly? dtNascimento) 
+                { 
+                    this.nome = nome;
+                    this.CPF = CPF;
+                    this.dtNascimento = dtNascimento;
+                    this.sexo = sexo;
+                }
             }
         }
-    }

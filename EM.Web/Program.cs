@@ -11,7 +11,7 @@ namespace EM.Web
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
+       
 
 
             string conexaoString = builder.Configuration.GetConnectionString("FirebirdConnection");
