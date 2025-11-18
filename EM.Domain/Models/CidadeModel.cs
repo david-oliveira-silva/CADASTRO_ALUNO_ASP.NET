@@ -11,17 +11,13 @@ namespace EM.Domain.Models
         public string? cidadeNome { get; set; }
 
         public UF cidadeUF { get; set; }
-
-
         public CidadeModel()
         {
         }
         public CidadeModel(string cidadeNome, UF cidadeUF)
         {
-
             this.cidadeNome = cidadeNome;
             this.cidadeUF = cidadeUF;
-
         }
     }
 }

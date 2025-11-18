@@ -1,19 +1,12 @@
-﻿
-namespace EM.Domain.Extensions
+﻿namespace EM.Domain.Extensions
 {
     using System.ComponentModel.DataAnnotations;
-
-
-
     namespace EM.Domain.Extensions
     {
-
         public class ValidacaoCPFAtributo : ValidationAttribute
         {
-
             protected override ValidationResult IsValid(object value, ValidationContext validationContext)
             {
-
                 if (value == null)
                 {
                     return ValidationResult.Success;

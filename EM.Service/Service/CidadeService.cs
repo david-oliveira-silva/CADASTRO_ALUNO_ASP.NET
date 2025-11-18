@@ -1,5 +1,4 @@
-﻿
-using EM.Domain.Enum;
+﻿using EM.Domain.Enum;
 using EM.Domain.Models;
 using EM.Repository.Repository.Aluno;
 using EM.Repository.Repository.Cidade;
@@ -11,7 +10,6 @@ namespace EM.Service.Service
         private readonly ICidadeRepository cidadeRepository;
 
         private readonly IAlunoRepository alunoRepository;
-
         public CidadeService(ICidadeRepository cidadeRepository, IAlunoRepository alunoRepository)
         {
             this.cidadeRepository = cidadeRepository;
@@ -25,9 +23,7 @@ namespace EM.Service.Service
                 throw new Exception("Nome não pode ser vazio");
             }
 
-
             var novacidade = new CidadeModel(cidadeNome.ToUpper(), cidadeUF);
-
             cidadeRepository.Cadastrar(novacidade);
         }
 
@@ -71,8 +67,6 @@ namespace EM.Service.Service
                 return cidade;
             }
             return cidade.Where(c => c.cidadeNome.Contains(cidadeNome.ToUpper())).ToList();
-
-
         }
         public List<CidadeModel> ListarCidades()
         {

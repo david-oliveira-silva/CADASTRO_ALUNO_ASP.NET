@@ -7,16 +7,13 @@ namespace EM.Repository.Repository.Cidade
 {
     public class CidadeRepository : ICidadeRepository
     {
-        FbConnection fbConnection;
-
+        private FbConnection fbConnection;
         public CidadeRepository()
         {
             fbConnection = FirebirdConnection.GetFbConnection();
         }
-
         public void Cadastrar(CidadeModel cidadeModel)
         {
-
             try
             {
                 FirebirdConnection.OpenConnection(fbConnection);
@@ -33,7 +30,6 @@ namespace EM.Repository.Repository.Cidade
             }
             finally
             {
-
                 FirebirdConnection.CloseConnection(fbConnection);
             }
         }
@@ -48,10 +44,8 @@ namespace EM.Repository.Repository.Cidade
 
                 using (var cmdDelete = new FbCommand(queryDelete, fbConnection))
                 {
-
                     cmdDelete.Parameters.AddWithValue("@cidadeID", cidadeModel.cidadeID);
                     cmdDelete.ExecuteNonQuery();
-
                 }
             }
             finally
@@ -85,7 +79,7 @@ namespace EM.Repository.Repository.Cidade
 
         public List<CidadeModel> Listar()
         {
-            List<CidadeModel> listCidades = new List<CidadeModel>();
+            List<CidadeModel> listCidades = [];
             try
             {
                 FirebirdConnection.OpenConnection(fbConnection);

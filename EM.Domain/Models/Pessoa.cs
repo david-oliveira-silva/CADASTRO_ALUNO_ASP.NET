@@ -1,5 +1,4 @@
-﻿
-using EM.Domain.Enum;
+﻿using EM.Domain.Enum;
 using EM.Domain.Extensions.EM.Domain.Extensions;
 using System.ComponentModel.DataAnnotations;
 
@@ -23,7 +22,6 @@ namespace EM.Domain.Models
         {
             dtNascimento = null;
         }
-
         public Pessoa(string nome, string CPF, SexoEnum sexo, DateOnly? dtNascimento)
         {
             this.nome = nome;

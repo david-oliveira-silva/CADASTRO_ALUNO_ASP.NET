@@ -3,13 +3,11 @@ using EM.Domain.Models;
 using EM.Repository.Data;
 using FirebirdSql.Data.FirebirdClient;
 
-
 namespace EM.Repository.Repository.Aluno
 {
     public class AlunoRepository : IAlunoRepository
     {
-        FbConnection fbConnection;
-
+        private FbConnection fbConnection;
         public AlunoRepository()
         {
             fbConnection = FirebirdConnection.GetFbConnection();
@@ -20,33 +18,27 @@ namespace EM.Repository.Repository.Aluno
             {
                 FirebirdConnection.OpenConnection(fbConnection);
 
-
-
                 string queryInsert = "INSERT INTO alunos (matricula,alunoNome,CPF,dtNascimento,sexo,cidadeID_) VALUES (@matricula,@alunoNome,@CPF,@dtNascimento,@sexo,@cidadeID_)";
 
                 using (var cmdInsert = new FbCommand(queryInsert, fbConnection))
                 {
-
                     cmdInsert.Parameters.AddWithValue(@"matricula", alunoModel.matricula);
                     cmdInsert.Parameters.AddWithValue(@"alunoNome", alunoModel.nome);
                     cmdInsert.Parameters.AddWithValue(@"CPF", alunoModel.CPF);
                     cmdInsert.Parameters.AddWithValue(@"dtNascimento", alunoModel.dtNascimento);
                     cmdInsert.Parameters.AddWithValue(@"sexo", alunoModel.sexo);
                     cmdInsert.Parameters.AddWithValue(@"cidadeID_", alunoModel.cidadeID_);
-
                     cmdInsert.ExecuteNonQuery();
                 }
             }
             finally
             {
                 FirebirdConnection.CloseConnection(fbConnection);
-
             }
         }
 
         public void Deletar(AlunoModel alunoModel)
         {
-
             try
             {
                 FirebirdConnection.OpenConnection(fbConnection);
@@ -63,14 +55,6 @@ namespace EM.Repository.Repository.Aluno
                 FirebirdConnection.CloseConnection(fbConnection);
             }
         }
-
-
-
-
-
-
-
-
         public void Editar(AlunoModel alunoModel)
         {
             try
@@ -99,17 +83,10 @@ namespace EM.Repository.Repository.Aluno
 
         public List<AlunoModel> Listar()
         {
-
-
-            List<AlunoModel> listAlunos = new List<AlunoModel>();
-
-
+            List<AlunoModel> listAlunos = [];
             try
             {
                 FirebirdConnection.OpenConnection(fbConnection);
-
-
-
                 string querySelect = "SELECT * FROM alunos a INNER JOIN cidades c on a.cidadeID_ = c.cidadeID";
 
                 using (var cmdSelect = new FbCommand(querySelect, fbConnection))
@@ -127,7 +104,6 @@ namespace EM.Repository.Repository.Aluno
 
                         while (reader.Read())
                         {
-
                             var aluno = new AlunoModel()
                             {
                                 matricula = reader.GetInt64(matriculaOrdinal),
@@ -141,7 +117,6 @@ namespace EM.Repository.Repository.Aluno
                                     cidadeNome = reader.GetString(cidadeNomeOrdinal),
                                     cidadeUF = (UF)Enum.Parse(typeof(UF), (reader.GetString(cidadeUFOrdinal)))
                                 }
-
 
                             };
                             listAlunos.Add(aluno);
@@ -157,8 +132,6 @@ namespace EM.Repository.Repository.Aluno
             return listAlunos;
         }
     }
-
-
 }
 
 

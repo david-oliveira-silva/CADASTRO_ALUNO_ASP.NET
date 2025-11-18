@@ -1,6 +1,4 @@
-﻿
-
-using EM.Domain.Enum;
+﻿using EM.Domain.Enum;
 using EM.Domain.Extensions;
 using EM.Domain.Models;
 using EM.Repository.Repository.Aluno;
@@ -10,20 +8,17 @@ namespace EM.Service.Service
 {
     public class AlunoService
     {
-
         private readonly IAlunoRepository alunoRepository;
-
         public AlunoService(IAlunoRepository alunoRepository)
         {
             this.alunoRepository = alunoRepository;
         }
-
         public void cadastrarAluno(long matricula, string nomeAluno, string CPF, DateOnly? dtNascimento, SexoEnum sexo, int cidadeID_)
         {
             var todosAlunos = alunoRepository.Listar();
 
-            long proximoNumero = todosAlunos.Any() ? matricula : matricula;
-            long ultimaMatricula = todosAlunos.Any() ? todosAlunos.Max(m => m.matricula) : 0;
+            long proximoNumero = todosAlunos.Count != 0 ? matricula : matricula;
+            long ultimaMatricula = todosAlunos.Count != 0 ? todosAlunos.Max(m => m.matricula) : 0;
 
             if (string.IsNullOrEmpty(nomeAluno))
             {
@@ -45,11 +40,6 @@ namespace EM.Service.Service
                 throw new Exception("A data de nascimento não pode ser uma data futura.");
             }
 
-
-            if (cidadeID_ == null)
-            {
-                throw new Exception("Cidade não encontrada");
-            }
             if (nomeAluno.Length < 3 || nomeAluno.Length > 100)
             {
                 throw new Exception("O nome deve conter entre 3 e 100 caracteres.");
@@ -74,13 +64,10 @@ namespace EM.Service.Service
                 throw new Exception("O campo Sexo é obrigatório.");
             }
 
-
-
-            AlunoModel alunoNovo = new AlunoModel(proximoNumero, nomeAluno.ToUpper(), CPF, sexo, dtNascimento, cidadeID_);
+            AlunoModel alunoNovo = new (proximoNumero, nomeAluno.ToUpper(), CPF, sexo, dtNascimento, cidadeID_);
             alunoRepository.Cadastrar(alunoNovo);
 
         }
-
         public void editarAluno(AlunoModel alunoModel)
         {
             if (alunoModel == null)
@@ -100,10 +87,7 @@ namespace EM.Service.Service
                 throw new Exception("A data de nascimento não pode ser uma data futura.");
             }
 
-            if (alunoModel.cidadeID_ == null)
-            {
-                throw new Exception("Cidade não encontrada");
-            }
+         
             if (alunoModel.nome.Length < 3 || alunoModel.nome.Length > 100)
             {
                 throw new Exception("O nome deve conter entre 3 e 100 caracteres.");
@@ -129,7 +113,6 @@ namespace EM.Service.Service
             alunoModel.nome = alunoModel.nome.ToUpper();
             alunoRepository.Editar(alunoModel);
         }
-
         public void deletarAluno(AlunoModel alunoModel)
         {
 
@@ -140,9 +123,6 @@ namespace EM.Service.Service
 
             alunoRepository.Deletar(alunoModel);
         }
-
-
-
 
         public List<AlunoModel> listarAlunos()
         {
@@ -160,7 +140,7 @@ namespace EM.Service.Service
             var termoDeBuscaUpper = alunoNome.ToUpper();
             if (string.IsNullOrEmpty(alunoNome))
             {
-                return new List<AlunoModel>();
+                return [];
             }
             return alunoRepository.Listar().Where(a => a.nome.Contains(termoDeBuscaUpper)).ToList();
         }
@@ -181,6 +161,5 @@ namespace EM.Service.Service
             }
             return alunos.Max(a => a.matricula) + 1;
         }
-
     }
 }
