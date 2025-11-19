@@ -16,23 +16,23 @@
 	<form asp-controller="Aluno" asp-action="@(Model.AlunoNovo == true ? "CadastrarAluno" : "EditarAluno")" method="post">
 		<div class="mb-3">
 
-			<label asp-for="Aluno.matricula" class="form-label">Matrícula</label>
+			<label asp-for="Aluno.Matricula" class="form-label">Matrícula</label>
 			@if (Model.AlunoNovo != true)
 			{
-				<input type="number" class="form-control" asp-for="Aluno.matricula" id="matricula" readonly>
+				<input type="number" class="form-control" asp-for="Aluno.Matricula" id="matricula" readonly>
 			}
 			else
 			{
-				<input type="number" class="form-control" asp-for="Aluno.matricula" id="matricula" placeholder="Digite o número da matrícula">
+				<input type="number" class="form-control" asp-for="Aluno.Matricula" id="matricula" placeholder="Digite o número da matrícula">
 			}
 
 
 		</div>
 
 		<div class="mb-3">
-			<label asp-for="Aluno.nome" class="form-label">Nome</label>
-			<input type="text" class="form-control" asp-for="Aluno.nome" id=" alunoNome" placeholder="Digite o nome do aluno">
-			<span class="text-danger" asp-validation-for="Aluno.nome"></span>
+			<label asp-for="Aluno.Nome" class="form-label">Nome</label>
+			<input type="text" class="form-control" asp-for="Aluno.Nome" id=" alunoNome" placeholder="Digite o nome do aluno">
+			<span class="text-danger" asp-validation-for="Aluno.Nome"></span>
 		</div>
 
 
@@ -47,15 +47,15 @@
 
 			@if (Model.AlunoNovo != true)
 			{
-				<label asp-for="Aluno.dtNascimento" class="form-label">Data de nascimento</label>
-				<input type="text" class="form-control" maxlength="10" onkeyup="formatarData(this)" placeholder="DD/MM/YYYY" asp-for="Aluno.dtNascimento" id=" dtNascimento">
-				<span class="text-danger" asp-validation-for="Aluno.dtNascimento"></span>
+				<label asp-for="Aluno.DtNascimento" class="form-label">Data de nascimento</label>
+				<input type="text" class="form-control" maxlength="10" onkeyup="formatarData(this)" placeholder="DD/MM/YYYY" asp-for="Aluno.DtNascimento" id=" dtNascimento">
+				<span class="text-danger" asp-validation-for="Aluno.DtNascimento"></span>
 			}
 			else
 			{
-				<label asp-for="Aluno.dtNascimento" class="form-label">Data de nascimento</label>
-				<input type="text" value="" class="form-control" maxlength="10" onkeyup="formatarData(this)" placeholder="DD/MM/YYYY" asp-for="Aluno.dtNascimento" id=" dtNascimento">
-				<span class="text-danger" asp-validation-for="Aluno.dtNascimento"></span>
+				<label asp-for="Aluno.DtNascimento" class="form-label">Data de nascimento</label>
+				<input type="text" value="" class="form-control" maxlength="10" onkeyup="formatarData(this)" placeholder="DD/MM/YYYY" asp-for="Aluno.DtNascimento" id=" dtNascimento">
+				<span class="text-danger" asp-validation-for="Aluno.DtNascimento"></span>
 			}
 
 
@@ -63,10 +63,10 @@
 
 		<div id="cidade">
 			<label>Cidade</label>
-			<select class="form-select" asp-for="Aluno.cidadeID_">
+			<select class="form-select" asp-for="Aluno.CidadeID_">
 				@foreach (var c in Model.Cidade)
 				{
-					<option value="@c.cidadeID">@c.cidadeNome (@c.cidadeUF)</option>
+					<option value="@c.CidadeID">@c.CidadeNome (@c.CidadeUF)</option>
 
 				}
 			</select>
@@ -75,12 +75,12 @@
 		<div id="sexo" class="mb-3 d-flex flex-column">
 			<label>Sexo</label>
 			<div class="form-check form-check-inline">
-				<input class="form-check-input" type="radio" asp-for="Aluno.sexo" id="inlineRadio1" value="Masculino">
-				<label class="form-check-label" asp-for="Aluno.sexo">Masculino</label>
+				<input class="form-check-input" type="radio" asp-for="Aluno.Sexo" id="inlineRadio1" value="Masculino">
+				<label class="form-check-label" asp-for="Aluno.Sexo">Masculino</label>
 			</div>
 			<div class="form-check form-check-inline">
-				<input class="form-check-input" type="radio" asp-for="Aluno.sexo" id="inlineRadio2" value="Feminino">
-				<label class="form-check-label" asp-for="Aluno.sexo">Feminino</label>
+				<input class="form-check-input" type="radio" asp-for="Aluno.Sexo" id="inlineRadio2" value="Feminino">
+				<label class="form-check-label" asp-for="Aluno.Sexo">Feminino</label>
 			</div>
 
 

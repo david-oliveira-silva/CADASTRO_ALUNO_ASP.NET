@@ -85,23 +85,23 @@
 		{
 			<tbody>
 				<tr>
-					<td class="text-center ">@a.matricula</td>
-					<td class="text-start ">@a.nome </td>
+					<td class="text-center ">@a.Matricula</td>
+					<td class="text-start ">@a.Nome </td>
 					<td class="text-center">@a.CPF</td>
-					<td class="text-center">@a.sexo</td>
-					<td class="text-center">@a.dtNascimento</td>
-					<td class="text-center">@a.cidade?.cidadeNome (@a.cidade.cidadeUF)</td>
+					<td class="text-center">@a.Sexo</td>
+					<td class="text-center">@a.DtNascimento</td>
+					<td class="text-center">@a.Cidade?.CidadeNome (@a.Cidade?.CidadeUF)</td>
 					<td class="text-center col-fixa-opcoes">
 
 						<div class="d-flex justify-content-center gap-2">
 
 							<form asp-controller="Aluno" asp-action="DeletarAluno" method="get">
-								<input type="hidden" name="matricula" id="matricula" value="@a.matricula" />
+								<input type="hidden" name="matricula" id="matricula" value="@a.Matricula" />
 								<button type="submit" class="btn btn-danger fw-bold">Deletar</button>
 							</form>
 
 							<form asp-controller="Aluno" asp-action="UpsertAluno" method="get">
-								<input type="hidden" name="matricula" id="matricula" value="@a.matricula" />
+								<input type="hidden" name="matricula" id="matricula" value="@a.Matricula" />
 
 								<button type="submit" class="btn btn-primary fw-bold">Editar</button>
 							</form>

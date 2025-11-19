@@ -48,19 +48,19 @@
 		{
 			<tbody>
 				<tr>
-					<td class="text-center">@c.cidadeID</td>
-					<td class="text-center">@c.cidadeNome</td>
-					<td class="text-center">@c.cidadeUF</td>
+					<td class="text-center">@c.CidadeID</td>
+					<td class="text-center">@c.CidadeNome</td>
+					<td class="text-center">@c.CidadeUF</td>
 					<td>
 
 						<div class="Botoes d-flex justify-content-center gap-2">
 							<form asp-controller="Cidade" asp-action="DeletarCidade" method="get">
-								<input type="hidden" name="cidadeID" id="cidadeID" value="@c.cidadeID" />
+								<input type="hidden" name="cidadeID" id="cidadeID" value="@c.CidadeID" />
 								<button class="btn btn-danger fw-bold">Deletar</button>
 							</form>
 
 							<form asp-controller="Cidade" asp-action="UpsertCidade" method="get">
-								<input type="hidden" name="cidadeID" id="cidadeID" value="@c.cidadeID" />
+								<input type="hidden" name="cidadeID" id="cidadeID" value="@c.CidadeID" />
 
 								<button class="btn btn-primary fw-bold">Editar</button>
 							</form>

@@ -3,11 +3,10 @@ namespace EM.Domain.Extensions
 {
     public static class ValidadorCPF
     {
-
         public static bool IsCPF(this string cpf)
         {
-            int[] v1 = new int[9] { 10, 9, 8, 7, 6, 5, 4, 3, 2 };
-            int[] v2 = new int[10] { 11, 10, 9, 8, 7, 6, 5, 4, 3, 2 };
+            int[] v1 = [10, 9, 8, 7, 6, 5, 4, 3, 2];
+            int[] v2 = [11, 10, 9, 8, 7, 6, 5, 4, 3, 2];
 
             string ArmCPF;
             string digito;
@@ -41,7 +40,6 @@ namespace EM.Domain.Extensions
                 resto = 11 - resto;
             }
 
-
             digito = resto.ToString();
             ArmCPF = ArmCPF + digito;
 
@@ -62,9 +60,8 @@ namespace EM.Domain.Extensions
                 resto = 11 - resto;
             }
 
-            digito = digito + resto.ToString();
+            digito += resto.ToString();
             return cpf.EndsWith(digito);
-
         }
     }
 }

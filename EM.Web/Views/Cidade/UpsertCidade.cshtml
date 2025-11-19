@@ -1,7 +1,7 @@
 ﻿@using EM.Domain.Models;
 @model CidadeModel
 @{
-	ViewData["Title"] = (Model.cidadeID == 0 ? "Cadastrar cidade" : "Editar Cidade");
+	ViewData["Title"] = (Model.CidadeID == 0 ? "Cadastrar cidade" : "Editar Cidade");
 }
 
 @if (TempData["Erro"] != null)
@@ -13,20 +13,20 @@
 <div class="Cadastrar bg-light rounded-3 p-5">
 
 	<h1 class="text-center">
-		@(Model.cidadeID == 0 ? "Cadastrar Cidade" : "Editar cidade")
+		@(Model.CidadeID == 0 ? "Cadastrar Cidade" : "Editar cidade")
 	</h1>
-	<form asp-controller="Cidade" asp-action="@(Model.cidadeID == 0? "CadastrarCidade" : "EditarCidade")" method="post">
-		<input type="hidden" asp-for="cidadeID" />
+	<form asp-controller="Cidade" asp-action="@(Model.CidadeID == 0? "CadastrarCidade" : "EditarCidade")" method="post">
+		<input type="hidden" asp-for="CidadeID" />
 		<div class="mb-3">
-			<label asp-for="cidadeNome" class="form-label">Nome cidade</label>
-			<input type="text" class="form-control" asp-for="cidadeNome" id=" cidadeNome" placeholder="Digite o nome da cidade">
-			<span asp-validation-for="cidadeNome" class="text-danger"></span>
+			<label asp-for="CidadeNome" class="form-label">Nome cidade</label>
+			<input type="text" class="form-control" asp-for="CidadeNome" id=" cidadeNome" placeholder="Digite o nome da cidade">
+			<span asp-validation-for="CidadeNome" class="text-danger"></span>
 
 		</div>
 
 		<div class="mb-3">
-			<label asp-for="cidadeUF" class="form-label">UF</label>
-			<select class="form-select" asp-for="cidadeUF">
+			<label asp-for="CidadeUF" class="form-label">UF</label>
+			<select class="form-select" asp-for="CidadeUF">
 				<option selected disabled>Selecione um UF</option>
 
 				@foreach (var uf in ViewBag.UFs)
@@ -38,7 +38,7 @@
 
 		<div class="Botoes d-flex gap-2 justify-content-center mt-4 ">
 			<button type="submit" class="btn btn-success w-25 ">
-				@(Model.cidadeID == 0 ? "Cadastrar" : "Editar")
+				@(Model.CidadeID == 0 ? "Cadastrar" : "Editar")
 			</button>
 			<a asp-controller="Cidade" asp-action="ListarCidades" class="btn btn-primary w-25">Voltar</a>
 		</div>

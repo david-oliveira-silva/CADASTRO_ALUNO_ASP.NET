@@ -17,17 +17,17 @@
 	</h1>
 	<h3 class="text-center  ">Dejesa deletar a cidade com as informações abaixo?</h3>
 	<form asp-controller="Cidade" asp-action="DeletarCidade" method="post" id="formDeletarCidade">
-		<input type="hidden" asp-for="cidadeID" />
+		<input type="hidden" asp-for="CidadeID" />
 		<div class="mb-3">
-			<label asp-for="cidadeNome" class="form-label">Nome cidade</label>
-			<input type="text" class="form-control" asp-for="cidadeNome" id=" cidadeNome" placeholder="Digite o nome da cidade" disabled>
-			<span asp-validation-for="cidadeNome" class="text-danger"></span>
+			<label asp-for="CidadeNome" class="form-label">Nome cidade</label>
+			<input type="text" class="form-control" asp-for="CidadeNome" id=" cidadeNome" placeholder="Digite o nome da cidade" disabled>
+			<span asp-validation-for="CidadeNome" class="text-danger"></span>
 
 		</div>
 
 		<div class="mb-3">
-			<label asp-for="cidadeUF" class="form-label">UF</label>
-			<select class="form-select" asp-for="cidadeUF" disabled>
+			<label asp-for="CidadeUF" class="form-label">UF</label>
+			<select class="form-select" asp-for="CidadeUF" disabled>
 				<option selected disabled>Selecione um UF</option>
 
 				@foreach (var uf in ViewBag.UFs)
@@ -58,7 +58,7 @@
 					<div class="modal-body">
 						<p>
 							Tem certeza que deseja excluir a cidade:
-							<strong id="alunoNomeModal">@Model.cidadeNome</strong>
+							<strong id="alunoNomeModal">@Model.CidadeNome</strong>
 
 						</p>
 						<p class="fw-bold text-danger">Esta ação não poderá ser desfeita.</p>

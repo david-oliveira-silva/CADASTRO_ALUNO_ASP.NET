@@ -7,11 +7,12 @@ namespace EM.Repository.Repository.Cidade
 {
     public class CidadeRepository : ICidadeRepository
     {
-        private FbConnection fbConnection;
+        private readonly FbConnection fbConnection;
         public CidadeRepository()
         {
             fbConnection = FirebirdConnection.GetFbConnection();
         }
+
         public void Cadastrar(CidadeModel cidadeModel)
         {
             try
@@ -19,14 +20,11 @@ namespace EM.Repository.Repository.Cidade
                 FirebirdConnection.OpenConnection(fbConnection);
                 string queryInsert = "INSERT INTO cidades(cidadeNome,cidadeUF) VALUES (@cidadeNome,@cidadeUF)";
 
-                using (var cmdInsert = new FbCommand(queryInsert, fbConnection))
-                {
+                using var cmdInsert = new FbCommand(queryInsert, fbConnection);
 
-                    cmdInsert.Parameters.AddWithValue("@cidadeNome", cidadeModel.cidadeNome);
-                    cmdInsert.Parameters.AddWithValue("@cidadeUF", cidadeModel.cidadeUF);
-                    cmdInsert.ExecuteNonQuery();
-
-                }
+                cmdInsert.Parameters.AddWithValue("@cidadeNome", cidadeModel.CidadeNome);
+                cmdInsert.Parameters.AddWithValue("@cidadeUF", cidadeModel.CidadeUF);
+                cmdInsert.ExecuteNonQuery();
             }
             finally
             {
@@ -42,11 +40,10 @@ namespace EM.Repository.Repository.Cidade
 
                 string queryDelete = "DELETE FROM cidades WHERE cidadeID = @cidadeID";
 
-                using (var cmdDelete = new FbCommand(queryDelete, fbConnection))
-                {
-                    cmdDelete.Parameters.AddWithValue("@cidadeID", cidadeModel.cidadeID);
-                    cmdDelete.ExecuteNonQuery();
-                }
+                using var cmdDelete = new FbCommand(queryDelete, fbConnection);
+
+                cmdDelete.Parameters.AddWithValue("@cidadeID", cidadeModel.CidadeID);
+                cmdDelete.ExecuteNonQuery();
             }
             finally
             {
@@ -62,13 +59,11 @@ namespace EM.Repository.Repository.Cidade
 
                 var queryUpdate = "UPDATE cidades SET cidadeNome = @cidadeNome,cidadeUF = @cidadeUF WHERE cidadeID = @cidadeID";
 
-                using (var cmdUpdate = new FbCommand(queryUpdate, fbConnection))
-                {
-                    cmdUpdate.Parameters.AddWithValue("@cidadeId", cidadeModel.cidadeID);
-                    cmdUpdate.Parameters.AddWithValue("@cidadeNome", cidadeModel.cidadeNome);
-                    cmdUpdate.Parameters.AddWithValue("@cidadeUF", cidadeModel.cidadeUF);
-                    cmdUpdate.ExecuteNonQuery();
-                }
+                using var cmdUpdate = new FbCommand(queryUpdate, fbConnection);
+                cmdUpdate.Parameters.AddWithValue("@cidadeId", cidadeModel.CidadeID);
+                cmdUpdate.Parameters.AddWithValue("@cidadeNome", cidadeModel.CidadeNome);
+                cmdUpdate.Parameters.AddWithValue("@cidadeUF", cidadeModel.CidadeUF);
+                cmdUpdate.ExecuteNonQuery();
             }
             finally
             {
@@ -86,27 +81,24 @@ namespace EM.Repository.Repository.Cidade
 
                 string querySelect = "SELECT * FROM cidades";
 
-                using (var cmdSelect = new FbCommand(querySelect, fbConnection))
+                using var cmdSelect = new FbCommand(querySelect, fbConnection);
+
+                using var reader = cmdSelect.ExecuteReader();
+
+                int cidadeIdOrdinal = reader.GetOrdinal("cidadeID");
+                int cidadeNomeOrdinal = reader.GetOrdinal("cidadeNome");
+                int cidadeUfOrdinal = reader.GetOrdinal("cidadeUF");
+
+                while (reader.Read())
                 {
-
-                    using (var reader = cmdSelect.ExecuteReader())
+                    CidadeModel cidade = new ()
                     {
-                        int cidadeIdOrdinal = reader.GetOrdinal("cidadeID");
-                        int cidadeNomeOrdinal = reader.GetOrdinal("cidadeNome");
-                        int cidadeUfOrdinal = reader.GetOrdinal("cidadeUF");
+                        CidadeID = reader.GetInt32(cidadeIdOrdinal),
+                        CidadeNome = reader.GetString(cidadeNomeOrdinal),
+                        CidadeUF = Enum.Parse<UF>(reader.GetString(cidadeUfOrdinal))
 
-                        while (reader.Read())
-                        {
-                            var cidade = new CidadeModel()
-                            {
-                                cidadeID = reader.GetInt32(cidadeIdOrdinal),
-                                cidadeNome = reader.GetString(cidadeNomeOrdinal),
-                                cidadeUF = Enum.Parse<UF>(reader.GetString(cidadeUfOrdinal))
-
-                            };
-                            listCidades.Add(cidade);
-                        }
-                    }
+                    };
+                    listCidades.Add(cidade);
                 }
             }
             finally

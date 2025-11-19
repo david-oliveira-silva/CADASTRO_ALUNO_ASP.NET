@@ -5,19 +5,19 @@ namespace EM.Domain.Models
 {
     public class CidadeModel
     {
-        public int cidadeID { get; set; }
+        public int CidadeID { get; set; }
 
         [Required(ErrorMessage = "nome não pode ser vazio")]
-        public string? cidadeNome { get; set; }
+        public string? CidadeNome { get; set; }
 
-        public UF cidadeUF { get; set; }
+        public UF CidadeUF { get; set; }
         public CidadeModel()
         {
         }
         public CidadeModel(string cidadeNome, UF cidadeUF)
         {
-            this.cidadeNome = cidadeNome;
-            this.cidadeUF = cidadeUF;
+            this.CidadeNome = cidadeNome;
+            this.CidadeUF = cidadeUF;
         }
     }
 }

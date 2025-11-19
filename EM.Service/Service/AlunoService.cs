@@ -6,19 +6,16 @@ using EM.Repository.Repository.Aluno;
 
 namespace EM.Service.Service
 {
-    public class AlunoService
+    public class AlunoService(IAlunoRepository alunoRepository)
     {
-        private readonly IAlunoRepository alunoRepository;
-        public AlunoService(IAlunoRepository alunoRepository)
-        {
-            this.alunoRepository = alunoRepository;
-        }
-        public void cadastrarAluno(long matricula, string nomeAluno, string CPF, DateOnly? dtNascimento, SexoEnum sexo, int cidadeID_)
+        private readonly IAlunoRepository alunoRepository = alunoRepository;
+
+        public void CadastrarAluno(long matricula, string nomeAluno, string ?CPF, DateOnly? dtNascimento, SexoEnum sexo, int cidadeID_)
         {
             var todosAlunos = alunoRepository.Listar();
 
             long proximoNumero = todosAlunos.Count != 0 ? matricula : matricula;
-            long ultimaMatricula = todosAlunos.Count != 0 ? todosAlunos.Max(m => m.matricula) : 0;
+            long ultimaMatricula = todosAlunos.Count != 0 ? todosAlunos.Max(m => m.Matricula) : 0;
 
             if (string.IsNullOrEmpty(nomeAluno))
             {
@@ -68,7 +65,7 @@ namespace EM.Service.Service
             alunoRepository.Cadastrar(alunoNovo);
 
         }
-        public void editarAluno(AlunoModel alunoModel)
+        public void EditarAluno(AlunoModel alunoModel)
         {
             if (alunoModel == null)
             {
@@ -76,19 +73,19 @@ namespace EM.Service.Service
                 throw new Exception("Aluno não encontrando");
             }
 
-            if (string.IsNullOrEmpty(alunoModel.nome))
+            if (string.IsNullOrEmpty(alunoModel.Nome))
             {
                 throw new Exception("Nome não pode ser vazio");
             }
 
-
-            if (alunoModel.dtNascimento > DateOnly.FromDateTime(DateTime.Today))
+            
+            if (alunoModel.DtNascimento > DateOnly.FromDateTime(DateTime.Today))
             {
                 throw new Exception("A data de nascimento não pode ser uma data futura.");
             }
 
          
-            if (alunoModel.nome.Length < 3 || alunoModel.nome.Length > 100)
+            if (alunoModel.Nome.Length < 3 || alunoModel.Nome.Length > 100)
             {
                 throw new Exception("O nome deve conter entre 3 e 100 caracteres.");
             }
@@ -101,65 +98,63 @@ namespace EM.Service.Service
                     throw new Exception("CPF está inválido.");
                 }
             }
-            if (alunoModel.dtNascimento == null)
+            if (alunoModel.DtNascimento == null)
             {
                 throw new Exception("Data de nascimento não pode ser vazia");
             }
-            if (alunoModel.sexo == 0)
+            if (alunoModel.Sexo == 0)
             {
                 throw new Exception("O campo Sexo é obrigatório.");
             }
 
-            alunoModel.nome = alunoModel.nome.ToUpper();
+            alunoModel.Nome = alunoModel.Nome.ToUpper();
             alunoRepository.Editar(alunoModel);
         }
-        public void deletarAluno(AlunoModel alunoModel)
+        public void DeletarAluno(AlunoModel alunoModel)
         {
-
             if (alunoModel == null)
             {
                 throw new Exception("Aluno não encontrando");
             }
-
             alunoRepository.Deletar(alunoModel);
         }
 
-        public List<AlunoModel> listarAlunos()
+        public List<AlunoModel> ListarAlunos()
         {
-            var aluno = alunoRepository.Listar().OrderBy(a => a.matricula).ToList();
+            var aluno = alunoRepository.Listar().OrderBy(a => a.Matricula).ToList();
             return aluno;
         }
 
-        public List<AlunoModel> buscarPorMatricula(long matricula)
+        public List<AlunoModel> BuscarPorMatricula(long matricula)
         {
-            return alunoRepository.Listar().Where(a => a.matricula == matricula).ToList();
+            return [.. alunoRepository.Listar().Where(a => a.Matricula == matricula)];
         }
 
-        public List<AlunoModel> buscarPorNome(string alunoNome)
+        public List<AlunoModel> BuscarPorNome(string alunoNome)
         {
             var termoDeBuscaUpper = alunoNome.ToUpper();
             if (string.IsNullOrEmpty(alunoNome))
             {
                 return [];
             }
-            return alunoRepository.Listar().Where(a => a.nome.Contains(termoDeBuscaUpper)).ToList();
+            return [.. alunoRepository.Listar().Where(a => a.Nome.Contains(termoDeBuscaUpper))];
         }
 
-        public AlunoModel obterPorMatricula(long matricula)
+        public AlunoModel? ObterPorMatricula(long matricula)
         {
 
-            var aluno = listarAlunos().FirstOrDefault(a => a.matricula == matricula);
+            var aluno = ListarAlunos().FirstOrDefault(a => a.Matricula == matricula);
             return aluno;
         }
 
         public long ObterProximaMatriculaDisponivel()
         {
             var alunos = alunoRepository.Listar();
-            if (alunos == null || !alunos.Any())
+            if (alunos == null || alunos.Count == 0)
             {
                 return 1;
             }
-            return alunos.Max(a => a.matricula) + 1;
+            return alunos.Max(a => a.Matricula) + 1;
         }
     }
 }

@@ -8,26 +8,28 @@ namespace EM.Domain.Models
     {
         [Required(ErrorMessage = "Digite o nome do aluno")]
         [StringLength(100, MinimumLength = 3, ErrorMessage = "O nome deve conter entre 3 e 100 caracteres.")]
-        public string nome { get; set; }
+        public string Nome { get; set; } = string.Empty;
 
         [ValidacaoCPFAtributo(ErrorMessage = "O número de CPF não é válido.")]
         public string? CPF { get; set; }
 
         [Required(ErrorMessage = "A data de nascimento é obrigatória.")]
-        public DateOnly? dtNascimento { get; set; }
+        public DateOnly? DtNascimento { get; set; }
 
-        public SexoEnum sexo { get; set; }
+        public SexoEnum Sexo { get; set; }
 
         public Pessoa()
         {
-            dtNascimento = null;
+            DtNascimento = null;
+           
         }
-        public Pessoa(string nome, string CPF, SexoEnum sexo, DateOnly? dtNascimento)
+
+        public Pessoa(string nome, string? CPF, SexoEnum sexo, DateOnly? dtNascimento)
         {
-            this.nome = nome;
+            this.Nome = nome;
             this.CPF = CPF;
-            this.dtNascimento = dtNascimento;
-            this.sexo = sexo;
+            this.DtNascimento = dtNascimento;
+            this.Sexo = sexo;
         }
     }
 }

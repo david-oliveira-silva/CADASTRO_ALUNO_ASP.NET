@@ -70,12 +70,12 @@ namespace EM.Service.Service.Relatorios
                     // --- Linhas de Dados ---
                     foreach (var aluno in alunos)
                     {
-                        AdicionarCelula(tabela, aluno.matricula.ToString(), fontCorpo);
-                        AdicionarCelula(tabela, aluno.nome, fontCorpo, null, Element.ALIGN_LEFT);
+                        AdicionarCelula(tabela, aluno.Matricula.ToString(), fontCorpo);
+                        AdicionarCelula(tabela, aluno.Nome, fontCorpo, null, Element.ALIGN_LEFT);
                         AdicionarCelula(tabela, aluno.CPF, fontCorpo);
-                        AdicionarCelula(tabela, aluno.sexo.ToString(), fontCorpo);
-                        AdicionarCelula(tabela, aluno.dtNascimento?.ToString("dd/MM/yyyy"), fontCorpo);
-                        AdicionarCelula(tabela, $"{aluno.cidade?.cidadeNome} ({aluno.cidade?.cidadeUF})", fontCorpo);
+                        AdicionarCelula(tabela, aluno.Sexo.ToString(), fontCorpo);
+                        AdicionarCelula(tabela, aluno.DtNascimento?.ToString("dd/MM/yyyy"), fontCorpo);
+                        AdicionarCelula(tabela, $"{aluno.Cidade?.CidadeNome} ({aluno.Cidade?.CidadeUF})", fontCorpo);
 
                     }
 

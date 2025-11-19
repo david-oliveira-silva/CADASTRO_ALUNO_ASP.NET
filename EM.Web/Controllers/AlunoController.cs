@@ -5,26 +5,21 @@ using static EM.Service.Service.Relatorios.RelatorioAlunos;
 
 namespace EM.Web.Controllers
 {
-    public class AlunoController : Controller
+    public class AlunoController(AlunoService alunoService, CidadeService cidadeService) : Controller
     {
-        private readonly AlunoService alunoService;
-        private readonly CidadeService cidadeService;
-        public AlunoController(AlunoService alunoService, CidadeService cidadeService)
-        {
-            this.alunoService = alunoService;
-            this.cidadeService = cidadeService;
-        }
+        private readonly AlunoService alunoService = alunoService;
+        private readonly CidadeService cidadeService = cidadeService;
 
         [HttpGet]
         public IActionResult UpsertAluno(long? matricula)
         {
-            AlunoModel aluno;
+            AlunoModel? aluno;
 
             ViewModel viewModel = new();
 
             if (matricula.HasValue)
             {
-                aluno = alunoService.obterPorMatricula(matricula.Value);
+                aluno = alunoService.ObterPorMatricula(matricula.Value);
 
                 if (aluno == null)
                 {
@@ -36,11 +31,11 @@ namespace EM.Web.Controllers
                 viewModel.AlunoNovo = false;
             }
             else
-            { 
-                  aluno = new AlunoModel
-                  {
-                      matricula = alunoService.ObterProximaMatriculaDisponivel()
-                  };
+            {
+                aluno = new AlunoModel
+                {
+                    Matricula = alunoService.ObterProximaMatriculaDisponivel()
+                };
                 viewModel.AlunoNovo = true;
             }
 
@@ -50,15 +45,20 @@ namespace EM.Web.Controllers
             return View(viewModel);
         }
 
-
         [HttpPost]
         public IActionResult CadastrarAluno(ViewModel viewModel)
         {
+            if (viewModel.Aluno == null)
+            {
+                TempData["Erro"] = "Informações do aluno ausentes ou inválidas.";
+                return View(viewModel);
+            }
+          
             try
             {
                 viewModel.AlunoNovo = true;
 
-                alunoService.cadastrarAluno(matricula:viewModel.Aluno.matricula, nomeAluno:viewModel.Aluno.nome, CPF:viewModel.Aluno.CPF, dtNascimento: viewModel.Aluno.dtNascimento, sexo: viewModel.Aluno.sexo, cidadeID_: viewModel.Aluno.cidadeID_);
+                alunoService.CadastrarAluno(matricula: viewModel.Aluno.Matricula, nomeAluno: viewModel.Aluno.Nome, CPF: viewModel.Aluno.CPF, dtNascimento: viewModel.Aluno.DtNascimento, sexo: viewModel.Aluno.Sexo, cidadeID_: viewModel.Aluno.CidadeID_);
                 TempData["Sucesso"] = "Cidade cadastrada com sucesso";
             }
             catch (Exception ex)
@@ -75,10 +75,15 @@ namespace EM.Web.Controllers
         [HttpPost]
         public IActionResult EditarAluno(ViewModel viewModel)
         {
+            if (viewModel.Aluno == null)
+            {
+                TempData["Erro"] = "Informações do aluno ausentes ou inválidas.";
+                return View(viewModel);
+            }
             try
             {
                 viewModel.AlunoNovo = false;
-                alunoService.editarAluno(viewModel.Aluno);
+                alunoService.EditarAluno(viewModel.Aluno);
                 TempData["Sucesso"] = "Aluno editado com sucesso";
             }
             catch (Exception ex)
@@ -96,21 +101,32 @@ namespace EM.Web.Controllers
         [HttpGet]
         public IActionResult DeletarAluno(long? matricula)
         {
-            var aluno = alunoService.obterPorMatricula(matricula.Value);
-
-            ViewModel viewModel = new ViewModel
+            if (matricula.HasValue)
             {
-                Aluno = aluno,
-                Cidade = cidadeService.ListarCidades()
-            };
-            return View(viewModel);
+                var aluno = alunoService.ObterPorMatricula(matricula.Value);
+
+                ViewModel viewModel = new()
+                {
+                    Aluno = aluno,
+                    Cidade = cidadeService.ListarCidades()
+                };
+                return View(viewModel);
+            }
+            return RedirectToAction("ListarAlunos");
         }
+
         [HttpPost]
         public IActionResult DeletarAluno(ViewModel viewModel)
         {
+
+            if (viewModel.Aluno == null)
+            {
+                TempData["Erro"] = "Informações do aluno ausentes ou inválidas.";
+                return View(viewModel);
+            }
             try
             {
-                alunoService.deletarAluno(viewModel.Aluno);
+                alunoService.DeletarAluno(viewModel.Aluno);
                 TempData["Sucesso"] = "Aluno deletado com sucesso";
             }
             catch (Exception ex)
@@ -127,18 +143,19 @@ namespace EM.Web.Controllers
             ViewBag.Matricula = matricula;
             ViewBag.Nome = alunoNome;
 
-            List<AlunoModel> alunos = [];
+            List<AlunoModel> alunos;
+
             if (!string.IsNullOrEmpty(alunoNome))
             {
-                alunos = alunoService.buscarPorNome(alunoNome).ToList();
+                alunos = [.. alunoService.BuscarPorNome(alunoNome)];
             }
             else if (matricula != 0)
             {
-                alunos = alunoService.buscarPorMatricula(matricula).ToList();
+                alunos = [.. alunoService.BuscarPorMatricula(matricula)];
             }
             else
             {
-                alunos = alunoService.listarAlunos();
+                alunos = alunoService.ListarAlunos();
             }
             ViewBag.Pesquisa = alunoNome;
 
@@ -148,7 +165,7 @@ namespace EM.Web.Controllers
         [HttpGet]
         public IActionResult GerarPdfAlunos()
         {
-            List<AlunoModel> alunos = alunoService.listarAlunos();
+            List<AlunoModel> alunos = alunoService.ListarAlunos();
 
             var gerador = new PdfGenerator();
             byte[] pdfBytes = gerador.GerarRelatorioAlunos(alunos);

@@ -11,11 +11,13 @@ namespace EM.Web
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            string? conexaoString = builder.Configuration.GetConnectionString("FirebirdConnection");
 
-
-
-            string conexaoString = builder.Configuration.GetConnectionString("FirebirdConnection");
-            FirebirdConnection.inicializar(conexaoString);
+            if (string.IsNullOrEmpty(conexaoString))
+            {
+                throw new InvalidOperationException("A string de conexão 'FirebirdConnection' não foi encontrada nas configurações.");
+            }
+                FirebirdConnection.Inicializar(conexaoString);
 
             builder.Services.AddScoped<IAlunoRepository, AlunoRepository>();
             builder.Services.AddScoped<AlunoService>();

@@ -5,21 +5,17 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace EM.Web.Controllers
 {
-    public class CidadeController : Controller
+    public class CidadeController(CidadeService cidadeService) : Controller
     {
-        private readonly CidadeService cidadeService;
-        public CidadeController(CidadeService cidadeService)
-        {
-            this.cidadeService = cidadeService;
-        }
+        private readonly CidadeService cidadeService = cidadeService;
 
         [HttpGet]
         public IActionResult UpsertCidade(int? cidadeID)
         {
-            CidadeModel cidade;
+            CidadeModel? cidade;
             if (cidadeID.HasValue)
             {
-                cidade = cidadeService.obterPorCodigo(cidadeID.Value);
+                cidade = cidadeService.ObterPorCodigo(cidadeID.Value);
 
                 if (cidade == null)
                 {
@@ -41,11 +37,16 @@ namespace EM.Web.Controllers
         [HttpPost]
         public IActionResult CadastrarCidade(CidadeModel cidadeModel)
         {
-            try
+            if (string.IsNullOrEmpty(cidadeModel.CidadeNome))
+            {
+                TempData["Erro"] = "O nome da cidade é obrigatório.";
+                return View(cidadeModel);
+            }
+                try
             {
                 var ufs = Enum.GetValues(typeof(UF)).Cast<UF>().ToList();
                 ViewBag.Ufs = ufs;
-                cidadeService.CadastrarCidade(cidadeNome: cidadeModel.cidadeNome, cidadeUF:cidadeModel.cidadeUF);
+                cidadeService.CadastrarCidade(cidadeNome: cidadeModel.CidadeNome, cidadeUF: cidadeModel.CidadeUF);
                 TempData["Sucesso"] = "Cidade cadastrada com sucesso";
             }
             catch (Exception ex)
@@ -55,6 +56,7 @@ namespace EM.Web.Controllers
             }
             return RedirectToAction("ListarCidades");
         }
+
         [HttpPost]
         public IActionResult EditarCidade(CidadeModel cidadeModel)
         {
@@ -76,10 +78,14 @@ namespace EM.Web.Controllers
         [HttpGet]
         public IActionResult DeletarCidade(int? cidadeID)
         {
-            var ufs = Enum.GetValues(typeof(UF)).Cast<UF>().ToList();
-            ViewBag.Ufs = ufs;
-            var cidade = cidadeService.obterPorCodigo(cidadeID.Value);
-            return View(cidade);
+            if (cidadeID.HasValue)
+            {
+                var ufs = Enum.GetValues(typeof(UF)).Cast<UF>().ToList();
+                ViewBag.Ufs = ufs;
+                var cidade = cidadeService.ObterPorCodigo(cidadeID.Value);
+                return View(cidade);
+            }
+            return RedirectToAction("ListarCidades");
         }
 
         [HttpPost]
@@ -110,7 +116,7 @@ namespace EM.Web.Controllers
             }
             else
             {
-                cidades = cidadeService.buscarPorNome(cidadeNome);
+                cidades = cidadeService.BuscarPorNome(cidadeNome);
             }
             ViewBag.Cidade = cidadeNome;
             return View(cidades);

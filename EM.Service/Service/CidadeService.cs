@@ -5,16 +5,11 @@ using EM.Repository.Repository.Cidade;
 
 namespace EM.Service.Service
 {
-    public class CidadeService
+    public class CidadeService(ICidadeRepository cidadeRepository, IAlunoRepository alunoRepository)
     {
-        private readonly ICidadeRepository cidadeRepository;
+        private readonly ICidadeRepository cidadeRepository = cidadeRepository;
 
-        private readonly IAlunoRepository alunoRepository;
-        public CidadeService(ICidadeRepository cidadeRepository, IAlunoRepository alunoRepository)
-        {
-            this.cidadeRepository = cidadeRepository;
-            this.alunoRepository = alunoRepository;
-        }
+        private readonly IAlunoRepository alunoRepository = alunoRepository;
 
         public void CadastrarCidade(string cidadeNome, UF cidadeUF)
         {
@@ -23,7 +18,7 @@ namespace EM.Service.Service
                 throw new Exception("Nome não pode ser vazio");
             }
 
-            var novacidade = new CidadeModel(cidadeNome.ToUpper(), cidadeUF);
+            CidadeModel novacidade = new(cidadeNome.ToUpper(), cidadeUF);
             cidadeRepository.Cadastrar(novacidade);
         }
 
@@ -34,7 +29,7 @@ namespace EM.Service.Service
                 throw new Exception("Cidade não encontrada");
             }
 
-            var alunoVinculado = alunoRepository.Listar().FirstOrDefault(a => a.cidade.cidadeID == cidadeModel.cidadeID);
+            var alunoVinculado = alunoRepository.Listar().FirstOrDefault(a => a.Cidade != null &&  a.Cidade.CidadeID == cidadeModel.CidadeID);
 
             if (alunoVinculado != null)
             {
@@ -50,7 +45,7 @@ namespace EM.Service.Service
             {
                 throw new Exception("Cidade não encontrada");
             }
-            if (string.IsNullOrEmpty(cidadeModel.cidadeNome))
+            if (string.IsNullOrEmpty(cidadeModel.CidadeNome))
             {
                 throw new Exception("Nome não pode ser vazio");
             }
@@ -58,7 +53,7 @@ namespace EM.Service.Service
             cidadeRepository.Editar(cidadeModel);
         }
 
-        public List<CidadeModel> buscarPorNome(string cidadeNome)
+        public List<CidadeModel> BuscarPorNome(string cidadeNome)
         {
             var cidade = cidadeRepository.Listar();
 
@@ -66,18 +61,19 @@ namespace EM.Service.Service
             {
                 return cidade;
             }
-            return cidade.Where(c => c.cidadeNome.Contains(cidadeNome.ToUpper())).ToList();
+            return [.. cidade.Where(c => c.CidadeNome != null && c.CidadeNome.Contains(cidadeNome.ToUpper()))];
         }
+
         public List<CidadeModel> ListarCidades()
         {
             var cidade = cidadeRepository.Listar();
-            return cidade.OrderBy(c => c.cidadeID).ToList();
+            return [.. cidade.OrderBy(c => c.CidadeID)];
         }
 
-        public CidadeModel obterPorCodigo(long cidadeID)
+        public CidadeModel? ObterPorCodigo(long cidadeID)
         {
 
-            var cidade = ListarCidades().FirstOrDefault(a => a.cidadeID == cidadeID);
+            var cidade = ListarCidades().FirstOrDefault(a =>  a.CidadeID == cidadeID);
             return cidade;
         }
     }

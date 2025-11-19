@@ -5,7 +5,7 @@
     {
         public class ValidacaoCPFAtributo : ValidationAttribute
         {
-            protected override ValidationResult IsValid(object value, ValidationContext validationContext)
+            protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
             {
                 if (value == null)
                 {
@@ -23,7 +23,7 @@
                         return ValidationResult.Success;
                     }
                 }
-                return new ValidationResult(ErrorMessage, new[] { validationContext.MemberName });
+                return new ValidationResult(ErrorMessage, [validationContext.MemberName!]);
             }
         }
     }

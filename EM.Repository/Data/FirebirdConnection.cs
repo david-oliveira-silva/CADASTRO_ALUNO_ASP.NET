@@ -9,10 +9,12 @@ namespace EM.Repository.Data
         {
             return new FbConnection(conexaoString);
         }
-        public static void inicializar(string connectionString)
+
+        public static void Inicializar(string connectionString)
         {
             conexaoString = connectionString;
         }
+
         public static void OpenConnection(FbConnection fbConnection)
         {
             try
@@ -24,6 +26,7 @@ namespace EM.Repository.Data
                 Console.WriteLine(ex.Message);
             }
         }
+
         public static void CloseConnection(FbConnection fbConnection)
         {
             try
@@ -32,7 +35,6 @@ namespace EM.Repository.Data
             }
             catch (Exception ex)
             {
-
                 Console.WriteLine(ex.Message);
             }
         }
